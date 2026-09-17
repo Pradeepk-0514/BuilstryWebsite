@@ -1,0 +1,966 @@
+/* Approach-only storytelling layer. Other Home sections and pages are unaffected. */
+.approach-redesign {
+  --approach-ease: cubic-bezier(.23, 1, .32, 1);
+  --approach-progress: 0;
+  perspective: 1400px;
+  isolation: isolate;
+}
+.approach-redesign .approach-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+.approach-redesign .approach-intro {
+  transform: translate3d(0, calc((1 - var(--approach-settle, 0)) * 30px), 30px);
+  transition: transform 420ms var(--approach-ease), opacity 420ms ease;
+}
+.approach-redesign .approach-window {
+  transform-style: preserve-3d;
+  background: radial-gradient(circle at 52% 48%, rgba(197,31,93,.045), transparent 40%), var(--ice-white);
+}
+.approach-redesign .approach-track {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.approach-redesign .approach-track .step {
+  --step-depth: clamp(0px, calc(abs(var(--step-index) - var(--approach-active, 0)) * 16px), 96px);
+  --step-angle: clamp(-12deg, calc((var(--step-index) - var(--approach-active, 0)) * -4deg), 12deg);
+  transform: perspective(1200px) translate3d(0, 0, calc(var(--step-depth) * -1)) rotateY(var(--step-angle)) scale(calc(1 - min(abs(var(--step-index) - var(--approach-active, 0)) * .025, .12)));
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: transform 420ms var(--approach-ease), opacity 320ms ease, border-color 320ms ease, box-shadow 420ms ease, background 320ms ease;
+}
+.approach-redesign .approach-track .step.is-active {
+  transform: perspective(1200px) translate3d(0, -8px, 34px) rotateY(0) scale(1.035);
+  z-index: 5;
+}
+.approach-redesign .approach-track .step:not(.is-active) {
+  filter: saturate(.82);
+}
+.approach-redesign .approach-track .step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,.24), transparent 42%, rgba(197,31,93,.08));
+  opacity: .52;
+}
+.approach-redesign .approach-track .step.is-active::before { opacity: .86; }
+.approach-redesign .approach-path {
+  z-index: 0;
+  opacity: .34;
+  filter: drop-shadow(0 0 6px rgba(197,31,93,.32));
+}
+.approach-redesign .approach-path path {
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: calc(1000 - (1000 * var(--approach-progress, 0)));
+  transition: stroke-dashoffset 90ms linear;
+}
+.approach-redesign .approach-progress-track {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(36,52,71,.14);
+}
+.approach-redesign .approach-progress-track span {
+  width: 100%;
+  transform: scaleX(var(--approach-progress, 0));
+  transform-origin: left center;
+  transition: transform 90ms linear;
+  box-shadow: 0 0 16px rgba(197,31,93,.5);
+}
+.approach-redesign .approach-window-meta span:last-child { color: var(--magenta); }
+
+@media (max-width: 720px) {
+  .approach-redesign .approach-track .step,
+  .approach-redesign .approach-track .step.is-active {
+    transform: none;
+    filter: none;
+  }
+  .approach-redesign .approach-path { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .approach-redesign .approach-intro,
+  .approach-redesign .approach-track .step,
+  .approach-redesign .approach-progress-track span,
+  .approach-redesign .approach-path path { transition: none; transform: none; }
+}
+
+/* Home-only heading accent requested for the Approach section. */
+.approach-redesign .approach-word { color: var(--magenta); }
+
+
+/* Home reference update: glass editorial panel + one focused process card. */
+.home-page .approach-stage {
+  background: var(--ice-white);
+}
+.home-page .approach-intro {
+  position: relative;
+  z-index: 8;
+  align-self: center;
+  width: calc(100% - clamp(28px, 5vw, 76px));
+  height: calc(100% - clamp(28px, 5vw, 76px));
+  min-height: 0;
+  margin: clamp(14px, 2.5vw, 38px);
+  padding: clamp(28px, 4vw, 64px);
+  overflow: hidden;
+  border: 1px solid rgba(247,248,250,.22);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(197,31,93,.18), transparent 34%),
+    linear-gradient(145deg, rgba(36,52,71,.88), rgba(20,29,38,.76));
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  backdrop-filter: blur(22px) saturate(125%);
+  box-shadow: 0 26px 64px rgba(20,29,38,.24), inset 0 1px 0 rgba(247,248,250,.2), inset 0 -30px 70px rgba(20,29,38,.18);
+}
+.home-page .approach-intro::before,
+.home-page .approach-intro::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(247,248,250,.11);
+  border-radius: 50%;
+}
+.home-page .approach-intro::before { inset: 12% -26% 28% 45%; transform: rotate(-18deg); }
+.home-page .approach-intro::after { inset: 62% 12% -32% 24%; border-color: rgba(197,31,93,.2); transform: rotate(14deg); }
+.home-page .approach-intro > * { position: relative; z-index: 1; }
+.home-page .approach-window {
+  z-index: 2;
+  background:
+    radial-gradient(circle at 48% 46%, rgba(197,31,93,.08), transparent 36%),
+    var(--ice-white);
+}
+.home-page .approach-window::before {
+  content: "";
+  position: absolute;
+  inset: 12% 12%;
+  border: 1px solid rgba(36,52,71,.1);
+  border-radius: 28px;
+  pointer-events: none;
+}
+.home-page .approach-track {
+  position: relative;
+  z-index: 2;
+}
+.home-page .approach-track .step {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(.96) !important;
+  transition: opacity 360ms ease, visibility 0s linear 360ms, transform 420ms var(--approach-ease), box-shadow 420ms ease;
+}
+.home-page .approach-track .step.is-active {
+  z-index: 6;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: perspective(1200px) translate3d(0, -8px, 34px) rotateY(0) scale(1.035) !important;
+  transition-delay: 0s;
+}
+.home-page .approach-track .step.is-active::after {
+  inset: -24px;
+  opacity: .72;
+}
+.home-page .approach-progress-track {
+  position: relative;
+  z-index: 4;
+}
+@media (max-width: 720px) {
+  .home-page .approach-intro {
+    width: calc(100% - 28px);
+    height: auto;
+    min-height: calc(62vh - 28px);
+    margin: 14px;
+    padding: 28px 22px;
+  }
+  .home-page .approach-window::before { inset: 7% 5%; }
+}
+
+
+/* Geometry correction: keep the glass panel visibly inset inside the left column. */
+.home-page .approach-intro {
+  box-sizing: border-box;
+  width: auto;
+  margin: clamp(14px, 2.5vw, 38px);
+  border-radius: 26px;
+}
+@media (max-width: 720px) {
+  .home-page .approach-intro {
+    width: auto;
+    margin: 14px;
+    border-radius: 22px;
+  }
+}
+
+
+/* Professional full-screen intent section inspired by the supplied reference. */
+.home-page .intent-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(250px, .82fr) minmax(0, 2.6fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 90px);
+  width: 100vw;
+  min-height: max(640px, calc(100svh - 78px));
+  margin-left: calc(50% - 50vw);
+  padding: clamp(56px, 7vw, 112px) clamp(28px, 6vw, 110px);
+  overflow: hidden;
+  border: 0;
+  background:
+    radial-gradient(circle at 88% 14%, rgba(197,31,93,.18), transparent 30%),
+    radial-gradient(circle at 12% 85%, rgba(247,248,250,.06), transparent 34%),
+    linear-gradient(135deg, #243447 0%, #141d26 78%);
+  box-sizing: border-box;
+}
+.home-page .intent-section::before {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border: 1px solid rgba(247,248,250,.13);
+  border-radius: 28px;
+  pointer-events: none;
+}
+.home-page .intent-section::after {
+  content: "";
+  position: absolute;
+  right: -9%;
+  bottom: -35%;
+  width: 55vw;
+  height: 60vw;
+  border: 1px solid rgba(197,31,93,.2);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+  pointer-events: none;
+}
+.home-page .intent-title,
+.home-page .intent-grid { position: relative; z-index: 1; }
+.home-page .intent-title { position: relative; top: auto; align-self: center; }
+.home-page .intent-title::before {
+  content: "BUILD WITH INTENT";
+  display: block;
+  margin-bottom: 20px;
+  color: #ef6b98;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+.home-page .intent-title h2 {
+  max-width: 8ch;
+  margin: 0;
+  color: var(--ice-white);
+  font-size: clamp(42px, 5.1vw, 86px);
+  line-height: .91;
+  letter-spacing: -.065em;
+}
+.home-page .intent-title h2 em { color: var(--magenta); font-style: normal; }
+.home-page .intent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.2vw, 22px);
+  align-items: stretch;
+}
+.home-page .intent-card {
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(320px, 39vh, 420px);
+  padding: clamp(20px, 2.1vw, 34px);
+  overflow: hidden;
+  border: 1px solid rgba(247,248,250,.2);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(247,248,250,.98), rgba(224,229,233,.94));
+  color: var(--midnight);
+  box-shadow: 0 20px 45px rgba(0,0,0,.2), inset 0 1px 0 rgba(247,248,250,.9);
+}
+.home-page .intent-card::after {
+  opacity: .5;
+  background: linear-gradient(110deg, transparent 25%, rgba(197,31,93,.18) 50%, transparent 75%);
+}
+.home-page .intent-card:nth-child(even) {
+  background: linear-gradient(145deg, rgba(36,52,71,.98), rgba(20,29,38,.98));
+  color: var(--ice-white);
+  border-color: rgba(197,31,93,.22);
+}
+.home-page .intent-card:hover,
+.home-page .intent-card:focus-visible {
+  transform: translateY(-10px);
+  border-color: var(--magenta);
+  box-shadow: 0 28px 60px rgba(0,0,0,.34), 0 0 0 1px rgba(197,31,93,.24);
+}
+.home-page .intent-top { display: flex; justify-content: space-between; align-items: center; }
+.home-page .intent-index { color: rgba(36,52,71,.6); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.home-page .intent-card:nth-child(even) .intent-index { color: rgba(247,248,250,.5); }
+.home-page .intent-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(197,31,93,.4);
+  border-radius: 50%;
+  background: rgba(197,31,93,.05);
+  color: var(--magenta);
+  font-size: 23px;
+}
+.home-page .intent-card:nth-child(even) .intent-icon { background: rgba(197,31,93,.12); color: #ff76a1; }
+.home-page .intent-card h3 {
+  max-width: 12ch;
+  margin: auto 0 10px;
+  color: var(--midnight);
+  font-size: clamp(17px, 1.35vw, 24px);
+  line-height: 1.06;
+}
+.home-page .intent-card:nth-child(even) h3 { color: var(--ice-white); }
+.home-page .intent-card p {
+  min-height: 42px;
+  margin: 0 0 24px;
+  color: rgba(36,52,71,.7);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.home-page .intent-card:nth-child(even) p { color: rgba(247,248,250,.68); }
+.home-page .intent-arrow {
+  color: var(--magenta);
+  font-size: 12px;
+  font-weight: 850;
+}
+.home-page .intent-card:nth-child(even) .intent-arrow { color: #ff76a1; }
+@media (max-width: 980px) {
+  .home-page .intent-section { grid-template-columns: 1fr; min-height: auto; }
+  .home-page .intent-title h2 { max-width: 12ch; }
+  .home-page .intent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .home-page .intent-section { min-height: 0; padding: 64px 22px; }
+  .home-page .intent-section::before { inset: 14px; border-radius: 20px; }
+  .home-page .intent-grid { grid-template-columns: 1fr; }
+  .home-page .intent-card { min-height: 280px; }
+}
+
+
+/* Uniform Approach scroll: snap the active card by one measured card-plus-gap step. */
+.home-page .steps.approach-track {
+  transform: translate3d(calc(var(--approach-active, 0) * var(--approach-card-shift, 0px)), 0, 0);
+  transition: transform 520ms var(--approach-ease);
+}
+.home-page .approach-window {
+  overflow: hidden;
+}
+.home-page .approach-track .step:not(.is-active) {
+  opacity: 0;
+  visibility: hidden;
+  filter: none;
+}
+.home-page .approach-track .step.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+@media (max-width: 720px) {
+  .home-page .steps.approach-track { transform: none !important; transition: none; }
+}
+
+/* Intent cards: one cohesive Ice White glass family with Magenta atmosphere. */
+.home-page .intent-card,
+.home-page .intent-card:nth-child(even) {
+  border-color: rgba(197,31,93,.28);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(197,31,93,.18), transparent 34%),
+    linear-gradient(145deg, rgba(247,248,250,.96), rgba(232,235,239,.78));
+  color: var(--midnight);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+  box-shadow: 0 22px 48px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.92), inset 0 -24px 48px rgba(197,31,93,.06);
+}
+.home-page .intent-card::before {
+  border-color: rgba(197,31,93,.34);
+  box-shadow: inset 0 0 28px rgba(197,31,93,.04);
+}
+.home-page .intent-card:nth-child(even) h3,
+.home-page .intent-card:nth-child(even) p,
+.home-page .intent-card:nth-child(even) .intent-index {
+  color: inherit;
+}
+.home-page .intent-card h3 { color: var(--midnight); }
+.home-page .intent-card p { color: rgba(36,52,71,.7); }
+.home-page .intent-card:nth-child(even) .intent-index { color: rgba(36,52,71,.6); }
+.home-page .intent-card:nth-child(even) .intent-icon {
+  border-color: rgba(197,31,93,.42);
+  background: rgba(197,31,93,.08);
+  color: var(--magenta);
+}
+.home-page .intent-card:nth-child(even) .intent-arrow { color: var(--magenta); }
+.home-page .intent-card:hover,
+.home-page .intent-card:focus-visible {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(197,31,93,.26), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,.98), rgba(239,230,235,.9));
+}
+
+
+/* Approach refinement: one visible landscape card with a clean, frameless stage. */
+.home-page .approach-window::before {
+  display: none;
+  border: 0;
+}
+.home-page .approach-window {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(197,31,93,.075), transparent 42%),
+    var(--ice-white);
+}
+.home-page .approach-track .step,
+.home-page .approach-track .step.is-active {
+  flex-basis: min(46vw, 640px);
+  width: min(46vw, 640px);
+  height: clamp(300px, 46vh, 430px);
+  aspect-ratio: 1.55 / 1;
+  border-radius: 26px;
+}
+.home-page .approach-track .step.is-active {
+  transform: perspective(1200px) translate3d(0, -6px, 30px) scale(1.02) !important;
+}
+.home-page .approach-track .step .step-content,
+.home-page .approach-track .step.is-active .step-content {
+  right: clamp(26px, 3.6vw, 52px);
+  bottom: clamp(26px, 3.6vw, 52px);
+  left: clamp(26px, 3.6vw, 52px);
+}
+@media (max-width: 980px) and (min-width: 721px) {
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    flex-basis: min(54vw, 560px);
+    width: min(54vw, 560px);
+    height: clamp(280px, 42vh, 380px);
+  }
+}
+@media (max-width: 720px) {
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    width: min(88vw, 520px);
+    flex-basis: min(88vw, 520px);
+    height: 300px;
+    aspect-ratio: auto;
+    border-radius: 22px;
+  }
+}
+
+/* Home Approach — centered rectangular card treatment. */
+.home-page .approach-intro {
+  border-radius: 0;
+}
+
+.home-page .approach-window {
+  padding-inline: 0;
+}
+
+.home-page .steps.approach-track {
+  align-items: center;
+}
+
+.home-page .approach-track .step,
+.home-page .approach-track .step.is-active {
+  width: min(46vw, 640px);
+  flex-basis: min(46vw, 640px);
+  height: clamp(300px, 46vh, 430px);
+  aspect-ratio: 1.55 / 1;
+  border-radius: 0;
+  transform: none;
+  box-shadow: 0 22px 44px rgba(20, 29, 38, .14);
+}
+
+.home-page .approach-track .step.is-active {
+  transform: none !important;
+  border-color: var(--magenta);
+  box-shadow:
+    0 0 0 1px rgba(197, 31, 93, .32),
+    0 24px 52px rgba(20, 29, 38, .24),
+    inset 0 1px 0 rgba(247, 248, 250, .18);
+}
+
+.home-page .approach-track .step::before {
+  border-radius: 0;
+}
+
+@media (max-width: 980px) and (min-width: 721px) {
+  .home-page .approach-window {
+    padding-inline: 0;
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    width: min(54vw, 560px);
+    flex-basis: min(54vw, 560px);
+    height: clamp(280px, 42vh, 380px);
+  }
+}
+
+@media (max-width: 720px) {
+  .home-page .approach-window {
+    padding-inline: 5vw;
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    width: min(88vw, 520px);
+    flex-basis: min(88vw, 520px);
+    height: 300px;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+}
+
+/* Home Approach — show the complete six-step process at once. */
+@media (min-width: 721px) {
+  .home-page .approach-section {
+    height: auto !important;
+    min-height: calc(100vh - 78px);
+  }
+
+  .home-page .approach-stage {
+    position: relative;
+    top: auto;
+    min-height: calc(100vh - 78px);
+    height: auto;
+  }
+
+  .home-page .approach-window {
+    justify-content: center;
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  .home-page .steps.approach-track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+    gap: clamp(12px, 1.4vw, 22px);
+    transform: none !important;
+    transition: none;
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    width: 100%;
+    min-width: 0;
+    height: clamp(170px, 23vh, 230px);
+    aspect-ratio: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none !important;
+    filter: none;
+    border-radius: 0;
+    background: linear-gradient(145deg, rgba(247, 248, 250, .98), rgba(224, 229, 233, .94));
+    color: var(--midnight);
+    box-shadow: 0 16px 30px rgba(20, 29, 38, .12);
+  }
+
+  .home-page .approach-track .step.is-active {
+    border-color: var(--magenta);
+    box-shadow: 0 0 0 1px rgba(197, 31, 93, .26), 0 20px 34px rgba(20, 29, 38, .16);
+  }
+
+  .home-page .approach-track .step:not(.is-active) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .home-page .approach-track .step-content,
+  .home-page .approach-track .step.is-active .step-content {
+    right: clamp(16px, 1.8vw, 28px);
+    bottom: clamp(16px, 1.8vw, 28px);
+    left: clamp(16px, 1.8vw, 28px);
+  }
+
+  .home-page .approach-track .step strong,
+  .home-page .approach-track .step.is-active .step-content strong {
+    margin-bottom: 8px;
+    color: var(--midnight);
+    font-size: clamp(18px, 1.7vw, 28px);
+    text-align: left;
+    text-shadow: none;
+  }
+
+  .home-page .approach-track .step p,
+  .home-page .approach-track .step.is-active .step-content p {
+    max-width: none;
+    color: rgba(36, 52, 71, .72);
+    text-align: left;
+  }
+
+  .home-page .approach-track .step.is-active .step-icon {
+    box-shadow: 0 0 0 4px rgba(197, 31, 93, .12), 0 0 18px rgba(197, 31, 93, .24);
+  }
+
+  .home-page .approach-progress-track {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 721px) {
+  .home-page .approach-window {
+    padding: 28px 4vw;
+  }
+
+  .home-page .steps.approach-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    height: 190px;
+  }
+}
+
+@media (max-width: 720px) {
+  .home-page .approach-section {
+    height: auto !important;
+  }
+
+  .home-page .approach-track .step:not(.is-active) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .home-page .steps.approach-track {
+    transform: none !important;
+    transition: none;
+  }
+
+  .home-page .approach-progress-track {
+    display: none;
+  }
+}
+
+/* Final carousel correction: one complete card at a time, Card 1 → Card 6. */
+@media (min-width: 721px) {
+  .home-page .approach-section {
+    height: var(--approach-scroll-height, 210vh) !important;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .home-page .approach-stage {
+    position: sticky;
+    top: 78px;
+    display: grid;
+    grid-template-columns: minmax(0, 38%) minmax(0, 62%);
+    width: 100%;
+    height: calc(100vh - 78px);
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  .home-page .approach-window {
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    padding: clamp(28px, 4vw, 56px) 0;
+    overflow: hidden;
+  }
+
+  .home-page .steps.approach-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: clamp(18px, 2.5vw, 38px);
+    padding-left: var(--approach-side-pad, 0px);
+    padding-right: var(--approach-side-pad, 0px);
+    transform: translate3d(calc(var(--approach-active, 0) * var(--approach-card-shift, 0px)), 0, 0) !important;
+    transition: transform 560ms cubic-bezier(.23, 1, .32, 1);
+    will-change: transform;
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 min(46vw, 640px);
+    width: min(46vw, 640px);
+    height: clamp(300px, 46vh, 430px);
+    min-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: none !important;
+    filter: none;
+    border-radius: 0;
+    transition: opacity 300ms ease, visibility 0s linear 300ms, border-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  .home-page .approach-track .step.is-active {
+    z-index: 2;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    border-color: var(--magenta);
+    box-shadow:
+      0 0 0 1px rgba(197, 31, 93, .32),
+      0 24px 52px rgba(20, 29, 38, .24),
+      inset 0 1px 0 rgba(247, 248, 250, .18);
+    transition-delay: 0s;
+  }
+
+  .home-page .approach-track .step::before {
+    border-radius: 0;
+  }
+
+  .home-page .approach-progress-track {
+    display: block;
+    width: min(46vw, 640px);
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 721px) {
+  .home-page .approach-stage {
+    grid-template-columns: minmax(0, 34%) minmax(0, 66%);
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    flex-basis: min(54vw, 560px);
+    width: min(54vw, 560px);
+    height: clamp(280px, 42vh, 380px);
+  }
+
+  .home-page .approach-progress-track {
+    width: min(54vw, 560px);
+  }
+}
+
+/* Screenshot correction: remove the decorative scratch above the heading. */
+.home-page .approach-intro::before {
+  content: none !important;
+  display: none !important;
+}
+
+@media (min-width: 721px) {
+  /* Keep the right side as a strict one-card viewport. */
+  .home-page .approach-window {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden !important;
+    clip-path: inset(0);
+  }
+
+  .home-page .steps.approach-track {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-page .approach-track .step:not(.is-active) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: 0;
+  }
+
+  .home-page .approach-track .step.is-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 2;
+  }
+
+  .home-page .approach-track .step {
+    transition:
+      opacity 300ms ease,
+      visibility 0s linear 300ms,
+      border-color 300ms ease,
+      box-shadow 300ms ease;
+  }
+
+  .home-page .approach-track .step.is-active {
+    transition-delay: 0s;
+  }
+}
+
+/* Geometry lock: Card 1 defines one shared size and one exact center position. */
+@media (min-width: 721px) {
+  .home-page .steps.approach-track {
+    padding-left: 0;
+    padding-right: 0;
+    scroll-snap-type: none;
+    transform: translate3d(
+      calc(var(--approach-side-pad, 0px) - (var(--approach-active, 0) * var(--approach-card-step, 0px))),
+      0,
+      0
+    ) !important;
+  }
+
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    box-sizing: border-box;
+    flex: 0 0 var(--approach-card-width, min(46vw, 640px));
+    width: var(--approach-card-width, min(46vw, 640px));
+    height: var(--approach-card-height, clamp(300px, 46vh, 430px));
+    min-width: var(--approach-card-width, min(46vw, 640px));
+    min-height: var(--approach-card-height, clamp(300px, 46vh, 430px));
+    max-width: var(--approach-card-width, min(46vw, 640px));
+    max-height: var(--approach-card-height, clamp(300px, 46vh, 430px));
+    aspect-ratio: auto;
+    transform: none !important;
+    border-radius: 0;
+  }
+
+  .home-page .approach-track .step.is-active {
+    transform: none !important;
+  }
+}
+
+
+/* Home intent sequence: a restrained editorial vertical scroll, not a card grid. */
+.home-page .intent-scroll-section {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  overflow: clip;
+  isolation: isolate;
+}
+.home-page .intent-scroll-section::before { inset: 26px; }
+.home-page .intent-scroll-section::after { z-index: -1; }
+.home-page .intent-sticky-wrapper {
+  position: sticky;
+  top: var(--intent-sticky-offset, 0px);
+  display: grid;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.28fr);
+  align-items: center;
+  gap: clamp(34px, 8vw, 132px);
+  min-height: max(640px, calc(100svh - var(--intent-sticky-offset, 0px)));
+  padding: clamp(56px, 7vw, 112px) clamp(28px, 6vw, 110px);
+  box-sizing: border-box;
+}
+.home-page .intent-scroll-section .intent-title {
+  align-self: center;
+}
+.home-page .intent-scroll-section .intent-title::before {
+  content: "BUILD WITH INTENT";
+  margin-bottom: 20px;
+}
+.home-page .intent-scroll-section .intent-sequence-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(180px, 70%);
+  margin-top: clamp(28px, 5vh, 52px);
+  color: rgba(247,248,250,.68);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.home-page .intent-scroll-section .intent-sequence-label > span:first-child { color: #ef6b98; }
+.home-page .intent-sequence-rule {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(247,248,250,.2);
+}
+.home-page .intent-sequence-rule::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--intent-progress, 0) * 100%);
+  background: var(--magenta);
+  transition: width 280ms ease;
+}
+.home-page .intent-card-viewport {
+  position: relative;
+  height: min(62vh, 560px);
+  min-height: 360px;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+}
+.home-page .intent-card-track {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 3vh, 30px);
+  will-change: transform;
+  transition: transform 120ms linear;
+}
+.home-page .intent-scroll-section .intent-card,
+.home-page .intent-scroll-section .intent-card:nth-child(even) {
+  position: relative;
+  flex: 0 0 clamp(260px, 38vh, 360px);
+  min-height: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid rgba(247,248,250,.18);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(247,248,250,.94), rgba(226,230,232,.78));
+  color: var(--midnight);
+  box-shadow: 0 18px 42px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.8);
+  opacity: .27;
+  transform: scale(.91);
+  transform-origin: center;
+  filter: saturate(.7);
+  transition: opacity 420ms ease, transform 560ms cubic-bezier(.2,.75,.2,1), filter 420ms ease, border-color 420ms ease, box-shadow 420ms ease;
+}
+.home-page .intent-scroll-section .intent-card.is-complete {
+  opacity: .42;
+  transform: scale(.95) translateY(-4px);
+}
+.home-page .intent-scroll-section .intent-card.is-active {
+  z-index: 1;
+  opacity: 1;
+  transform: scale(1.02);
+  filter: saturate(1);
+  border-color: rgba(197,31,93,.72);
+  box-shadow: 0 26px 60px rgba(0,0,0,.28), 0 0 0 1px rgba(197,31,93,.25), inset 0 1px 0 rgba(255,255,255,.92);
+}
+.home-page .intent-scroll-section .intent-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border: 0;
+  border-radius: 14px 0 0 14px;
+  background: var(--magenta);
+  opacity: 0;
+  transform: scaleY(.3);
+  transition: opacity 420ms ease, transform 560ms ease;
+}
+.home-page .intent-scroll-section .intent-card.is-active::before { opacity: 1; transform: scaleY(1); }
+.home-page .intent-scroll-section .intent-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0 48%, rgba(197,31,93,.52) 50%, transparent 52%);
+  background-size: 100% 220%;
+}
+.home-page .intent-scroll-section[data-scan="active"] .intent-card.is-active::after {
+  opacity: .45;
+  animation: intent-scan-line 520ms cubic-bezier(.2,.7,.2,1) both;
+}
+.home-page .intent-scroll-section .intent-card h3 { margin-top: auto; }
+.home-page .intent-scroll-section .intent-card .intent-icon { transition: transform 560ms cubic-bezier(.2,.75,.2,1), background 420ms ease; }
+.home-page .intent-scroll-section .intent-card.is-active .intent-icon { transform: rotate(8deg) scale(1.1); background: rgba(197,31,93,.14); }
+@keyframes intent-scan-line { from { background-position: 0 -100%; } to { background-position: 0 100%; } }
+
+@media (max-width: 980px) {
+  .home-page .intent-sticky-wrapper { grid-template-columns: 1fr; gap: 28px; }
+  .home-page .intent-scroll-section .intent-title h2 { max-width: 12ch; }
+  .home-page .intent-scroll-section .intent-sequence-label { margin-top: 22px; }
+  .home-page .intent-card-viewport { height: min(48vh, 420px); min-height: 300px; }
+}
+@media (max-width: 720px) {
+  .home-page .intent-scroll-section { min-height: 0; }
+  .home-page .intent-sticky-wrapper { position: relative; min-height: 0; padding: 72px 22px 80px; }
+  .home-page .intent-card-viewport { height: auto; min-height: 0; overflow: visible; mask-image: none; }
+  .home-page .intent-card-track { gap: 14px; transform: none !important; }
+  .home-page .intent-scroll-section .intent-card,
+  .home-page .intent-scroll-section .intent-card.is-complete,
+  .home-page .intent-scroll-section .intent-card.is-active { flex-basis: 270px; opacity: 1; transform: none; filter: none; }
+  .home-page .intent-scroll-section .intent-card.is-active { box-shadow: 0 22px 44px rgba(0,0,0,.24), 0 0 0 1px rgba(197,31,93,.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .intent-scroll-section .intent-card,
+  .home-page .intent-scroll-section .intent-card::before,
+  .home-page .intent-scroll-section .intent-card .intent-icon { transition: none; }
+  .home-page .intent-scroll-section[data-scan="active"] .intent-card.is-active::after { animation: none; opacity: 0; }
+}
