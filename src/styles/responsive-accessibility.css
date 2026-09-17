@@ -1,0 +1,31 @@
+/* Global mobile, accessibility, and paint-cost safeguards. Desktop visual direction remains unchanged. */
+:where(button, a, input, select, textarea):focus-visible {
+  outline: 3px solid var(--magenta, #c51f5d);
+  outline-offset: 4px;
+}
+:where(button, a) { -webkit-tap-highlight-color: transparent; }
+img, svg, canvas, video { max-width: 100%; }
+
+@media (pointer: coarse) {
+  :where(button, a) { min-height: 44px; }
+  .cursor-cube-trail { display: none !important; }
+}
+
+@media (max-width: 720px) {
+  html { overflow-x: hidden; }
+  body { min-width: 320px; overflow-x: hidden; }
+  :where(input, select, textarea) { font-size: 16px; }
+  :where(.button, .text-link, .about-link, .insight-button) { min-height: 44px; }
+  :where(.card, .latest-card, .curiosity-card, .built-card, .pillar-card, .intent-card) { max-width: 100%; }
+  /* Reduce expensive translucent paint on small displays while retaining surfaces. */
+  :where(.pillar-card, .lower-card, .intent-card, .curiosity-card, .latest-card, .category-card, .built-card, .featured-insight) { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+@media (forced-colors: active) {
+  :where(button, a, input, select, textarea):focus-visible { outline: 2px solid CanvasText; }
+}
