@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import HeroCube from "../components/HeroCube";
 import IntentSection from "../components/IntentSection";
@@ -147,17 +147,25 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = approachRef.current;
     if (!section) return undefined;
-    let raf = 0;
+    let measureFrame = 0;
+    let scrollFrame = 0;
+    let disposed = false;
+
+    const track = section.querySelector(".approach-track");
+    const windowEl = section.querySelector(".approach-window");
+    if (!track || !windowEl) return undefined;
+
     const measureApproach = () => {
-      const track = section.querySelector(".approach-track");
-      const windowEl = section.querySelector(".approach-window");
-      if (!track || !windowEl) return;
       const firstCard = track.querySelector(".step");
+      if (!firstCard || !windowEl.clientWidth) return false;
+
       const cardWidth = firstCard?.getBoundingClientRect().width || 0;
       const cardHeight = firstCard?.getBoundingClientRect().height || 0;
+      if (!cardWidth || !cardHeight || !track.scrollWidth) return false;
+
       const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
       const sidePad = Math.max(0, (windowEl.clientWidth - cardWidth) / 2);
       track.style.setProperty("--approach-side-pad", `${sidePad}px`);
@@ -172,10 +180,11 @@ export default function Home() {
       section.style.setProperty("--approach-horizontal-shift", `${-horizontalTravel}px`);
       // The sticky viewport itself occupies one viewport; the measured travel is added on top.
       section.style.setProperty("--approach-scroll-height", `${verticalTravel + window.innerHeight}px`);
+      return true;
     };
+
     const updateApproach = () => {
-      raf = 0;
-      measureApproach();
+      scrollFrame = 0;
       const rect = section.getBoundingClientRect();
       const travel = Math.max(1, section.offsetHeight - window.innerHeight);
       const progress = Math.max(0, Math.min(1, -rect.top / travel));
@@ -185,14 +194,71 @@ export default function Home() {
       setApproachProgress(cardProgress);
       setActiveStep(Math.min(steps.length - 1, Math.floor(cardProgress * steps.length)));
     };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(updateApproach); };
-    updateApproach();
+
+    const scheduleUpdate = () => {
+      if (disposed || scrollFrame) return;
+      scrollFrame = requestAnimationFrame(updateApproach);
+    };
+
+    const scheduleMeasure = () => {
+      if (disposed || measureFrame) return;
+      measureFrame = requestAnimationFrame(() => {
+        measureFrame = 0;
+        if (measureApproach()) scheduleUpdate();
+      });
+    };
+
+    const onScroll = scheduleUpdate;
+    const onResize = scheduleMeasure;
+    const onLoad = scheduleMeasure;
+
+    // Run after the first committed layout, then again after browser layout,
+    // fonts, and images settle. This avoids localhost-only timing assumptions.
+    scheduleMeasure();
+    const secondFrame = requestAnimationFrame(scheduleMeasure);
+    const thirdFrame = requestAnimationFrame(() => requestAnimationFrame(scheduleMeasure));
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("load", onLoad, { once: true });
+    window.visualViewport?.addEventListener("resize", onResize);
+
+    const resizeObserver = typeof ResizeObserver !== "undefined"
+      ? new ResizeObserver(scheduleMeasure)
+      : null;
+    resizeObserver?.observe(windowEl);
+    resizeObserver?.observe(track);
+
+    let fontsReady = true;
+    if (document.fonts?.ready) {
+      fontsReady = false;
+      document.fonts.ready.then(() => {
+        fontsReady = true;
+        scheduleMeasure();
+      });
+    }
+
+    const imageReady = Array.from(section.querySelectorAll("img")).map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    });
+    Promise.all(imageReady).then(() => {
+      if (fontsReady) scheduleMeasure();
+    });
+
     return () => {
+      disposed = true;
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("load", onLoad);
+      window.visualViewport?.removeEventListener("resize", onResize);
+      resizeObserver?.disconnect();
+      cancelAnimationFrame(secondFrame);
+      cancelAnimationFrame(thirdFrame);
+      if (measureFrame) cancelAnimationFrame(measureFrame);
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
     };
   }, []);
 

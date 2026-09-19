@@ -37,8 +37,8 @@ const thinking = [
 ];
 
 const people = [
-  ["ROWFIN", "Founder & Product Strategist", "Problem finder, product thinker. Builder at heart.", "MK"],
-  ["MUKESHKUMAR", "Co-founder & Growth", "Turns ideas into momentum and connects the dots.", "R"],
+  ["MUKESHKUMAR", "Founder & Product Strategist", "Problem finder, product thinker. Builder at heart.", "MK"],
+  ["ROWFIN", "Co-founder & Growth", "Turns ideas into momentum and connects the dots.", "R"],
   ["DESIGN PARTNER", "Experience & Interface", "Designs clarity into every interaction.", "DP"],
   ["TECH PARTNER", "Engineering & Systems", "Builds robust systems that scale.", "TP"],
 ];
