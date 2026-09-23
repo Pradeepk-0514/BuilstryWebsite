@@ -154,3 +154,32 @@
   .home-page .industries-carousel::after { margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .home-page .lab-slide, .home-page .labs-carousel-controls button, .home-page .industries-carousel-controls button, .home-page .lab-slide-arrow, .home-page .labs-progress i { transition: none; } }
+
+
+/* Home Labs + Categories panel: give the paired carousels a full-screen visual moment. */
+.home-page .lower-section {
+  min-height: calc(100dvh - 78px);
+  display: flex;
+  align-items: center;
+}
+.home-page .lower-section .lower-grid {
+  width: 100%;
+  min-height: clamp(470px, 64vh, 700px);
+  align-items: stretch;
+}
+.home-page .lower-section .labs-carousel,
+.home-page .lower-section .industries-carousel {
+  min-height: 100%;
+}
+@media (max-width: 720px) {
+  .home-page .lower-section {
+    min-height: max(780px, calc(100dvh - 64px));
+  }
+  .home-page .lower-section .lower-grid {
+    min-height: 0;
+  }
+  .home-page .lower-section .labs-carousel,
+  .home-page .lower-section .industries-carousel {
+    min-height: 340px;
+  }
+}

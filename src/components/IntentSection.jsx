@@ -41,12 +41,15 @@ export default function IntentSection() {
       sectionTop: 0,
       stickyOffset: 0,
       stickyHeight: window.innerHeight,
+      trackDistance: 0,
+      releaseDistance: 0,
       verticalDistance: 0,
     };
 
     const showNaturalLayout = () => {
       section.style.height = "";
       section.style.removeProperty("--intent-progress");
+      section.style.removeProperty("--intent-release-progress");
       section.dataset.phase = "natural";
       track.style.transform = "translate3d(0, 0, 0)";
       setActiveIndex(0);
@@ -69,16 +72,22 @@ export default function IntentSection() {
         metrics.verticalDistance,
       );
       const progress = clamp(elapsed / metrics.verticalDistance);
+      const trackProgress = clamp(elapsed / Math.max(1, metrics.trackDistance));
+      const releaseProgress = clamp(
+        (elapsed - metrics.trackDistance) / Math.max(1, metrics.releaseDistance),
+      );
       const nextActiveIndex = Math.min(
         intents.length - 1,
-        Math.floor(progress * intents.length),
+        Math.floor(trackProgress * intents.length),
       );
 
       section.style.setProperty("--intent-progress", `${progress}`);
-      section.dataset.phase = progress >= 1 ? "complete" : "cards";
+      section.style.setProperty("--intent-release-progress", `${releaseProgress}`);
+      section.dataset.phase = releaseProgress > 0 ? "release" : "cards";
       section.dataset.activeCard = `${nextActiveIndex + 1}`;
+      const releaseShift = metrics.releaseDistance * releaseProgress;
       track.style.transform = `translate3d(0, -${
-        metrics.verticalDistance * progress
+        metrics.trackDistance * trackProgress + releaseShift
       }px, 0)`;
 
       setActiveIndex((current) =>
@@ -106,16 +115,24 @@ export default function IntentSection() {
         ? Math.ceil(header.getBoundingClientRect().height)
         : 0;
       const stickyHeight = Math.max(1, window.innerHeight - stickyOffset);
-      const verticalDistance = Math.max(
+      const finalCard = track.lastElementChild;
+      const finalCardHeight = finalCard?.getBoundingClientRect().height || 0;
+      // End the card sequence with the fourth card centered in the viewport;
+      // only the dedicated release phase may move it above center afterward.
+      const trackDistance = Math.max(
         0,
-        track.scrollHeight - viewport.clientHeight,
+        track.scrollHeight - (viewport.clientHeight + finalCardHeight) / 2,
       );
+      const releaseDistance = Math.max(220, viewport.clientHeight * 0.48);
+      const verticalDistance = trackDistance + releaseDistance;
       const sectionTop = section.getBoundingClientRect().top + window.scrollY;
 
       metrics = {
         sectionTop,
         stickyOffset,
         stickyHeight,
+        trackDistance,
+        releaseDistance,
         verticalDistance,
       };
 

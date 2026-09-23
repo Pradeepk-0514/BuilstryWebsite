@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import HeroCube from "../components/HeroCube";
 import IntentSection from "../components/IntentSection";
 import CtaModal from "../components/CtaModal";
+import BuilstryHomeExpansion from "../components/BuilstryHomeExpansion";
 import "./HomeEnhancements.css";
 import "./ApproachEnhancements.css";
 import "./HomeApproachRefinement.css";
@@ -372,6 +373,8 @@ export default function Home() {
           <IndustriesCarousel />
         </div>
       </section>
+
+      <BuilstryHomeExpansion />
 
       <IntentSection />
 

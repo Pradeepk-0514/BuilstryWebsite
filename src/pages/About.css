@@ -656,3 +656,84 @@
 }
 .about-editorial .why-fan-progress i { background: rgba(247,248,250,.24); }
 .about-editorial .why-fan-progress i.is-active { background: var(--ice-white); }
+
+
+
+/* Full-screen manifesto reference backdrop. */
+.about-page .about-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
+  max-width: none;
+  margin: 0;
+  grid-template-columns: minmax(360px, .62fr) minmax(0, 1.38fr);
+  align-items: center;
+  padding: 92px clamp(28px, 7vw, 112px) 48px;
+  overflow: hidden;
+  border-bottom: 0;
+  background: #141D26;
+  color: #F7F8FA;
+}
+.about-page .about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/assets/about-manifesto-reference.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  filter: saturate(.88) contrast(1.08);
+  opacity: .84;
+}
+.about-page .about-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, #141D26 0%, rgba(20,29,38,.97) 17%, rgba(20,29,38,.78) 34%, rgba(20,29,38,.18) 70%, rgba(20,29,38,.3) 100%), linear-gradient(0deg, rgba(20,29,38,.36), transparent 38%, rgba(20,29,38,.22));
+  pointer-events: none;
+}
+.about-page .about-hero-copy {
+  position: relative;
+  z-index: 3;
+  max-width: 520px;
+}
+.about-page .about-breadcrumb { color: rgba(247,248,250,.64); }
+.about-page .about-breadcrumb strong { color: #C51F5D; }
+.about-page .about-hero-copy h1 { color: #F7F8FA; }
+.about-page .about-hero-copy h1 em { color: #C51F5D; }
+.about-page .about-hero-copy p { color: rgba(247,248,250,.74); }
+.about-page .about-hero-art { display: none; }
+@media (max-width: 760px) {
+  .about-page .about-hero {
+    height: 100svh;
+    min-height: 100svh;
+    grid-template-columns: 1fr;
+    align-items: end;
+    padding: 96px 7vw 58px;
+  }
+  .about-page .about-hero::before {
+    background-position: 58% center;
+    background-size: cover;
+    opacity: .76;
+  }
+  .about-page .about-hero::after {
+    background: linear-gradient(180deg, rgba(20,29,38,.18) 0%, rgba(20,29,38,.42) 34%, #141D26 80%, #141D26 100%);
+  }
+  .about-page .about-hero-copy { max-width: 560px; }
+  .about-page .about-hero-copy h1 { font-size: clamp(42px, 11vw, 68px); }
+  .about-page .about-hero-copy p { max-width: 360px; font-size: 12px; }
+}
+
+
+/* About-only typography pass for the Three Directions section. */
+.about-page .directions-section > .section-title .section-kicker {
+  font-size: clamp(12px, 1.05vw, 15px);
+  letter-spacing: .18em;
+}
+.about-page .directions-section > .about-link {
+  font-size: clamp(14px, 1.15vw, 17px);
+  letter-spacing: .02em;
+}

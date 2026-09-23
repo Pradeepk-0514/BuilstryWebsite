@@ -7,6 +7,7 @@ import "./InsightsClean2D.css";
 import "./InsightsCuriositySection.css";
 import "./InsightsEditorialSequence.css";
 import "./InsightsOpeningSequence.css";
+import InteractiveSolvingCube from "../components/InteractiveSolvingCube";
 
 const labels = {
   broken: "Problems worth understanding before they become expensive.",
@@ -114,15 +115,8 @@ export default function Insights() {
   return (
     <div className="insights-page">
       <section className="opening-insight-sequence" aria-label="Insights introduction and featured insight">
-        <div className="opening-insight-visual" aria-hidden="true">
-          <div className="opening-visual-frame">
-            <span className="opening-visual-kicker">BUILSTRY / SIGNALS</span>
-            <div className="opening-visual-grid" />
-            <div className="opening-visual-orbit opening-visual-orbit-one" />
-            <div className="opening-visual-orbit opening-visual-orbit-two" />
-            <div className="opening-visual-cube"><i /><i /><i /></div>
-            <span className="opening-visual-index">01 — 02</span>
-          </div>
+        <div className="opening-insight-visual opening-insight-cube-visual">
+          <InteractiveSolvingCube />
         </div>
         <div className="opening-insight-copy">
           <article className="opening-insight-panel opening-insight-panel-intro">

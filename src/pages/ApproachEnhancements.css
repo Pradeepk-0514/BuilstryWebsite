@@ -1257,3 +1257,56 @@
     height: min(calc((58vw - 64px) / 1.74), calc(100svh - 78px - 64px), 440px) !important;
   }
 }
+
+
+/* Intent section final choreography: soft four-edge fade and delayed release. */
+.home-page .intent-scroll-section .intent-card-viewport {
+  mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.9) 64%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 82% 76% at 50% 50%, #000 0%, #000 48%, rgba(0,0,0,.9) 64%, transparent 100%);
+}
+.home-page .intent-scroll-section .intent-card,
+.home-page .intent-scroll-section .intent-card:nth-child(even) {
+  border-radius: 24px;
+  transform-origin: center center;
+  transition: opacity 620ms cubic-bezier(.2,.75,.2,1), transform 760ms cubic-bezier(.2,.75,.2,1), filter 620ms ease, border-color 420ms ease, box-shadow 620ms ease;
+}
+.home-page .intent-scroll-section .intent-card.is-complete {
+  opacity: .3;
+  transform: scale(.88) translateY(-14px);
+  filter: saturate(.52) blur(.15px);
+}
+.home-page .intent-scroll-section .intent-card.is-active {
+  transform: scale(1.015);
+}
+.home-page .intent-scroll-section .intent-card::before {
+  border-radius: 24px 0 0 24px;
+}
+.home-page .intent-scroll-section .intent-card::after {
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(197,31,93,.18) 72%, transparent 100%);
+  transform: scale(.72);
+  transition: opacity 620ms ease, transform 760ms cubic-bezier(.2,.75,.2,1);
+}
+.home-page .intent-scroll-section[data-scan="active"] .intent-card.is-active::after {
+  animation: none;
+  opacity: .8;
+  transform: scale(1);
+}
+.home-page .intent-scroll-section .intent-title {
+  align-self: start;
+  padding-top: clamp(12px, 4vh, 48px);
+}
+.home-page .intent-scroll-section[data-phase="release"] .intent-title {
+  transform: translateY(calc(var(--intent-release-progress, 0) * -20px));
+}
+@media (max-width: 720px) {
+  .home-page .intent-scroll-section .intent-card,
+  .home-page .intent-scroll-section .intent-card:nth-child(even) { border-radius: 20px; }
+  .home-page .intent-scroll-section .intent-card::before { border-radius: 20px 0 0 20px; }
+  .home-page .intent-scroll-section .intent-title { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .intent-scroll-section .intent-card,
+  .home-page .intent-scroll-section .intent-card::after,
+  .home-page .intent-scroll-section[data-phase="release"] .intent-title { transition: none; transform: none; }
+}

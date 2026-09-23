@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AboutHeroVisual from "../components/about/AboutHeroVisual";
 
@@ -6,6 +6,11 @@ import "../components/about/AboutHeroVisual.css";
 import "./About.css";
 import "./AboutEnhancements.css";
 import "./AboutApproachRefinement.css";
+import "./AboutDirectionsFinal.css";
+import "./AboutThinkingFinal.css";
+import "./AboutPeopleFinal.css";
+import "./AboutNetworkFinal.css";
+import "./AboutStandardsFinal.css";
 
 const stages = [
   ["01", "PROBLEM", "Real problems exist everywhere.", "⌕"],
@@ -13,13 +18,6 @@ const stages = [
   ["03", "STRATEGY", "We reframe and find the right way.", "↗"],
   ["04", "CREATION", "We build systems, products and experiences.", "◇"],
   ["05", "IMPACT", "We create value that moves people forward.", "◎"],
-];
-
-const philosophy = [
-  ["01", "?", "QUESTION THE OBVIOUS", "The accepted way isn't necessarily the right way."],
-  ["02", "◉", "UNDERSTAND BEFORE SOLVING", "A solution without understanding is just an assumption."],
-  ["03", "◇", "SIMPLIFY THE COMPLEX", "Good products don't make people work harder to understand."],
-  ["04", "⌁", "BUILD FOR REALITY", "Ideas matter only when they survive contact with the real world."],
 ];
 
 const directions = [
@@ -43,13 +41,19 @@ const people = [
   ["TECH PARTNER", "Engineering & Systems", "Builds robust systems that scale.", "TP"],
 ];
 
+const peopleImages = [
+  "/assets/people/mukeshkumar-profile.png",
+  "/assets/people/rowfin-profile.png",
+  "/assets/people/design-partner-profile.png",
+  "/assets/people/tech-partner-profile.png",
+];
+
 const teamPillars = [
   ["⌁", "FOUNDERS", "Vision & leadership"],
   ["◇", "STUDENTS", "Ideas & energy"],
   ["□", "BUILDERS", "Code & craft"],
   ["✦", "DESIGNERS", "Experience & aesthetics"],
-  ["♧", "MENTORS", "Guidance & wisdom"],
-  ["↗", "PARTNERS", "Scale & reach"],
+  ["♧", "MENTORS & PARTNERS", "Guidance & reach"],
 ];
 
 const milestones = [
@@ -60,6 +64,8 @@ const milestones = [
   ["2026", "First hackathons and community."],
   ["2026+", "Many more problems to solve. Many more to build."],
 ];
+
+const milestoneIcons = ["⌁", "◇", "□", "✦", "♧", "◎"];
 
 function useAboutMotion() {
   useEffect(() => {
@@ -131,14 +137,91 @@ export default function About() {
   useAboutMotion();
   const [activeStage, setActiveStage] = useState(0);
   const [activeDirection, setActiveDirection] = useState(null);
+  const [activeThinking, setActiveThinking] = useState(null);
+  const [hoveredThinking, setHoveredThinking] = useState(null);
+  const [activePerson, setActivePerson] = useState(null);
+  const [hoveredPerson, setHoveredPerson] = useState(null);
   const [dragStart, setDragStart] = useState(null);
+  const whySectionRef = useRef(null);
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveStage((current) => (current + 1) % stages.length);
-    }, 3000);
+    const section = whySectionRef.current;
+    if (!section) return undefined;
 
-    return () => window.clearInterval(timer);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return undefined;
+
+    let sectionIsVisible = false;
+    let userIsScrolling = false;
+    let autoTimer = 0;
+    let idleTimer = 0;
+
+    const clearAutoTimer = () => {
+      if (autoTimer) {
+        window.clearTimeout(autoTimer);
+        autoTimer = 0;
+      }
+    };
+
+    const clearIdleTimer = () => {
+      if (idleTimer) {
+        window.clearTimeout(idleTimer);
+        idleTimer = 0;
+      }
+    };
+
+    const scheduleAutoStep = () => {
+      if (!sectionIsVisible || userIsScrolling || autoTimer) return;
+      autoTimer = window.setTimeout(() => {
+        autoTimer = 0;
+        if (!sectionIsVisible || userIsScrolling) return;
+        setActiveStage((current) => (current + 1) % stages.length);
+        scheduleAutoStep();
+      }, 3200);
+    };
+
+    const scheduleAutoScroll = () => {
+      clearIdleTimer();
+      if (!sectionIsVisible || userIsScrolling) return;
+      idleTimer = window.setTimeout(() => {
+        idleTimer = 0;
+        scheduleAutoStep();
+      }, 1500);
+    };
+
+    const handleScroll = () => {
+      userIsScrolling = true;
+      clearAutoTimer();
+      clearIdleTimer();
+      idleTimer = window.setTimeout(() => {
+        idleTimer = 0;
+        userIsScrolling = false;
+        scheduleAutoStep();
+      }, 1500);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        sectionIsVisible = entry.isIntersecting && entry.intersectionRatio >= 0.82;
+        if (!sectionIsVisible) {
+          clearAutoTimer();
+          clearIdleTimer();
+        } else if (!userIsScrolling) {
+          scheduleAutoScroll();
+        }
+      },
+      { threshold: [0, 0.82, 1] },
+    );
+
+    observer.observe(section);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearAutoTimer();
+      clearIdleTimer();
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const moveCarousel = (index) => {
@@ -180,50 +263,91 @@ export default function About() {
     setActiveDirection((current) => (current === index ? null : index));
   };
 
+  const focusedDirection = activeDirection;
+
   return (
     <main className="about-page about-editorial">
       <div className="about-scroll-progress" aria-hidden="true"><span /></div>
 
       <section className="about-hero" data-reveal>
         <div className="about-hero-copy">
-          <div className="about-breadcrumb"><span>BUILSTRY</span><b>/</b><strong>ABOUT</strong></div>
           <h1 className="manifesto-title"><span>WE DIDN'T START WITH A COMPANY.</span><span><em>WE STARTED WITH A WAY OF LOOKING AT PROBLEMS.</em></span></h1>
           <p>We believe meaningful things are built when people question what already exists, understand what isn't working, and create what should come next.</p>
         </div>
         <div className="about-hero-art"><AboutHeroVisual /><div className="hero-art-label">THINK → BUILD → IMPACT</div></div>
       </section>
 
-      <section className="about-section why-section" data-reveal>
-        <div className="why-copy"><span className="section-kicker">THE FOUNDATION</span><h2>WHY <em>BUILSTRY</em> EXISTS</h2><p>Technology is advancing faster than ever. But technology alone doesn't make something valuable.</p><p>The valuable part is knowing what deserves to be built, why it matters, and how to make it work.</p><p>Builstry brings those stages together.</p><div className="why-carousel-status"><b>{String(activeStage + 1).padStart(2, "0")}</b><span>/ 05</span></div></div>
+      <section ref={whySectionRef} className="about-section why-section" data-reveal>
+        <div className="why-copy"><h2>WHY <em>BUILSTRY</em> EXISTS</h2><p>Technology is advancing faster than ever. But technology alone doesn't make something valuable.</p><p>The valuable part is knowing what deserves to be built, why it matters, and how to make it work.</p><p>Builstry brings those stages together.</p><div className="why-carousel-status"><b>{String(activeStage + 1).padStart(2, "0")}</b><span>/ 05</span></div></div>
         <div className="why-fan" data-reveal><div className="why-fan-stage" tabIndex="0" role="region" aria-roledescription="carousel" aria-label="Why Builstry stages" onKeyDown={handleCarouselKeyDown} onPointerDown={handlePointerDown} onPointerUp={handlePointerUp} onPointerCancel={() => setDragStart(null)}>{stages.map(([number, title, text, icon], index) => { const offset = index - activeStage; const position = offset < -1 ? "far-left" : offset > 1 ? "far-right" : offset === -1 ? "left-1" : offset === 0 ? "active" : "right-1"; return <button type="button" className={`fan-card ${position}`} key={title} onClick={() => moveCarousel(index)} aria-label={`Show ${title}`} aria-current={index === activeStage ? "true" : undefined}><span className="stage-index">{number}</span><span className="stage-icon">{icon}</span><span className="fan-card-copy"><b>{title}</b><small>{text}</small></span><span className="stage-card-footer">BUILSTRY / {number}</span></button>; })}</div><div className="why-fan-controls"><button type="button" onClick={() => moveCarousel(activeStage - 1)} disabled={activeStage === 0} aria-label="Previous stage">←</button><div className="why-fan-progress">{stages.map(([number], index) => <i className={index === activeStage ? "is-active" : ""} key={number} />)}</div><button type="button" onClick={() => moveCarousel(activeStage + 1)} disabled={activeStage === stages.length - 1} aria-label="Next stage">→</button></div></div>
-      </section>
-
-      <section className="about-section philosophy-section" data-reveal>
-        <div className="center-heading"><span>OUR</span> PHILOSOPHY<i /></div>
-        <div className="philosophy-grid">{philosophy.map(([number, icon, title, text], index) => <article className="philosophy-item" key={number} style={{ "--delay": `${index * 90}ms` }} data-reveal><span className="philosophy-number">{number}</span><div className="philosophy-icon">{icon}</div><h3>{title}</h3><p>{text}</p></article>)}</div>
       </section>
 
       <section className="about-section directions-section" data-reveal>
         <div className="section-title"><span className="section-kicker">HOW WE TURN BELIEF INTO MOTION</span><h2>THREE DIRECTIONS. <em>ONE BELIEF.</em></h2></div>
-        <div className={`directions-grid ${activeDirection !== null ? "has-selection" : ""}`} data-selected={activeDirection === null ? "none" : activeDirection + 1} onClick={(event) => { if (event.target === event.currentTarget) setActiveDirection(null); }}>
-          {directions.map(([number, title, text, visual], index) => <article className={`direction-card ${visual} ${activeDirection === index ? "is-selected" : ""} ${activeDirection !== null && activeDirection !== index ? "is-dimmed" : ""}`} key={number} style={{ "--delay": `${index * 100}ms`, "--direction-index": index }} data-reveal role="button" tabIndex="0" aria-pressed={activeDirection === index} onClick={() => selectDirection(index)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectDirection(index); } }}><div className="direction-visual" aria-hidden="true"><span /><span /><span /></div><div className="direction-content"><span>{number}</span><h3>{title}</h3><p>{text}</p><span className="circle-link" aria-hidden="true">→</span></div></article>)}
+        <div className="directions-grid has-selection" data-selected={activeDirection === null ? 0 : activeDirection + 1} onClick={(event) => { if (event.target === event.currentTarget) setActiveDirection(null); }}>
+          {directions.map(([number, title, text, visual], index) => <article className={`direction-card ${visual} ${activeDirection !== null && focusedDirection === index ? "is-selected" : activeDirection !== null ? "is-dimmed" : ""}`} key={number} style={{ "--delay": `${index * 100}ms`, "--direction-index": index }} data-reveal role="button" tabIndex="0" aria-pressed={activeDirection === index} onClick={() => selectDirection(index)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectDirection(index); } }}><div className="direction-visual" aria-hidden="true"><span /><span /><span /></div><div className="direction-content"><span>{number}</span><h3>{title}</h3><p>{text}</p><span className="circle-link" aria-hidden="true">→</span></div></article>)}
         </div>
         <Link to="/capabilities" className="about-link">Explore what we do →</Link>
       </section>
 
       <section className="about-section thinking-section" data-reveal>
-        <div className="thinking-intro"><span className="section-kicker">THE MINDSET</span><h2>HOW<br />WE <em>THINK</em></h2><p>Our mindset shapes everything we build.</p></div>
-        <div className="thinking-grid">{thinking.map(([number, title, text, icon], index) => <article className="thinking-item" key={number} style={{ "--delay": `${index * 80}ms` }} data-reveal><span>{icon}</span><small>{number}</small><h3>{title}</h3><p>{text}</p></article>)}</div>
+        <div className="thinking-topline">
+          <div className="thinking-intro"><span className="section-kicker">THE MINDSET</span><h2>HOW <em>WE</em> THINK</h2><p>Our mindset shapes everything we build — from the questions we ask to the solutions we create.</p></div>
+        </div>
+        <div id="thinking-principles" className="thinking-grid">{thinking.map(([number, title, text, icon], index) => { const isThinkingActive = (hoveredThinking ?? activeThinking) === index; return <article className={`thinking-item ${isThinkingActive ? "is-active" : ""}`} key={number} style={{ "--delay": `${index * 80}ms` }} data-reveal role="button" tabIndex="0" aria-pressed={activeThinking === index} onMouseEnter={() => setHoveredThinking(index)} onMouseLeave={() => setHoveredThinking(null)} onFocus={() => setHoveredThinking(index)} onBlur={() => setHoveredThinking(null)} onClick={() => setActiveThinking(index)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActiveThinking(index); } }}><div className="thinking-card-head"><span className="thinking-icon" aria-hidden="true">{icon}</span><small>{number}</small></div><h3>{title}</h3><p>{text}</p><div className="thinking-card-footer"><span className="thinking-rule" /><span className="thinking-arrow" aria-hidden="true">→</span></div></article>; })}</div>
       </section>
 
       <section className="about-section people-section" data-reveal>
-        <div className="people-intro"><span className="section-kicker">WHO BUILDS IT</span><h2>THE PEOPLE<br />BEHIND <em>BUILSTRY</em></h2><p>A small team with a big mission. Driven by curiosity, craft and conviction.</p><Link to="/careers" className="about-link">Join our journey →</Link></div>
-        <div className="people-grid">{people.map(([name, role, bio, initials], index) => <article className="person-card" key={name} style={{ "--delay": `${index * 90}ms` }} data-reveal><div className="person-photo"><span>{initials}</span></div><div className="person-info"><h3>{name}</h3><b>{role}</b><p>{bio}</p><span className="person-social">in</span></div></article>)}</div>
+        <div className="people-intro"><span className="section-kicker">WHO BUILDS IT</span><h2>THE PEOPLE<br />BEHIND <em>BUILSTRY</em></h2><p>A small team with a big mission. Driven by curiosity, craft and conviction, we turn ideas into meaningful products.</p><Link to="/careers" className="about-link">Join our journey →</Link><div className="people-stats"><span><b>4</b><small>CORE<br />MEMBERS</small></span><span><b>∞</b><small>BIG<br />IDEAS</small></span><span><b>1</b><small>SHARED<br />MISSION</small></span></div></div>
+        <div className="people-showcase"><div className="people-grid">{people.map(([name, role, bio, initials], index) => { const isPersonActive = (hoveredPerson ?? activePerson) === index; return <article className={`person-card ${isPersonActive ? "is-active" : ""}`} key={name} style={{ "--delay": `${index * 90}ms` }} role="button" tabIndex="0" aria-pressed={activePerson === index} onMouseEnter={() => setHoveredPerson(index)} onMouseLeave={() => setHoveredPerson(null)} onFocus={() => setHoveredPerson(index)} onBlur={() => setHoveredPerson(null)} onClick={() => setActivePerson(index)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActivePerson(index); } }}><div className="person-photo"><img src={peopleImages[index]} alt={`${name} profile portrait`} loading="lazy" /><small>{String(index + 1).padStart(2, "0")}</small><span>{initials}</span></div><div className="person-info"><h3>{name}</h3><b>{role}</b><i /><p>{bio}</p><div className="person-footer"><span className="person-social">in</span><span>View Profile →</span></div></div></article>; })}</div><div className="people-controls"><button type="button" aria-label="Previous profile" onClick={() => setActivePerson((current) => ((current ?? 0) + people.length - 1) % people.length)}>←</button><div>{people.map(([name], index) => <i className={(hoveredPerson ?? activePerson) === index ? "is-active" : ""} key={name} />)}</div><button type="button" aria-label="Next profile" onClick={() => setActivePerson((current) => ((current ?? -1) + 1) % people.length)}>→</button></div></div>
       </section>
 
-      <section className="about-section team-section" data-reveal><div className="team-intro"><span className="section-kicker">THE NETWORK</span><h2>BUILSTRY IS<br /><em>BIGGER THAN</em><br />ITS TEAM.</h2><p>We work with founders, mentors, researchers, students and partners.</p></div><div className="team-grid">{teamPillars.map(([icon, title, text], index) => <article key={title} style={{ "--delay": `${index * 70}ms` }} data-reveal><span>{icon}</span><b>{title}</b><small>{text}</small></article>)}</div></section>
+      <section className="about-section team-section" data-reveal>
+        <div className="team-intro">
+          <span className="section-kicker">THE NETWORK</span>
+          <h2>BUILSTRY<br /><em>IS BIGGER</em><br /><em>THAN</em><br />ITS TEAM</h2>
+          <p>We work with founders, mentors, researchers, students and partners to turn bold ideas into real impact.</p>
+          <Link to="/careers" className="about-link">Join our journey →</Link>
+          <div className="team-intro-rule" aria-hidden="true" /><span className="team-intro-note">MORE PERSPECTIVES.<br />BETTER POSSIBILITIES.</span>
+        </div>
+        <div className="team-network">
+          <div className="team-grid" role="list" aria-label="Builstry network pillars">
+            {teamPillars.map(([icon, title, text], index) => <article key={title} style={{ "--delay": `${index * 70}ms` }} data-reveal role="listitem">
+              <div className="team-pillar-marker"><small>{String(index + 1).padStart(2, "0")}</small><span className="team-pillar-logo" aria-hidden="true">{icon}</span><span className="team-pillar-dot" aria-hidden="true" /></div>
+              <b>{title}</b>
+              <em>{text} {index < 4 ? `to ${["spark what's next.", "challenge the status quo.", "turn ideas into reality.", "make it human."][index]}` : "to scale the impact."}</em>
+            </article>)}
+          </div>
+          <div className="team-network-stats" aria-label="Builstry network stats"><span><b>5+</b><small>COMMUNITIES<br />CONNECTED</small></span><span><b>1000+</b><small>IDEAS<br />IN MOTION</small></span><span><b>∞</b><small>BIGGER<br />POSSIBILITIES</small></span><em>TOGETHER WE BUILD WHAT SHOULD EXIST.</em></div>
+          <div className="team-network-line" aria-hidden="true"><span /></div>
+          <div className="team-network-footer"><span>BUILSTRY</span><i aria-hidden="true" /><span>THINK</span><i aria-hidden="true" /><span>BUILD</span><i aria-hidden="true" /><span>IMPACT</span></div>
+        </div>
+      </section>
 
-      <section className="about-section journey-section" data-reveal><div className="refuse-panel"><span className="section-kicker">OUR STANDARD</span><h2>WHAT WE <em>REFUSE</em><br />TO COMPROMISE ON</h2><ul><li>Clarity over complexity.</li><li>Evidence over assumptions.</li><li>Useful over impressive.</li><li>Long-term value over short-term noise.</li><li>Building over talking.</li></ul></div><div className="journey-panel"><span className="section-kicker">THE MILESTONES</span><h2>OUR <em>JOURNEY</em> SO FAR</h2><svg className="journey-path" viewBox="0 0 100 520" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0 C18 72 82 132 50 210 S82 348 50 520" /></svg><div className="timeline">{milestones.map(([year, text], index) => <article key={`${year}-${index}`} style={{ "--delay": `${index * 90}ms` }} data-reveal><span className="timeline-dot" /><b>{year}</b><p>{text}</p></article>)}</div></div></section>
+      <section className="about-section journey-section" data-reveal>
+        <div className="refuse-panel">
+          <div className="refuse-copy">
+            <span className="section-kicker">OUR STANDARD</span>
+            <h2>WHAT WE<br /><em>REFUSE</em><br />TO COMPROMISE ON.</h2>
+            <p>These principles guide every idea, product and partnership we build — now and always.</p>
+            <div className="refuse-note"><i aria-hidden="true" />HIGHER STANDARDS.<br />BRIGHTER OUTCOMES.</div>
+          </div>
+          <div className="refuse-principles" role="list" aria-label="Builstry standards">
+            {[
+              ["CLARITY", "OVER COMPLEXITY", "We choose simple, clear thinking over unnecessary complexity."],
+              ["EVIDENCE", "OVER ASSUMPTIONS", "We rely on what's real, not what's assumed."],
+              ["USEFUL", "OVER IMPRESSIVE", "We build what creates real value, not what just looks good."],
+              ["LONG-TERM", "OVER SHORT-TERM", "We care about lasting impact, not quick wins."],
+              ["BUILDING", "OVER TALKING", "We turn ideas into real solutions."],
+            ].map(([title, subtitle, text], index) => <article key={title} role="listitem" data-reveal style={{ "--delay": `${index * 80}ms` }}>
+              <div className="refuse-marker"><small>{String(index + 1).padStart(2, "0")}</small><span aria-hidden="true" /></div>
+              <b>{title}</b><small>{subtitle}</small><p>{text}</p>
+            </article>)}
+          </div>
+          <div className="refuse-footer"><span>BUILSTRY</span><i aria-hidden="true" /><span>THINK</span><i aria-hidden="true" /><span>BUILD</span><i aria-hidden="true" /><span>IMPACT</span></div>
+        </div>
+        <div className="journey-panel"><span className="section-kicker">THE MILESTONES</span><h2>OUR <em>JOURNEY</em> SO FAR</h2><svg className="journey-path" viewBox="0 0 100 520" preserveAspectRatio="none" aria-hidden="true"><path d="M50 0 C18 72 82 132 50 210 S82 348 50 520" /></svg><div className="timeline">{milestones.map(([year, text], index) => <article key={`${year}-${index}`} style={{ "--delay": `${index * 90}ms` }} data-reveal><span className="timeline-dot" /><span className="timeline-icon" aria-hidden="true">{milestoneIcons[index]}</span><b>{year}</b><p>{text}</p></article>)}</div></div>
+      </section>
 
       <section className="about-final-cta" data-reveal><div><span className="section-kicker">READY WHEN YOU ARE</span><h2>BELIEVE SOMETHING<br /><em>SHOULD EXIST?</em></h2><p>Let's build it together.</p><div className="about-cta-actions"><Link to="/contact" className="button button-primary">Start a Conversation <span>→</span></Link><Link to="/capabilities" className="button about-outline-button">Explore What We Do <span>→</span></Link></div></div><div className="cta-mountain-art" aria-hidden="true"><div className="cta-sun" /><div className="cta-person" /><div className="cta-horizon" /></div></section>
     </main>

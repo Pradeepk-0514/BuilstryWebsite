@@ -220,17 +220,6 @@
   perspective: 1200px;
   transform-style: preserve-3d;
 }
-.about-page .directions-grid::before {
-  content: "STRATEGY  /  INNOVATION  /  GROWTH";
-  position: absolute;
-  top: 2%;
-  right: 0;
-  color: rgba(20, 29, 38, .34);
-  font-size: 9px;
-  font-weight: 850;
-  letter-spacing: .16em;
-  writing-mode: vertical-rl;
-}
 .about-page .directions-grid .direction-card,
 .about-page .directions-grid .direction-card[data-reveal] {
   position: absolute;
