@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { ArrowUpRight, Instagram, Linkedin, MessageCircle } from "lucide-react";
+import Reveal from "./Reveal";
+
+export default function Footer() {
+  return <footer className="site-footer"><Reveal className="footer-reveal"><div className="footer-grid"><div><Link className="footer-logo" href="/"><span className="brand-mark">B</span> BUILSTRY</Link><p className="footer-note">Find. Think. Build.<br />We build what should exist.</p><div className="socials"><a href="https://www.linkedin.com/" aria-label="LinkedIn"><Linkedin /></a><a href="https://www.instagram.com/" aria-label="Instagram"><Instagram /></a><a href="https://wa.me/" aria-label="WhatsApp"><MessageCircle /></a></div></div><div><h4>Explore</h4><Link href="/#about">About</Link><Link href="/#verticals">What we build</Link><Link href="/people">People</Link><Link href="/#connect">Contact</Link></div><div><h4>Build with us</h4><Link href="/brand">Brand Studio</Link><Link href="/products">Insights</Link><Link href="/verify-certificate">Verify certificate</Link></div><div><h4>Contact</h4><p>121/C, Chetti Kulam, Simon Nagar, Nagercoil, Tamil Nadu 629001</p><a href="mailto:hello@builstry.com">hello@builstry.com</a><a href="tel:+919994535120">+91 99945 35120</a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Builstry. All rights reserved.</span><Link href="/#connect">Start a conversation <ArrowUpRight size={14} /></Link></div></Reveal></footer>;
+}

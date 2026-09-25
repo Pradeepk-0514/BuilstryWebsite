@@ -1,0 +1,471 @@
+{
+  "site": "https://genlab.cc/",
+  "scraped": "2026-09-24",
+  "method": "Headless-browser (JavaScript-rendered) scrape, one request per route; robots.txt and sitemap.xml checked",
+  "stack_hint": "Single-page app: one HTML shell for every path, hashed bundles and images under /assets/",
+  "shared_meta": {
+    "title": "GenLab – An Agentic AI Platform Built by Gen Z",
+    "description": "GenLab is a leading AI company based in Nagercoil and Bengaluru, offering product research and branding solutions that deliver smart, enterprise-grade outcomes.",
+    "language": "en",
+    "favicon": "https://genlab.cc/logo-black.svg",
+    "og:site_name": "GenLab",
+    "og:type": "website",
+    "og:url": "https://genlab.cc/",
+    "og:image": "https://genlab.cc/og-image.png?v=1",
+    "og:image:width": 1200,
+    "og:image:height": 630,
+    "twitter:card": "summary_large_image",
+    "note": "Identical on every route"
+  },
+  "routes": [
+    {
+      "route": "/",
+      "url": "https://genlab.cc/",
+      "content_file": "content/home.md",
+      "anchors": [
+        "about",
+        "verticals",
+        "launchpad",
+        "ai",
+        "brand",
+        "connect"
+      ],
+      "internal_links": [
+        "/brand",
+        "/products",
+        "/people",
+        "/verify-certificate"
+      ],
+      "external_links": [
+        "https://in.linkedin.com/company/genlabz",
+        "https://www.instagram.com/genlab.cc/",
+        "https://wa.me/919994535120"
+      ]
+    },
+    {
+      "route": "/brand",
+      "url": "https://genlab.cc/brand",
+      "content_file": "content/brand.md",
+      "anchors": [
+        "about",
+        "verticals",
+        "connect",
+        "launchpad",
+        "ai",
+        "brand"
+      ],
+      "internal_links": [
+        "/",
+        "/products",
+        "/people",
+        "/verify-certificate"
+      ],
+      "external_links": [
+        "https://in.linkedin.com/company/genlabz",
+        "https://www.instagram.com/genlab.cc/",
+        "https://wa.me/919994535120"
+      ]
+    },
+    {
+      "route": "/products",
+      "url": "https://genlab.cc/products",
+      "content_file": "content/products.md",
+      "anchors": [
+        "about",
+        "verticals",
+        "connect",
+        "launchpad",
+        "ai",
+        "brand"
+      ],
+      "internal_links": [
+        "/",
+        "/brand",
+        "/people",
+        "/verify-certificate"
+      ],
+      "external_links": [
+        "https://sns-chatbot.vercel.app/",
+        "https://campus-bsvvcx30r-neelanjan2448040s-projects.vercel.app/",
+        "https://in.linkedin.com/company/genlabz",
+        "https://www.instagram.com/genlab.cc/",
+        "https://wa.me/919994535120"
+      ]
+    },
+    {
+      "route": "/people",
+      "url": "https://genlab.cc/people",
+      "content_file": "content/people.md",
+      "anchors": [
+        "about",
+        "verticals",
+        "connect",
+        "launchpad",
+        "ai",
+        "brand"
+      ],
+      "internal_links": [
+        "/",
+        "/brand",
+        "/products",
+        "/verify-certificate"
+      ],
+      "external_links": [
+        "https://in.linkedin.com/company/genlabz",
+        "https://www.instagram.com/genlab.cc/",
+        "https://wa.me/919994535120"
+      ],
+      "files": [
+        "https://genlab.cc/assets/Software_Developer-DOeEZ4H9.pdf",
+        "https://genlab.cc/assets/Digital_Marketing_Executive-DF2lvtA4.pdf",
+        "https://genlab.cc/assets/Senior_Designer-D0GEKUjP.pdf"
+      ]
+    },
+    {
+      "route": "/verify-certificate",
+      "url": "https://genlab.cc/verify-certificate",
+      "content_file": "content/verify-certificate.md",
+      "anchors": [],
+      "internal_links": [
+        "/"
+      ],
+      "external_links": []
+    }
+  ],
+  "navigation": {
+    "header": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Launchpad",
+        "href": null
+      },
+      {
+        "label": "Brand Studio",
+        "href": "/brand"
+      },
+      {
+        "label": "Product",
+        "href": "/products"
+      },
+      {
+        "label": "People",
+        "href": "/people"
+      },
+      {
+        "label": "verify certificate",
+        "href": "/verify-certificate"
+      },
+      {
+        "label": "Shabdam AI",
+        "href": null
+      }
+    ],
+    "footer": [
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Verticals",
+        "href": "#verticals"
+      },
+      {
+        "label": "People",
+        "href": "/people"
+      },
+      {
+        "label": "Careers",
+        "href": "#connect"
+      },
+      {
+        "label": "Contact",
+        "href": "#connect"
+      },
+      {
+        "label": "Launchpad",
+        "href": "#launchpad"
+      },
+      {
+        "label": "AI Forge",
+        "href": "#ai"
+      },
+      {
+        "label": "Brand Studio",
+        "href": "#brand"
+      }
+    ]
+  },
+  "contact": {
+    "address": "121/C, Chetti Kulam, Simon Nagar, Nagercoil, Tamil Nadu 629001",
+    "phone_displayed": "+91 99945 35120",
+    "phone_link": "tel:+91999435120",
+    "phone_link_note": "link has one digit fewer than the displayed number",
+    "whatsapp": "https://wa.me/919994535120",
+    "email": "info@genlab.cc"
+  },
+  "social": {
+    "linkedin": "https://in.linkedin.com/company/genlabz",
+    "instagram": "https://www.instagram.com/genlab.cc/"
+  },
+  "assets": [
+    {
+      "url": "https://genlab.cc/assets/Genlab-Cm2gyiW3.png",
+      "used_on": [
+        "/",
+        "/products",
+        "/people",
+        "/verify-certificate"
+      ],
+      "kind": "logo"
+    },
+    {
+      "url": "https://genlab.cc/assets/logo-CorH7vLF.png",
+      "used_on": [
+        "/",
+        "/brand",
+        "/products",
+        "/people",
+        "/verify-certificate"
+      ],
+      "kind": "logo"
+    },
+    {
+      "url": "https://genlab.cc/logo-black.svg",
+      "used_on": [
+        "/"
+      ],
+      "kind": "logo / favicon"
+    },
+    {
+      "url": "https://genlab.cc/og-image.png",
+      "used_on": [
+        "/",
+        "/brand",
+        "/products",
+        "/people",
+        "/verify-certificate"
+      ],
+      "kind": "social preview (1200x630, from og:image)"
+    },
+    {
+      "url": "https://genlab.cc/assets/head-0-82tfv_b3.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "core-benefits image"
+    },
+    {
+      "url": "https://genlab.cc/assets/head-1-BGlr_FGC.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "core-benefits image"
+    },
+    {
+      "url": "https://genlab.cc/assets/head-2-D8OVTfbc.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "core-benefits image"
+    },
+    {
+      "url": "https://genlab.cc/assets/head-3-CtRjaeVg.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "core-benefits image"
+    },
+    {
+      "url": "https://genlab.cc/assets/head-4-BvkMnVGV.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "core-benefits image"
+    },
+    {
+      "url": "https://genlab.cc/assets/vit-wBSvi9D6.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_arunachala-CyRITQhI.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_3-D0NnumLK.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_4-tVIXgb_w.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_5-BVnEL3eu.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_6-BfbHhQUt.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/a_7-DU8UK4HX.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (academia)"
+    },
+    {
+      "url": "https://genlab.cc/assets/i_4-CwIvrUzt.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (industry)"
+    },
+    {
+      "url": "https://genlab.cc/assets/i_6-DcS74tNh.webp",
+      "used_on": [
+        "/"
+      ],
+      "kind": "partner logo (industry)"
+    },
+    {
+      "url": "https://genlab.cc/assets/henrich2-7JJQJqB9.png",
+      "used_on": [
+        "/"
+      ],
+      "kind": "team spotlight photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/henrich-rv9WHf-Y.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Ashvin-CI6nJsTa.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/bency-Be8eeoDE.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Esther-CPnlvMJT.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/kabil-sH7phjQI.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Reshma-BsoN5ehX.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Akshen-DlP5GDAU.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Gowri-Din20do9.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Ashmi-Bln038vS.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Britta-D0i65ubB.webp",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "team photo"
+    },
+    {
+      "url": "https://genlab.cc/assets/Software_Developer-DOeEZ4H9.pdf",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "job description PDF"
+    },
+    {
+      "url": "https://genlab.cc/assets/Digital_Marketing_Executive-DF2lvtA4.pdf",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "job description PDF"
+    },
+    {
+      "url": "https://genlab.cc/assets/Senior_Designer-D0GEKUjP.pdf",
+      "used_on": [
+        "/people"
+      ],
+      "kind": "job description PDF"
+    },
+    {
+      "url": "https://genlab.cc/assets/SNS%20logo-FA_esyVl.png",
+      "used_on": [
+        "/products"
+      ],
+      "kind": "partner image"
+    },
+    {
+      "url": "https://genlab.cc/assets/Christ%20logo-ClA-pQnZ.png",
+      "used_on": [
+        "/products"
+      ],
+      "kind": "partner image"
+    }
+  ],
+  "not_captured": [
+    "FAQ answers (click-to-render)",
+    "below-the-fold content on /brand and /products, if any",
+    "binary files (see assets.txt)",
+    "5 of 7 industry-partner logos (inlined in page code)",
+    "form behaviour"
+  ]
+}

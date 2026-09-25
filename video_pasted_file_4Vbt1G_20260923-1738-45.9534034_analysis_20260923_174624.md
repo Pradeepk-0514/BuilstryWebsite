@@ -1,6 +1,0 @@
-In the "What are you trying to build" section, the four cards follow a scroll-triggered animation sequence:
-
-*   **Movement and Fading:** As the user scrolls, the active card (such as card 3, "I HAVE A BUSINESS") moves upward and its opacity gradually decreases until it fades out completely. Simultaneously, the next card (card 4, "I HAVE AN IDEA") moves up from a lower position to take its place.
-*   **Scaling:** As each new card enters the frame from below, it starts at a slightly smaller scale and expands to its full size as it reaches the center of the display area.
-*   **Progression:** A progress bar at the bottom left tracks the cards, transitioning from 03 to 04 as the final card comes into view.
-*   **Release to Next Section:** Once the fourth card is fully centered and the scroll progress for that specific sub-section is complete, the entire dark-themed "What are you trying to build" container "releases." Further scrolling causes the whole section to slide upward, revealing the white-themed "GOT A PROBLEM WORTH SOLVING?" section below.
