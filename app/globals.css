@@ -373,3 +373,23 @@ main { position: relative; z-index: 1; }
   .about-website-reference .about-ref-journey-path path { stroke-dashoffset: 0; }
   .about-website-reference .about-ref-timeline article { opacity: 1; transform: none; }
 }
+
+
+/* Website.zip Home CTA refinement: ice-white background and compact two-line problem heading */
+.cta-section { background: var(--ice); color: var(--midnight); border-top: 1px solid rgba(20,29,38,.12); }
+.cta-section .cta-heading { max-width: 760px; margin-bottom: 22px; color: var(--midnight); font-size: clamp(46px, 6.2vw, 92px); line-height: .88; letter-spacing: -.075em; }
+.cta-section .cta-heading .heading-accent { color: var(--magenta); }
+.cta-section p:not(.eyebrow) { color: rgba(20,29,38,.62); }
+.cta-section .cta-mark { color: var(--magenta); border-color: rgba(20,29,38,.16); background: rgba(255,255,255,.18); box-shadow: 0 0 80px rgba(197,31,93,.12); }
+@media (max-width: 900px) { .cta-section .cta-heading { font-size: clamp(42px, 8vw, 72px); } }
+@media (max-width: 540px) { .cta-section .cta-heading { font-size: clamp(38px, 11vw, 58px); } .cta-section .cta-mark { opacity: .28; } }
+
+
+/* Website.zip footer and Home CTA controls */
+.cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
+.cta-secondary { border: 1px solid rgba(20,29,38,.28); background: transparent; color: var(--midnight); }
+.cta-secondary:hover { border-color: var(--magenta); color: var(--magenta); box-shadow: 0 10px 24px rgba(197,31,93,.12); }
+.site-footer .footer-note.muted { margin-top: -7px; }
+.site-footer .socials { flex-wrap: wrap; }
+.site-footer .socials a { color: var(--ice); }
+@media (max-width: 540px) { .cta-actions { align-items: stretch; flex-direction: column; width: min(100%, 280px); }.cta-actions .button { width: 100%; } }

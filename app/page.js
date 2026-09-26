@@ -27,6 +27,6 @@ export default function HomePage() {
 
     <FAQ />
 
-    <section id="connect" className="cta-section"><Reveal><p className="eyebrow">LET&apos;S CONNECT</p><h2 className="editorial-heading cta-heading"><span>HAVE A</span><span>PROBLEM</span><span className="heading-accent">WORTH</span><span className="heading-accent">SOLVING.</span></h2><p>Bring the difficult question, the rough idea or the system that is not working yet.</p><Link className="button button-primary" href="/contact">Start a conversation <ArrowUpRight size={17} /></Link></Reveal><div className="cta-mark"><Bot size={82} strokeWidth={1} /></div></section>
+    <section id="connect" className="cta-section"><Reveal><p className="eyebrow">LET&apos;S CONNECT</p><h2 className="editorial-heading cta-heading"><span>GOT A PROBLEM</span><span className="heading-accent">WORTH SOLVING?</span></h2><p>Bring the difficult question, the rough idea or the system that is not working yet.</p><div className="cta-actions"><Link className="button button-primary" href="/contact">Start a Conversation <ArrowUpRight size={17} /></Link><Link className="button cta-secondary" href="/contact?mode=booking">Book a Call <ArrowUpRight size={17} /></Link></div></Reveal><div className="cta-mark"><Bot size={82} strokeWidth={1} /></div></section>
   </div>;
 }
