@@ -19,7 +19,7 @@ export default function CapabilitiesScroll() {
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible) setActive(Number(visible.target.dataset.index));
-    }, { threshold: [0.35, 0.6, 0.85], rootMargin: "-18% 0px -36%" });
+    }, { threshold: [0.35, 0.6, 0.85], rootMargin: "-40% 0px -40%" });
     itemRefs.current.forEach((item) => item && observer.observe(item));
     return () => observer.disconnect();
   }, []);

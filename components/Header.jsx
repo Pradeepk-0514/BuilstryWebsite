@@ -16,8 +16,8 @@ export default function Header() {
     <nav className="desktop-nav" aria-label="Primary navigation">
       <Link href="/" onClick={closeMenus}>Home</Link>
       <div className="nav-dropdown" onMouseEnter={() => setBuildOpen(true)} onMouseLeave={() => setBuildOpen(false)}>
-        <button className="nav-dropdown-trigger" type="button" aria-expanded={buildOpen} onClick={() => setBuildOpen(!buildOpen)}>What We Do <ChevronDown size={14} className={buildOpen ? "is-rotated" : ""} /></button>
-        <AnimatePresence>{buildOpen && <motion.div className="nav-dropdown-menu" initial={{ opacity: 0, y: -8, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: .98 }} transition={{ duration: .18 }}>{buildLinks.map(([label, href]) => <Link key={href} href={href} onClick={closeMenus}>{label}<ArrowUpRight size={14} /></Link>)}</motion.div>}</AnimatePresence>
+        <button className="nav-dropdown-trigger" type="button" aria-expanded={buildOpen} aria-controls="desktop-build-menu" onClick={() => setBuildOpen((isOpen) => !isOpen)}>What We Do <ChevronDown size={14} className={buildOpen ? "is-rotated" : ""} /></button>
+        <AnimatePresence>{buildOpen && <motion.div id="desktop-build-menu" className="nav-dropdown-menu" initial={{ opacity: 0, y: -8, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: .98 }} transition={{ duration: .18 }}>{buildLinks.map(([label, href]) => <Link key={href} href={href} onClick={closeMenus}>{label}<ArrowUpRight size={14} /></Link>)}</motion.div>}</AnimatePresence>
       </div>
       <Link href="/products" onClick={closeMenus}>Insights</Link>
       <Link href="/about" onClick={closeMenus}>About</Link>
