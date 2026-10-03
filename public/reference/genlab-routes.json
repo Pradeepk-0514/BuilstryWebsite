@@ -1,0 +1,23 @@
+{
+  "source": "https://genlab.cc/",
+  "capturedAt": "2026-09-24",
+  "routes": [
+    {"path": "/", "role": "GenLab-style home / hero / capabilities / ecosystem"},
+    {"path": "/brand", "role": "Brand Studio landing and service detail"},
+    {"path": "/products", "role": "Product / AI solutions landing"},
+    {"path": "/people", "role": "People / team profile"},
+    {"path": "/verify-certificate", "role": "Certificate verification utility"},
+    {"path": "/sitemap.xml", "role": "Reference sitemap"},
+    {"path": "/robots.txt", "role": "Reference crawler policy"}
+  ],
+  "adaptation": {
+    "contentSource": "Builstry project content",
+    "palette": {
+      "ice-white": "#F7F8FA",
+      "steel-navy": "#243447",
+      "midnight": "#141D26",
+      "magenta": "#C51F5D"
+    },
+    "note": "The reference interaction language is re-authored as Builstry components; GenLab brand copy and contact details are not carried into the product."
+  }
+}

@@ -10,9 +10,58 @@ const questions = [
   ["Do you work with teams outside India?", "Yes. Builstry works with ambitious teams wherever the right problem and the right people are."],
   ["What kinds of teams do you work with?", "We partner with founders, institutions, growing businesses and established teams looking for a sharper way forward."],
   ["How do we start a conversation?", "Bring the difficult question, rough idea or system that is not working yet. We will help you find the useful next move."],
+  ["What’s happening on your side?", null],
 ];
 
 export default function FAQ() {
   const [open, setOpen] = useState(0);
-  return <section className="faq-section" aria-labelledby="faq-title"><div className="faq-heading"><Reveal><p className="eyebrow dark">FAQ</p><h2 id="faq-title" className="editorial-heading faq-title"><span>QUESTIONS</span><span>WORTH</span><span className="heading-accent">ASKING.</span></h2><p>Start with the question. We will help shape what comes next.</p></Reveal></div><div className="faq-list">{questions.map(([question, answer], index) => <Reveal key={question} delay={index * .04}><div className={`faq-item ${open === index ? "is-open" : ""}`}><button className="faq-trigger" type="button" aria-expanded={open === index} onClick={() => setOpen(open === index ? -1 : index)}><span><b>0{index + 1}</b>{question}</span><ChevronDown size={18} /></button><div className="faq-answer" aria-hidden={open !== index}><p>{answer}</p></div></div></Reveal>)}</div></section>;
+  const [response, setResponse] = useState("");
+
+  return (
+    <section className="faq-section" aria-labelledby="faq-title">
+      <div className="faq-heading">
+        <Reveal>
+          <p className="eyebrow dark">FAQ</p>
+          <h2 id="faq-title" className="editorial-heading faq-title">
+            <span>QUESTIONS</span>
+            <span>WORTH</span>
+            <span className="heading-accent">ASKING.</span>
+          </h2>
+          <p>Start with the question. We will help shape what comes next.</p>
+        </Reveal>
+      </div>
+      <div className="faq-list">
+        {questions.map(([question, answer], index) => (
+          <Reveal key={question} delay={index * 0.04}>
+            <div className={`faq-item ${open === index ? "is-open" : ""}`}>
+              <button
+                className="faq-trigger"
+                type="button"
+                aria-expanded={open === index}
+                onClick={() => setOpen(open === index ? -1 : index)}
+              >
+                <span><b>0{index + 1}</b>{question}</span>
+                <ChevronDown size={18} />
+              </button>
+              <div className="faq-answer" aria-hidden={open !== index}>
+                {index === questions.length - 1 ? (
+                  <textarea
+                    className="faq-response-input"
+                    aria-label={question}
+                    placeholder="Tell us what you’re working through…"
+                    rows={4}
+                    value={response}
+                    disabled={open !== index}
+                    onChange={(event) => setResponse(event.target.value)}
+                  />
+                ) : (
+                  <p>{answer}</p>
+                )}
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
 }

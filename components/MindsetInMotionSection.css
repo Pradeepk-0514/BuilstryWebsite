@@ -1,0 +1,249 @@
+/* Five-principle row styled to match the supplied How We Think reference. */
+.about-website-reference .about-ref-mindset-section {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 0;
+  padding: clamp(116px, 17vh, 176px) clamp(5vw, 7vw, 112px) 72px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #F7F8FA;
+  color: #141D26;
+}
+.about-website-reference .about-ref-mindset-copy {
+  position: relative;
+  z-index: 2;
+  width: min(790px, 100%);
+  flex: 0 0 auto;
+}
+.about-website-reference .about-ref-mindset-kicker {
+  display: block;
+  margin-bottom: 20px;
+  color: #C51F5D;
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 850;
+  letter-spacing: .2em;
+  line-height: 1;
+}
+.about-website-reference .about-ref-mindset-copy h2 {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 12px;
+  color: #141D26;
+  font-size: clamp(46px, 5.1vw, 82px);
+  font-weight: 950;
+  letter-spacing: -.065em;
+  line-height: .94;
+  white-space: nowrap;
+}
+.about-website-reference .about-ref-mindset-copy h2 span { color: #C51F5D; }
+.about-website-reference .about-ref-mindset-copy p {
+  max-width: 650px;
+  margin: 0;
+  color: #252D35;
+  font-size: clamp(12px, .83vw, 14px);
+  line-height: 1.55;
+}
+.about-website-reference .about-ref-mindset-track {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(12px, 1.05vw, 18px);
+  width: 100%;
+  margin-top: clamp(52px, 7vh, 82px);
+}
+.about-website-reference .about-ref-mindset-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  min-width: 0;
+  height: clamp(236px, 28vh, 266px);
+  padding: clamp(21px, 2.05vw, 31px) clamp(17px, 1.9vw, 29px) 23px;
+  overflow: visible;
+  border: 1px solid rgba(36, 52, 71, .035);
+  border-radius: 17px;
+  outline: none;
+  background: #FFF;
+  box-shadow: 0 10px 24px rgba(20, 29, 38, .055), 0 1px 0 rgba(255,255,255,.96) inset;
+  color: #151A20;
+  text-align: left;
+  transition: transform 360ms cubic-bezier(.22,1,.36,1), background 360ms ease, color 300ms ease, box-shadow 360ms ease, border-color 300ms ease;
+}
+.about-website-reference .about-ref-mindset-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 45px;
+  height: 45px;
+  margin: 0 0 27px;
+  border: 1px solid rgba(197, 31, 93, .22);
+  border-radius: 50%;
+  background: #FAF0F4;
+  color: #C51F5D;
+  box-shadow: 0 1px 0 rgba(255,255,255,.85) inset;
+  transition: background 300ms ease, border-color 300ms ease, color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+.about-website-reference .about-ref-mindset-number {
+  position: absolute;
+  top: clamp(34px, 4vw, 52px);
+  right: clamp(18px, 1.9vw, 29px);
+  color: #C51F5D;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  line-height: 1;
+  transition: color 300ms ease;
+}
+.about-website-reference .about-ref-mindset-card > strong {
+  display: block;
+  color: #171B20;
+  font-size: clamp(12px, .9vw, 15px);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.3;
+  transition: color 300ms ease;
+}
+.about-website-reference .about-ref-mindset-description {
+  display: block;
+  max-width: 230px;
+  margin-top: 11px;
+  color: #1C2228;
+  font-size: clamp(10px, .76vw, 12px);
+  line-height: 1.43;
+  transition: color 300ms ease;
+}
+.about-website-reference .about-ref-mindset-arrow {
+  display: block;
+  margin-top: auto;
+  color: #D15A85;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  transition: color 300ms ease, transform 300ms ease;
+}
+.about-website-reference .about-ref-mindset-card.is-active,
+.about-website-reference .about-ref-mindset-card:hover,
+.about-website-reference .about-ref-mindset-card:focus-visible {
+  z-index: 4;
+  border-color: rgba(197, 31, 93, .22);
+  background:
+    radial-gradient(ellipse at 78% 110%, rgba(197, 31, 93, .43), transparent 54%),
+    linear-gradient(145deg, #172834 0%, #182732 62%, #251D2B 100%);
+  box-shadow: 0 24px 42px rgba(50, 27, 49, .24), 0 0 30px rgba(197, 31, 93, .13), 0 1px 0 rgba(255,255,255,.08) inset;
+  color: #F7F8FA;
+  transform: translateY(-14px) scale(1.018);
+}
+.about-website-reference .about-ref-mindset-card.is-active .about-ref-mindset-icon,
+.about-website-reference .about-ref-mindset-card:hover .about-ref-mindset-icon,
+.about-website-reference .about-ref-mindset-card:focus-visible .about-ref-mindset-icon {
+  border-color: rgba(197, 31, 93, .24);
+  background: rgba(197, 31, 93, .085);
+  color: #D42D73;
+  box-shadow: 0 0 20px rgba(197, 31, 93, .08), 0 1px 0 rgba(255,255,255,.045) inset;
+  transform: translateY(-1px);
+}
+.about-website-reference .about-ref-mindset-card.is-active .about-ref-mindset-number,
+.about-website-reference .about-ref-mindset-card:hover .about-ref-mindset-number,
+.about-website-reference .about-ref-mindset-card:focus-visible .about-ref-mindset-number { color: #8E9AA5; }
+.about-website-reference .about-ref-mindset-card.is-active > strong,
+.about-website-reference .about-ref-mindset-card:hover > strong,
+.about-website-reference .about-ref-mindset-card:focus-visible > strong { color: #F6F7FA; }
+.about-website-reference .about-ref-mindset-card.is-active .about-ref-mindset-description,
+.about-website-reference .about-ref-mindset-card:hover .about-ref-mindset-description,
+.about-website-reference .about-ref-mindset-card:focus-visible .about-ref-mindset-description { color: #AAB4BF; }
+.about-website-reference .about-ref-mindset-card.is-active .about-ref-mindset-arrow,
+.about-website-reference .about-ref-mindset-card:hover .about-ref-mindset-arrow,
+.about-website-reference .about-ref-mindset-card:focus-visible .about-ref-mindset-arrow { color: #D44B83;transform:translateX(3px); }
+
+@media (max-width: 1120px) and (min-width: 761px) {
+  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:112px 5vw 70px;overflow:visible; }
+  .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(46px,6vw,68px); }
+  .about-website-reference .about-ref-mindset-track { grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:48px; }
+  .about-website-reference .about-ref-mindset-card { height:238px;padding:21px 20px; }
+  .about-website-reference .about-ref-mindset-card > strong { font-size:14px; }
+  .about-website-reference .about-ref-mindset-description { font-size:11px; }
+}
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:94px 5vw 48px;overflow:visible; }
+  .about-website-reference .about-ref-mindset-kicker { margin-bottom:14px;font-size:11px; }
+  .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(40px,9.6vw,62px); }
+  .about-website-reference .about-ref-mindset-copy p { max-width:520px;font-size:12px; }
+  .about-website-reference .about-ref-mindset-track { grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:34px; }
+  .about-website-reference .about-ref-mindset-card { height:220px;padding:19px 16px; }
+  .about-website-reference .about-ref-mindset-icon { width:40px;height:40px;margin-bottom:23px; }
+  .about-website-reference .about-ref-mindset-number { top:30px;right:15px;font-size:10px; }
+  .about-website-reference .about-ref-mindset-card > strong { font-size:12px; }
+  .about-website-reference .about-ref-mindset-description { margin-top:8px;font-size:10px; }
+  .about-website-reference .about-ref-mindset-card.is-active,
+  .about-website-reference .about-ref-mindset-card:hover,
+  .about-website-reference .about-ref-mindset-card:focus-visible { transform:translateY(-6px) scale(1.012); }
+}
+@media (max-width: 480px) {
+  .about-website-reference .about-ref-mindset-section { padding:88px 5vw 40px; }
+  .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(36px,10vw,48px); }
+  .about-website-reference .about-ref-mindset-track { grid-template-columns:1fr;gap:12px; }
+  .about-website-reference .about-ref-mindset-card { height:195px;padding:18px 17px; }
+  .about-website-reference .about-ref-mindset-icon { margin-bottom:19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-website-reference .about-ref-mindset-card,
+  .about-website-reference .about-ref-mindset-icon,
+  .about-website-reference .about-ref-mindset-arrow { transition:none!important; }
+}
+
+/* Editorial brush note: use the open right side of the heading without changing the cards. */
+@media (min-width: 761px) {
+  .about-website-reference .about-ref-mindset-copy {
+    width: 100%;
+  }
+  .about-website-reference .about-ref-mindset-brush-note {
+    position: absolute;
+    top: 42%;
+    right: clamp(12px, 4vw, 64px);
+    left: auto;
+    width: 190px;
+    color: #C51F5D;
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 700;
+    line-height: .92;
+    transform: rotate(-7deg);
+    pointer-events: none;
+  }
+  .about-website-reference .about-ref-mindset-brush-note i {
+    display: block;
+    width: 76px;
+    height: 2px;
+    margin-top: 12px;
+    background: #C51F5D;
+    transform: rotate(-3deg);
+  }
+}
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-mindset-brush-note {
+    width: 160px;
+    margin: 18px 0 0 auto;
+    color: #C51F5D;
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: 22px;
+    line-height: .92;
+    text-align: right;
+    transform: rotate(-5deg);
+  }
+  .about-website-reference .about-ref-mindset-brush-note i {
+    display: block;
+    width: 58px;
+    height: 2px;
+    margin: 10px 0 0 auto;
+    background: #C51F5D;
+  }
+}

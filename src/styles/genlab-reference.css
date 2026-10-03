@@ -1,0 +1,175 @@
+/* GenLab-inspired reference layer, re-authored for Builstry content and palette. */
+:root {
+  --genlab-ice: #F7F8FA;
+  --genlab-steel: #243447;
+  --genlab-midnight: #141D26;
+  --genlab-magenta: #C51F5D;
+  --genlab-grid: rgba(247,248,250,.1);
+  --genlab-radius: 22px;
+}
+
+html, body { background: var(--genlab-midnight) !important; }
+body { color: var(--genlab-ice); }
+.site-shell { min-height: 100vh; overflow: clip; background: var(--genlab-midnight); }
+.site-header {
+  position: fixed;
+  top: 16px;
+  right: clamp(14px, 3vw, 48px);
+  left: clamp(14px, 3vw, 48px);
+  z-index: 100;
+  min-height: 58px;
+  padding: 8px 10px 8px 16px;
+  border: 1px solid rgba(247,248,250,.14);
+  border-radius: 999px;
+  background: rgba(20,29,38,.76);
+  box-shadow: 0 16px 34px rgba(0,0,0,.2), inset 0 1px 0 rgba(247,248,250,.12);
+  backdrop-filter: blur(20px) saturate(125%);
+}
+.site-header .brand { color: var(--genlab-ice) !important; letter-spacing: .08em; }
+.site-header .brand-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--genlab-magenta);
+  color: var(--genlab-ice);
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(197,31,93,.35);
+}
+.site-header .brand-name { font-size: 13px; }
+.desktop-nav { gap: 10px; }
+.desktop-nav > a, .nav-dropdown-trigger {
+  border-radius: 999px;
+  color: rgba(247,248,250,.76) !important;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+.desktop-nav > a:hover, .desktop-nav > a.is-current, .nav-dropdown-trigger:hover, .nav-dropdown.is-current .nav-dropdown-trigger {
+  background: rgba(247,248,250,.1);
+  color: var(--genlab-ice) !important;
+}
+.nav-cta {
+  border-radius: 999px !important;
+  background: var(--genlab-magenta) !important;
+  color: var(--genlab-ice) !important;
+  box-shadow: 0 10px 24px rgba(197,31,93,.26) !important;
+}
+.nav-dropdown-menu {
+  border: 1px solid rgba(247,248,250,.16) !important;
+  border-radius: 18px !important;
+  background: rgba(20,29,38,.96) !important;
+  box-shadow: 0 24px 50px rgba(0,0,0,.32) !important;
+  backdrop-filter: blur(18px);
+}
+
+/* GenLab-style grid-backed hero while retaining Builstry's existing content. */
+.home-page .hero {
+  position: relative;
+  min-height: 100svh;
+  padding-top: 92px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 75% 35%, rgba(197,31,93,.2), transparent 22%),
+    linear-gradient(rgba(247,248,250,.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,248,250,.065) 1px, transparent 1px),
+    var(--genlab-midnight);
+  background-size: auto, 68px 68px, 68px 68px, auto;
+  color: var(--genlab-ice);
+}
+.home-page .hero::after {
+  content: "BUILSTRY";
+  position: absolute;
+  right: -4vw;
+  bottom: -5vw;
+  z-index: 0;
+  color: transparent;
+  font-size: clamp(140px, 25vw, 360px);
+  font-weight: 900;
+  letter-spacing: -.1em;
+  line-height: .7;
+  -webkit-text-stroke: 1px rgba(247,248,250,.1);
+  pointer-events: none;
+}
+.home-page .hero-copy { position: relative; z-index: 2; max-width: 740px; }
+.home-page .hero .eyebrow { color: var(--genlab-magenta); }
+.home-page .hero h1 { max-width: 820px; color: var(--genlab-ice); font-size: clamp(62px, 10vw, 164px); line-height: .82; letter-spacing: -.09em; }
+.home-page .hero h1 em { color: var(--genlab-magenta); }
+.home-page .hero-text { max-width: 430px; color: rgba(247,248,250,.68); }
+.home-page .hero .button-secondary { border-color: rgba(247,248,250,.28); background: rgba(247,248,250,.06); color: var(--genlab-ice); }
+.home-page .hero-cube { z-index: 1; opacity: .85; filter: saturate(.8) contrast(1.05); }
+.home-page .scroll-cue { color: rgba(247,248,250,.52); }
+
+/* Apply the reference rhythm to the existing Builstry sections. */
+.home-page .section,
+.home-page .home-expansion-section { border-color: rgba(247,248,250,.12); }
+.home-page .pillars-section,
+.home-page .lower-section { background: var(--genlab-ice); color: var(--genlab-midnight); }
+.home-page .pillars-section h2, .home-page .lower-section h2 { color: var(--genlab-midnight); }
+.home-page .pillar-card, .home-page .lower-card { border-radius: var(--genlab-radius); }
+.home-page .approach-section { background: var(--genlab-midnight); }
+.home-page .home-expansion { background: var(--genlab-midnight); }
+.home-page .home-expansion-section { border-top-color: rgba(247,248,250,.13); }
+.home-page .expansion-capabilities,
+.home-page .expansion-impact,
+.home-page .expansion-team,
+.home-page .expansion-faq { background: var(--genlab-ice); color: var(--genlab-midnight); }
+.home-page .expansion-capabilities h2,
+.home-page .expansion-impact h2,
+.home-page .expansion-team h2,
+.home-page .expansion-faq h2 { color: var(--genlab-midnight); }
+.home-page .expansion-engine,
+.home-page .expansion-ecosystem,
+.home-page .expansion-partners,
+.home-page .expansion-growth { background: var(--genlab-steel); }
+.home-page .expansion-kicker, .home-page .expansion-growth h2 em { color: var(--genlab-magenta); }
+.home-page .engine-step, .home-page .vertical-detail, .home-page .benefit-item, .home-page .expansion-team-grid article { border-radius: var(--genlab-radius); }
+
+/* Inner routes: dark editorial canvas, grid texture, and Builstry copy. */
+.inner-page, .insights-page, .about-page { background: var(--genlab-midnight); color: var(--genlab-ice); }
+.inner-hero {
+  min-height: 100svh !important;
+  padding-top: 120px;
+  background:
+    radial-gradient(circle at 72% 32%, rgba(197,31,93,.18), transparent 24%),
+    linear-gradient(rgba(247,248,250,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,248,250,.05) 1px, transparent 1px),
+    var(--genlab-midnight) !important;
+  background-size: auto, 72px 72px, 72px 72px, auto;
+  color: var(--genlab-ice) !important;
+}
+.inner-hero h1 { color: var(--genlab-ice) !important; font-size: clamp(62px, 9vw, 142px) !important; }
+.inner-hero h1 em, .inner-hero .eyebrow { color: var(--genlab-magenta) !important; }
+.inner-hero p { color: rgba(247,248,250,.68) !important; }
+.inner-content { background: var(--genlab-ice); color: var(--genlab-midnight); }
+.inner-content::before { background: linear-gradient(var(--genlab-magenta), transparent); }
+.content-block { border-bottom: 1px solid rgba(20,29,38,.22); }
+.content-block h2 { color: var(--genlab-midnight); }
+.content-block > span, .content-index { color: var(--genlab-magenta); }
+.inner-cta { border-radius: var(--genlab-radius); background: var(--genlab-steel) !important; color: var(--genlab-ice); }
+.inner-cta h2 { color: var(--genlab-ice); }
+.inner-cta h2 em { color: var(--genlab-magenta); }
+
+/* Insights keeps its information architecture but receives the same reference shell. */
+.insights-page .insights-container { background: var(--genlab-midnight); }
+.insights-page .opening-insight-sequence { background: var(--genlab-midnight); }
+.insights-page .insights-section-title, .insights-page .built-grid, .insights-page .newsletter { border-color: rgba(247,248,250,.14); }
+.insights-page .insights-eyebrow, .insights-page .insight-tag { color: var(--genlab-magenta); }
+
+.site-footer {
+  position: relative;
+  background: var(--genlab-midnight) !important;
+  border-top: 1px solid rgba(247,248,250,.13);
+  color: var(--genlab-ice);
+}
+.site-footer a, .site-footer p, .site-footer h4, .site-footer .footer-bottom { color: rgba(247,248,250,.72) !important; }
+.site-footer .footer-brand, .site-footer .footer-col h4 { color: var(--genlab-ice) !important; }
+.site-footer .brand-mark { background: var(--genlab-magenta); color: var(--genlab-ice); }
+
+@media (max-width: 720px) {
+  .site-header { top: 10px; right: 10px; left: 10px; }
+  .home-page .hero { padding-top: 118px; }
+  .home-page .hero h1 { font-size: clamp(58px, 17vw, 94px); }
+  .home-page .hero::after { font-size: 34vw; }
+  .inner-hero { padding-top: 112px; }
+  .inner-hero h1 { font-size: clamp(52px, 15vw, 86px) !important; }
+}

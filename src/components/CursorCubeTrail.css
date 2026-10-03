@@ -1,0 +1,70 @@
+.cursor-cube-trail {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+
+  /*
+  Keep the effect above the page background,
+  but below your actual UI.
+  */
+  z-index: 5;
+
+  display: block;
+
+  overflow: hidden;
+
+  /*
+  Canvas itself is transparent.
+  */
+  background: transparent;
+
+  /*
+  Prevent any accidental layout effect.
+  */
+  margin: 0;
+  padding: 0;
+}
+
+
+/*
+=========================================================
+DESKTOP
+=========================================================
+*/
+
+@media (min-width: 721px) {
+  .cursor-cube-trail {
+    display: block;
+  }
+}
+
+
+/*
+=========================================================
+MOBILE
+=========================================================
+*/
+
+@media (max-width: 720px) {
+  .cursor-cube-trail {
+    display: none;
+  }
+}
+
+
+/*
+=========================================================
+REDUCED MOTION
+=========================================================
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-cube-trail {
+    display: none;
+  }
+}

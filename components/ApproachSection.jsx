@@ -27,28 +27,38 @@ export default function ApproachSection() {
     let frame = 0;
     let metrics = { top: 0, offset: 0, stickyHeight: window.innerHeight, intro: 0, distance: 0, range: 1 };
     const mobile = () => window.innerWidth <= 720;
+    const syncMobileStep = () => {
+      const trackStyles = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+      const cardWidth = track.firstElementChild?.getBoundingClientRect().width || viewport.clientWidth;
+      const index = Math.min(steps.length - 1, Math.max(0, Math.round(viewport.scrollLeft / Math.max(1, cardWidth + gap))));
+      section.dataset.activeCard = `${index + 1}`;
+      setActiveStep((current) => current === index ? current : index);
+    };
     const reset = () => {
       section.style.height = "";
       section.dataset.phase = "mobile";
       track.style.transform = "translate3d(0, 0, 0)";
-      setActiveStep(0);
+      syncMobileStep();
     };
     const update = () => {
       frame = 0;
-      if (mobile()) return reset();
+      if (mobile()) return;
       const elapsed = clamp(window.scrollY - (metrics.top - metrics.offset), 0, metrics.range);
       const introProgress = clamp(elapsed / metrics.intro);
       const horizontalProgress = clamp(Math.max(0, elapsed - metrics.intro) / Math.max(1, metrics.distance));
-      const index = Math.min(steps.length - 1, Math.floor(horizontalProgress * steps.length));
+      const index = Math.min(steps.length - 1, Math.round(horizontalProgress * (steps.length - 1)));
+      const snappedProgress = index / (steps.length - 1);
       section.style.setProperty("--approach-intro-progress", `${introProgress}`);
       section.style.setProperty("--approach-progress", `${horizontalProgress}`);
       section.dataset.phase = introProgress < 1 ? "centering" : horizontalProgress >= 1 ? "complete" : "cards";
       section.dataset.activeCard = `${index + 1}`;
-      track.style.transform = `translate3d(${-metrics.distance * horizontalProgress}px, 0, 0)`;
+      track.style.transform = `translate3d(${-metrics.distance * snappedProgress}px, 0, 0)`;
       setActiveStep((current) => current === index ? current : index);
     };
     const measure = () => {
       if (mobile()) return reset();
+      viewport.scrollLeft = 0;
       const header = document.querySelector(".site-header");
       const offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
       const stickyHeight = Math.max(1, window.innerHeight - offset);
@@ -65,13 +75,16 @@ export default function ApproachSection() {
       section.style.height = `${stickyHeight + range}px`;
       update();
     };
-    const onScroll = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+    const onScroll = () => { if (mobile()) return; if (!frame) frame = window.requestAnimationFrame(update); };
+    const onHorizontalScroll = () => { if (mobile()) syncMobileStep(); };
     const onResize = () => { if (!frame) frame = window.requestAnimationFrame(measure); };
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
+    viewport.addEventListener("scroll", onHorizontalScroll, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      viewport.removeEventListener("scroll", onHorizontalScroll);
       window.removeEventListener("resize", onResize);
       if (frame) window.cancelAnimationFrame(frame);
     };
@@ -86,7 +99,7 @@ export default function ApproachSection() {
         <Link className="text-link" href="/capabilities">See Our Process →</Link>
         <div className="approach-progress-indicator" aria-live="polite"><span>{`0${activeStep + 1}`}</span><i /><span>06</span></div>
       </div>
-      <div className="approach-right-container" ref={viewportRef} aria-label="Builstry approach cards">
+      <div className="approach-right-container" ref={viewportRef} aria-label="Builstry approach cards" tabIndex="0">
         <div className="approach-card-track" ref={trackRef}>
           {steps.map(([number, title, text, support], index) => <article className={`approach-card ${index <= activeStep ? "is-revealed" : ""} ${index === activeStep ? "is-active" : ""}`} key={number}>
             <div className="approach-card-number"><span>{number}</span></div>
