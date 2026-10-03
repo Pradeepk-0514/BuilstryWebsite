@@ -1,4 +1,4 @@
-// File: C:\Users\Darshan G\Desktop\Builstry\Builstry.com\app\[slug]\page.js
+// File: C:\Website\BuilstryWebsite\app\[slug]\page.js
 import * as entry from '../../../../app/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
