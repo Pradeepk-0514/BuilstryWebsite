@@ -244,15 +244,16 @@ function MilestoneSignLayer({ layout, activeIndex, setActiveIndex, progressRef, 
         ? (isSummit ? (reducedMotion ? -0.78 : 0.55) : -1.2)
         : (isSummit ? -0.63 : 0);
 
-      if (layout === "mobile" && isSummit) {
-        const headerRight = editorialRef.current?.getBoundingClientRect().right ?? size.width * 0.48;
-        const left = Math.min(headerRight + 10, size.width - signWidth - 8);
+      if (layout === "mobile") {
+        const left = isSummit
+          ? Math.max(12, Math.min((editorialRef.current?.getBoundingClientRect().right ?? size.width * 0.48) + 10, size.width - signWidth - 12))
+          : index % 2 === 0 ? 12 : size.width - signWidth - 12;
         const centerNdcX = ((left + signWidth / 2) / size.width) * 2 - 1;
         camera.updateMatrixWorld();
         safeLanePoint.set(centerNdcX, 0, 0.5).unproject(camera);
         signOffset.set(safeLanePoint.x, y + offsetY, z);
       } else {
-        signOffset.set(x + (layout === "mobile" && isSummit ? 1.0 : 0), y + offsetY, z);
+        signOffset.set(x, y + offsetY, z);
       }
       sign.position.lerp(signOffset, 1 - Math.exp(-delta * 5.5));
       const reveal = stopReveal(progress, index, reducedMotion);

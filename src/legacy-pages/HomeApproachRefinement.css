@@ -1,0 +1,66 @@
+/* Home Builstry Approach refinement: inset sticky panel and one-card-per-scroll rail. */
+@media (min-width: 721px) {
+  .home-page .approach-intro {
+    align-self: center;
+    height: calc(100% - clamp(56px, 7vw, 92px));
+    min-height: 0;
+    margin-block: clamp(28px, 3.5vw, 46px);
+    border: 1px solid rgba(247,248,250,.13);
+    border-radius: 28px !important;
+    background: var(--steel-navy) !important;
+    overflow: hidden;
+    background-clip: padding-box;
+    box-shadow: 0 24px 58px rgba(20,29,38,.2), inset 0 1px 0 rgba(247,248,250,.08), 0 0 0 1px rgba(197,31,93,.08);
+  }
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    border-radius: 26px;
+    overflow: hidden;
+    transition: opacity 420ms ease, visibility 0s linear 420ms, transform 620ms cubic-bezier(.22,1,.36,1), border-color 420ms ease, box-shadow 620ms cubic-bezier(.22,1,.36,1), background 420ms ease;
+  }
+  .home-page .approach-track .step::before {
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(247,248,250,.24), transparent 42%, rgba(197,31,93,.17));
+    opacity: .82;
+  }
+  .home-page .approach-track .step.is-active {
+    transform: none !important;
+    border-color: var(--magenta);
+    box-shadow: 0 0 0 1px rgba(197,31,93,.42), 0 24px 54px rgba(20,29,38,.24), 0 0 34px rgba(197,31,93,.24), inset 0 1px 0 rgba(247,248,250,.2);
+  }
+  .home-page .approach-track .step.is-active::after {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    z-index: -1;
+    border-radius: 38px;
+    background: radial-gradient(circle, rgba(197,31,93,.32), transparent 68%);
+    opacity: .9;
+    filter: blur(12px);
+    pointer-events: none;
+  }
+  .home-page .approach-track .step:not(.is-active) {
+    transform: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+@media (max-width: 720px) {
+  .home-page .approach-intro {
+    margin-block: 26px;
+    border: 1px solid rgba(247,248,250,.13);
+    border-radius: 22px !important;
+    background: var(--steel-navy) !important;
+    overflow: hidden;
+  }
+  .home-page .approach-track .step,
+  .home-page .approach-track .step.is-active {
+    border-radius: 22px;
+    transition: opacity 420ms ease, visibility 0s linear 420ms, box-shadow 520ms ease, border-color 420ms ease;
+  }
+  .home-page .approach-track .step.is-active {
+    border-color: var(--magenta);
+    box-shadow: 0 0 0 1px rgba(197,31,93,.38), 0 20px 42px rgba(20,29,38,.22), 0 0 28px rgba(197,31,93,.22);
+  }
+}

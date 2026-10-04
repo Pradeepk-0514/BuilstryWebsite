@@ -4,10 +4,12 @@ node_modules/
 # Production build
 dist/
 build/
+.next/
 
 # Vite
 .vite/
 vite.config.js.timestamp-*
+vite.config.mjs.timestamp-*
 
 # Environment variables
 .env

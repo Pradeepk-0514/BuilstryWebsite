@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "./RouterLink";
 import { ArrowUpRight, Facebook, Instagram, Linkedin, MessageCircle } from "lucide-react";
 import Reveal from "./Reveal";
 

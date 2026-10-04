@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "./RouterLink";
 
 const steps = [
   ["01", "FIND", "Identify what truly needs solving.", "Start with the signal, not the noise."],

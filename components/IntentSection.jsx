@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "./RouterLink";
 
 const intents = [
   ["⌕", "I HAVE A PROBLEM.", "Let's understand it.", "/contact"],

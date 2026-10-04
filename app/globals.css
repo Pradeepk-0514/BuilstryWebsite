@@ -12,6 +12,8 @@ button, input { font: inherit; }
 .desktop-nav { display: flex; align-items: center; gap: 4px; }
 .desktop-nav > a { padding: 11px 14px; border-radius: 999px; font-size: 12px; color: rgba(247,248,250,.7); transition: all .2s var(--ease); }
 .desktop-nav > a:hover { color: var(--ice); background: rgba(247,248,250,.1); }
+.desktop-nav > a.nav-active:not(.nav-cta), .nav-dropdown-trigger.nav-active, .mobile-nav a.nav-active, .mobile-subnav a.nav-active { color: var(--ice); background: rgba(247,248,250,.1); }
+.nav-cta[aria-current="page"] { box-shadow: 0 0 0 2px rgba(247,248,250,.46), 0 8px 22px rgba(197,31,93,.25); }
 .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer; }
 .nav-cta { padding: 11px 15px; border-radius: 999px; background: var(--magenta); color: var(--ice); font-size: 12px; box-shadow: 0 8px 22px rgba(197,31,93,.25); }
 .mobile-toggle, .mobile-nav { display: none; }

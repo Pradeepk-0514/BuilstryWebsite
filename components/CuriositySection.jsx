@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "./RouterLink";
 
 const curiosityTopics = [
   ["!", "WHAT'S BROKEN?", "broken", "Problems worth understanding before they become expensive."],

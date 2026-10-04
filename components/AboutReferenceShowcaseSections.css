@@ -1,4 +1,12 @@
 /* Image-matched Network and Principles sections. */
+@font-face {
+  font-family: "Caveat Brush";
+  src: url("/fonts/caveat-brush.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 .about-website-reference .about-ref-showcase {
   --showcase-ice: #F7F8FA;
   --showcase-ink: #141D26;
@@ -243,7 +251,7 @@
   align-items: flex-start;
   gap: 3px;
   color: #798397;
-  font-family: var(--font-caveat-brush), cursive;
+  font-family: "Caveat Brush", "Brush Script MT", "Segoe Script", "URW Chancery L", cursive;
   font-size: clamp(19px, 1.75vw, 27px);
   font-style: normal;
   font-weight: 400;

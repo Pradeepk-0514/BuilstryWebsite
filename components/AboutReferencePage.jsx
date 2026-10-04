@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "./RouterLink";
 import ApproachSection from "./ApproachSection";
 import { NetworkShowcaseSection, PrinciplesShowcaseSection } from "./AboutReferenceShowcaseSections";
 import { MindsetInMotionSection } from "./MindsetInMotionSection";

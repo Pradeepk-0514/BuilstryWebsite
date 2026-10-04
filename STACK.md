@@ -1,21 +1,18 @@
-# Builstry GenLab-style site — production stack
+# Builstry site — production stack
 
-This scraped content snapshot has been converted into an executable Next.js application while preserving the captured Markdown, route manifest, scraper, and asset notes.
-
-## Runtime stack
+The production app is a **Vite-powered React SPA**. `src/main.jsx` mounts `BrowserRouter`; page modules reuse the existing Builstry UI and the About page’s 3D journey. `components/RouterLink.jsx` keeps the existing `href`-style component markup while routing internally through React Router. There is no Next.js runtime or external font loader in the active build; the About annotations use the locally bundled Caveat Brush WOFF2.
 
 | Area | Implementation |
 |---|---|
-| Framework | Next.js 15 App Router with React 19 server components and static generation |
-| Styling | Tailwind CSS v4 through `@tailwindcss/postcss`, with the Builstry palette in `app/globals.css` |
-| Animation | Framer Motion reveal transitions and mobile-navigation presence animations |
-| Icons | Lucide React |
-| Visuals | Local PNG/WebP/SVG-compatible assets in `public/assets`; UI uses local optimized WebP team assets where available |
-| Hosting | Vercel-ready `vercel.json` with the Next.js framework preset |
+| Build and dev server | Vite 8 with `@vitejs/plugin-react` |
+| UI and routing | React 19 and React Router 6 (`BrowserRouter`) |
+| Styling | Tailwind CSS v4 via `@tailwindcss/postcss`, Builstry global/component CSS, local Caveat Brush font |
+| 3D experience | Three.js, React Three Fiber, Drei and React Three Postprocessing |
+| Journey animation/assets | GSAP ScrollTrigger, Blender-authored GLB/GLTF, local HDRI and reduced-motion support |
+| Supporting UI | Framer Motion and Lucide React |
+| Deployment | Vercel builds to `dist/`; the SPA rewrite serves `index.html` for frontend paths |
 
-## Routes
-
-The migrated app includes `/`, `/brand`, `/products`, `/people`, and `/verify-certificate`, plus Builstry-oriented content routes generated through `app/[slug]/page.js`.
+The route table covers `/`, `/about`, `/insights`, `/blog` and `/blog/:slug`, `/contact`, `/verify-certificate`, and the existing service, product, company, resource and policy paths such as `/industry-solutions`, `/business-product-strategy`, `/innovation-community`, `/capabilities`, `/solutions`, `/ai-forge`, `/brand-studio`, `/team`, `/careers`, `/resources`, `/events`, `/hackathons`, `/products`, `/people`, `/industries`, `/projects`, `/launchpad`, `/brand`, `/faq`, `/privacy-policy` and `/terms-and-conditions`.
 
 ## Commands
 
@@ -23,11 +20,7 @@ The migrated app includes `/`, `/brand`, `/products`, `/people`, and `/verify-ce
 npm install
 npm run dev
 npm run build
-npm start
+npm run preview
 ```
 
-The production build has been verified with `npm run build`. Vercel can deploy this repository directly using the detected Next.js preset.
-
-## Content provenance
-
-The original scrape remains available in `content/`, `SITE_STRUCTURE.md`, `site.json`, `assets.txt`, and the Python scraper files. GenLab-specific copy is used as a captured reference source; the executable UI uses Builstry naming, palette, contact language, and calls to action.
+The Vite production output is `dist/`. Vercel’s rewrite in `vercel.json` supports direct URL access and refreshes without generating separate HTML files for every route.
