@@ -1,0 +1,245 @@
+/* Builstry About page — tonal rhythm. Surface-only treatments preserve the
+   existing content, typography, section layout, and interactions. */
+html body .about-website-reference .about-ref-hero {
+  background:
+    radial-gradient(ellipse 40% 45% at 86% 32%, rgba(197, 31, 93, .055), transparent 72%),
+    radial-gradient(ellipse 52% 46% at 59% 100%, rgba(36, 52, 71, .075), transparent 82%),
+    linear-gradient(132deg, #F7F8FA 0%, #F2F5F7 58%, #E7EDF2 100%) !important;
+}
+
+html body .about-website-reference > .about-ref-why {
+  background:
+    radial-gradient(ellipse 34% 46% at 88% 14%, rgba(197, 31, 93, .055), transparent 76%),
+    linear-gradient(132deg, #F7F8FA 0%, #EEF2F6 58%, #E9EEF3 100%) !important;
+}
+
+html body .about-website-reference .approach-scroll-section {
+  background: #243447 !important;
+}
+html body .about-website-reference .approach-right-container {
+  background:
+    radial-gradient(ellipse 72% 86% at 90% 50%, rgba(197, 31, 93, .045), transparent 70%),
+    linear-gradient(135deg, #F7F8FA 0%, #EBF0F4 100%) !important;
+}
+
+html body .about-website-reference > .about-ref-directions {
+  background:
+    radial-gradient(ellipse 24% 36% at 4% 88%, rgba(197, 31, 93, .055), transparent 76%),
+    linear-gradient(120deg, #F1F4F7 0%, #F7F8FA 54%, #E8EEF3 100%) !important;
+}
+
+html body .about-website-reference .about-ref-mindset-section {
+  background:
+    radial-gradient(ellipse 42% 32% at 96% 8%, rgba(197, 31, 93, .055), transparent 76%),
+    linear-gradient(145deg, #E8EDF2 0%, #F3F5F7 52%, #F7F8FA 100%) !important;
+}
+
+html body .about-website-reference > .about-ref-people {
+  background:
+    radial-gradient(ellipse 33% 52% at 89% 80%, rgba(197, 31, 93, .07), transparent 74%),
+    linear-gradient(125deg, #E9EEF3 0%, #F7F8FA 60%, #E7EDF2 100%) !important;
+}
+
+html body .about-website-reference .about-ref-network-showcase {
+  background:
+    radial-gradient(ellipse 42% 36% at 72% 47%, rgba(197, 31, 93, .085), transparent 76%),
+    linear-gradient(128deg, #F7F8FA 0%, #F1F4F7 57%, #EAF0F4 100%) !important;
+}
+
+html body .about-website-reference .about-ref-principles-showcase {
+  background:
+    radial-gradient(ellipse 38% 36% at 14% 84%, rgba(36, 52, 71, .075), transparent 76%),
+    radial-gradient(ellipse 25% 25% at 92% 8%, rgba(197, 31, 93, .055), transparent 74%),
+    linear-gradient(135deg, #E8EDF2 0%, #F4F6F8 60%, #F7F8FA 100%) !important;
+}
+
+/* Keep the 3D landscape close to the supplied reference's clean ice-white canvas. */
+html body .about-website-reference .journey3d-section {
+  background:
+    radial-gradient(ellipse 25% 25% at 68% 70%, rgba(197, 31, 93, .07), transparent 78%),
+    radial-gradient(ellipse 24% 26% at 90% 30%, rgba(145, 157, 206, .10), transparent 78%),
+    linear-gradient(112deg, #F7F8FA 0%, #F6F8FA 58%, #F9F8FB 100%) !important;
+}
+
+
+/* Requested About-page revisions: supplied full-bleed hero image, Midnight
+   Approach surface, and a horizontally rotating, continuously visible 3D orbit. */
+html body .about-website-reference > .about-ref-hero {
+  box-sizing: border-box;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-inline: calc(50% - 50vw) !important;
+  height: 100vh !important;
+  height: 100svh !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  background-color: #141D26 !important;
+  background-image:
+    linear-gradient(100deg, rgba(20, 29, 38, .78) 0%, rgba(20, 29, 38, .68) 52%, rgba(20, 29, 38, .42) 100%),
+    url("/assets/about-page-background.png") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+html body .about-website-reference .about-ref-hero h1 .primary {
+  color: #F7F8FA !important;
+  text-shadow: 0 2px 18px rgba(20, 29, 38, .32);
+}
+html body .about-website-reference .about-ref-hero h1 .accent {
+  color: #C51F5D !important;
+  text-shadow: 0 2px 18px rgba(20, 29, 38, .58);
+}
+html body .about-website-reference .about-ref-hero-copy p {
+  color: rgba(247, 248, 250, .9) !important;
+  text-shadow: 0 1px 12px rgba(20, 29, 38, .5);
+}
+
+/* At narrow widths retain the existing stacked hero content. The image still
+   covers the entire (content-aware) section, even if it grows beyond one view. */
+@media (max-width: 760px) {
+  html body .about-website-reference > .about-ref-hero {
+    height: auto !important;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    background-position: center center !important;
+  }
+}
+
+/* Keep the existing six cards light and legible; only replace the section's
+   Steel Navy/ice split surface with the requested Midnight canvas. */
+html body .about-website-reference .approach-scroll-section,
+html body .about-website-reference .approach-right-container {
+  background: #141D26 !important;
+}
+
+/* Rotate the shared card ring around its vertical (Y) axis. The cards counter-
+   rotate to stay face-on and readable; their Y positions never change, so none
+   travel beyond the top/bottom of the right-side stage. */
+@media (min-width: 761px) {
+  html body .about-website-reference .about-ref-network-stage {
+    perspective: 1450px;
+    perspective-origin: 50% 50%;
+  }
+  html body .about-website-reference .about-ref-network-cards {
+    overflow: visible;
+    transform-style: preserve-3d;
+  }
+  html body .about-website-reference .about-ref-network-showcase .about-ref-network-card {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: clamp(112px, 9vw, 128px) !important;
+    min-height: 178px;
+  }
+  html body .about-website-reference .about-ref-network-card--founders {
+    --network-orbit-x: calc(0px - clamp(90px, 17.4vw, 245px));
+    --network-orbit-y: 0px;
+    --network-orbit-z: 12px;
+    --card-tilt: -4deg;
+  }
+  html body .about-website-reference .about-ref-network-card--students {
+    --network-orbit-x: calc(0px - clamp(48px, 8.7vw, 122px));
+    --network-orbit-y: 5px;
+    --network-orbit-z: 42px;
+    --card-tilt: -2deg;
+  }
+  html body .about-website-reference .about-ref-network-card--builders {
+    --network-orbit-x: 0px;
+    --network-orbit-y: -4px;
+    --network-orbit-z: 64px;
+    --card-tilt: 0deg;
+  }
+  html body .about-website-reference .about-ref-network-card--designers {
+    --network-orbit-x: clamp(48px, 8.7vw, 122px);
+    --network-orbit-y: 5px;
+    --network-orbit-z: 42px;
+    --card-tilt: 2deg;
+  }
+  html body .about-website-reference .about-ref-network-card--partners {
+    --network-orbit-x: clamp(90px, 17.4vw, 245px);
+    --network-orbit-y: 0px;
+    --network-orbit-z: 12px;
+    --card-tilt: 4deg;
+  }
+  html body .about-website-reference .about-ref-network-orbit-ring {
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    animation: about-ref-network-horizontal-ring 34s linear infinite !important;
+    will-change: transform;
+  }
+  html body .about-website-reference .about-ref-network-showcase .about-ref-network-card,
+  html body .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+    backface-visibility: visible !important;
+    transform-style: preserve-3d;
+    animation: about-ref-network-horizontal-face 34s linear infinite !important;
+    animation-delay: 0s !important;
+  }
+}
+
+@keyframes about-ref-network-horizontal-ring {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+@keyframes about-ref-network-horizontal-face {
+  0% {
+    transform: perspective(1450px) translate(-50%, -50%) translate3d(var(--network-orbit-x, 0px), var(--network-orbit-y, 0px), var(--network-orbit-z, 14px)) rotateY(var(--network-yaw, 0deg)) rotate(var(--card-tilt, 0deg));
+  }
+  100% {
+    transform: perspective(1450px) translate(-50%, -50%) translate3d(var(--network-orbit-x, 0px), var(--network-orbit-y, 0px), var(--network-orbit-z, 14px)) rotateY(calc(var(--network-yaw, 0deg) - 360deg)) rotate(var(--card-tilt, 0deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body .about-website-reference .about-ref-network-orbit-ring,
+  html body .about-website-reference .about-ref-network-showcase .about-ref-network-card {
+    animation: none !important;
+  }
+}
+
+
+/* Three Directions: retain the existing card motion and selection behavior,
+   but replace the blurred/translucent glass surface with opaque, flat navy cards. */
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card,
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card[data-reveal] {
+  border: 1px solid #3A4652 !important;
+  background: #202B36 !important;
+  background-image: none !important;
+  box-shadow: 0 24px 52px rgba(20, 29, 38, .24) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card.industry {
+  background: #243447 !important;
+  background-image: none !important;
+}
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card.strategy {
+  background: #1D2934 !important;
+  background-image: none !important;
+}
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card.community {
+  background: #202B36 !important;
+  background-image: none !important;
+}
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card.is-selected {
+  border-color: #C51F5D !important;
+  background: #243447 !important;
+  background-image: none !important;
+  box-shadow: 0 32px 64px rgba(20, 29, 38, .30), 0 0 24px rgba(197, 31, 93, .12) !important;
+}
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card:hover,
+html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card:focus-visible {
+  border-color: #C51F5D !important;
+  box-shadow: 0 28px 58px rgba(20, 29, 38, .30), 0 0 0 1px rgba(197, 31, 93, .14) !important;
+}
+
+
+/* Final cascade fix: the People section must remain steel navy after all rhythm layers load. */
+html body .about-website-reference > .about-ref-people {
+  background: #243447 !important;
+  background-color: #243447 !important;
+  background-image: none !important;
+}

@@ -791,10 +791,10 @@
   transform: translateZ(2px);
 }
 .about-website-reference .about-ref-network-showcase .about-ref-handnote--network {
-  top: auto;
-  right: auto;
-  bottom: 1%;
-  left: 1%;
+  top: 2%;
+  right: clamp(42px, 8vw, 124px);
+  bottom: auto;
+  left: auto;
   width: 174px;
   transform: rotate(-7deg);
 }
@@ -829,7 +829,7 @@
 }
 @media (max-width: 760px) {
   .about-website-reference .about-ref-network-cube-3d { --cube-size: clamp(96px, 27vw, 136px); top: 28%; }
-  .about-website-reference .about-ref-network-showcase .about-ref-handnote--network { top: 1px; right: 0; bottom: auto; left: auto; width: 130px; }
+  .about-website-reference .about-ref-network-showcase .about-ref-handnote--network { top: 2%; right: clamp(22px, 7vw, 48px); bottom: auto; left: auto; width: 130px; }
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1103,3 +1103,260 @@
   box-shadow: 0 0 20px rgba(197,31,93,.08), 0 1px 0 rgba(255,255,255,.045) inset;
 }
 .about-website-reference .about-ref-network-showcase .about-ref-network-card.is-muted { opacity: 1; filter: none; }
+
+
+/* Network orbit correction: start at middle-top, move clockwise on a larger ring, keep the cube clear. */
+@media (min-width: 761px) {
+  .about-website-reference .about-ref-network-orbit-ring {
+    animation: about-ref-network-ring-clockwise-clear 42s linear infinite;
+    transform-origin: 50% 50%;
+  }
+  .about-website-reference .about-ref-network-showcase .about-ref-network-card,
+  .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card {
+    animation-duration: 42s !important;
+  }
+  /* Students is the initial middle-top card; the remaining cards sit around the perimeter. */
+  .about-website-reference .about-ref-network-card--students { top: 0%; left: 40%; right: auto; }
+  .about-website-reference .about-ref-network-card--founders { top: 20%; left: 0%; right: auto; }
+  .about-website-reference .about-ref-network-card--builders { top: 8%; right: 3%; left: auto; }
+  .about-website-reference .about-ref-network-card--designers { top: 49%; right: -4%; left: auto; }
+  .about-website-reference .about-ref-network-card--partners { right: 13%; bottom: -2%; left: auto; top: auto; }
+}
+@keyframes about-ref-network-ring-clockwise-clear {
+  from { transform: scale(1.08) rotate(0deg); }
+  to { transform: scale(1.08) rotate(360deg); }
+}
+
+
+/* True circular Network orbit: a centered square ring keeps every card outside the cube. */
+@media (min-width: 761px) {
+  .about-website-reference .about-ref-network-orbit-ring {
+    inset: auto;
+    top: 50%;
+    left: 50%;
+    width: min(82%, 610px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: about-ref-network-ring-true-clockwise 42s linear infinite;
+  }
+  .about-website-reference .about-ref-network-showcase .about-ref-network-card,
+  .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card {
+    --orbit-card-width: clamp(156px, 14.4vw, 204px);
+    width: var(--orbit-card-width);
+    min-height: 178px;
+    animation: about-ref-network-card-upright 42s linear infinite !important;
+  }
+  /* Middle-top starting point. */
+  .about-website-reference .about-ref-network-card--students {
+    top: -7%; left: calc(50% - (var(--orbit-card-width) / 2)); right: auto; bottom: auto;
+  }
+  /* Five evenly spaced positions around the clear center. */
+  .about-website-reference .about-ref-network-card--builders {
+    top: 20%; right: -5%; left: auto; bottom: auto;
+  }
+  .about-website-reference .about-ref-network-card--designers {
+    right: -5%; bottom: 8%; left: auto; top: auto;
+  }
+  .about-website-reference .about-ref-network-card--partners {
+    right: auto; bottom: -7%; left: 20%; top: auto;
+  }
+  .about-website-reference .about-ref-network-card--founders {
+    top: 20%; left: -5%; right: auto; bottom: auto;
+  }
+}
+@keyframes about-ref-network-ring-true-clockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes about-ref-network-card-upright {
+  from { transform: rotate(var(--card-tilt)); }
+  to { transform: rotate(calc(var(--card-tilt) - 360deg)); }
+}
+
+/* Network 3D orbit: contained inside the section's existing stage. */
+.about-website-reference .about-ref-network-canvas {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 28px;
+}
+.about-website-reference .about-ref-network-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+.about-website-reference .about-ref-network-stage > .about-ref-network-orbit { z-index: 0; opacity: .62; }
+.about-website-reference .about-ref-network-stage > .about-ref-handnote { z-index: 4; }
+.about-website-reference .about-ref-network-stage::after {
+  position: absolute;
+  z-index: 1;
+  inset: 18% 17% 15% 12%;
+  border: 1px solid rgba(197,31,93,.16);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+  transform: rotate(-9deg) scaleY(.42);
+  box-shadow: 0 0 36px rgba(197,31,93,.12);
+}
+.about-website-reference .about-ref-network-cards { display: none; }
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-network-canvas { inset: 5% -8% 0 -8%; border-radius: 22px; }
+  .about-website-reference .about-ref-network-stage::after { inset: 24% 8% 12%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-website-reference .about-ref-network-canvas { opacity: .86; }
+}
+
+/* Network section polish: clearer CTA and more intentional brush-note placement. */
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta {
+  position: relative;
+  gap: 12px;
+  margin-top: clamp(24px, 3vh, 34px);
+  padding: 13px 17px 13px 19px;
+  border: 1px solid rgba(197,31,93,.34);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF2F7 100%);
+  box-shadow: 0 10px 24px rgba(20,29,38,.12), 0 0 0 4px rgba(197,31,93,.06);
+  color: #A7194F;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 850;
+  letter-spacing: -.02em;
+  transition: transform 220ms ease, gap 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta svg {
+  flex: 0 0 auto;
+  padding: 5px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background: #C51F5D;
+  color: #F7F8FA;
+  transition: transform 220ms ease;
+}
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta:hover,
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta:focus-visible {
+  gap: 15px;
+  transform: translateY(-3px);
+  background: #FFFFFF;
+  box-shadow: 0 16px 30px rgba(20,29,38,.16), 0 0 0 5px rgba(197,31,93,.1), 0 0 22px rgba(197,31,93,.12);
+  color: #8D1648;
+  outline: none;
+}
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta:hover svg,
+.about-website-reference .about-ref-network-copy .about-ref-showcase-cta:focus-visible svg { transform: translateX(2px); }
+.about-website-reference .about-ref-handnote--network { top: 2%; right: clamp(42px, 8vw, 124px); }
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-handnote--network { top: 2%; right: clamp(22px, 7vw, 48px); }
+}
+
+/* Give the five-card orbit a wider horizontal stage so side cards stay inside the section. */
+@media (min-width: 761px) {
+  .about-website-reference .about-ref-network-stage {
+    width: calc(100% + clamp(70px, 9vw, 150px));
+    margin-left: clamp(-76px, -4.2vw, -30px);
+  }
+  .about-website-reference .about-ref-network-canvas {
+    inset: 0 clamp(-9%, -5vw, -4%) 0 clamp(-9%, -5vw, -4%);
+  }
+}
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-network-canvas { inset: 5% -14% 0 -14%; }
+}
+
+/* Hovered network card detail: a 2D steel-navy companion panel in the copy column. */
+.about-website-reference .about-ref-network-hover-card {
+  display: grid;
+  gap: 9px;
+  width: min(300px, 100%);
+  margin-top: 18px;
+  padding: 17px 19px 16px;
+  box-sizing: border-box;
+  border: 1px solid rgba(157,194,221,.42);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #304A62 0%, #243447 60%, #182533 100%);
+  box-shadow: 0 16px 34px rgba(20,29,38,.2), 0 0 24px rgba(197,31,93,.12), inset 0 1px rgba(247,248,250,.14);
+  color: #F7F8FA;
+  animation: network-hover-card-in 280ms cubic-bezier(.22,1,.36,1) both;
+}
+.about-website-reference .about-ref-network-hover-index {
+  color: #F2A2C3;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .18em;
+}
+.about-website-reference .about-ref-network-hover-card h3 {
+  margin: 0;
+  color: #F7F8FA;
+  font-size: clamp(18px, 1.4vw, 23px);
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+.about-website-reference .about-ref-network-hover-card p {
+  max-width: 250px;
+  margin: 0;
+  color: rgba(247,248,250,.74);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.about-website-reference .about-ref-network-hover-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+  color: #F2A2C3;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .14em;
+}
+.about-website-reference .about-ref-network-hover-footer i {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #C51F5D;
+  box-shadow: 0 0 10px rgba(197,31,93,.6);
+}
+@keyframes network-hover-card-in {
+  from { opacity: 0; transform: translateY(9px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-network-hover-card { width: min(300px, 92%); margin-top: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-website-reference .about-ref-network-hover-card { animation: none; }
+}
+
+/* Centered hover state: the 2D detail card becomes the section focal point. */
+.about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  width: min(310px, 30vw);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  border-color: rgba(197,31,93,.55);
+  background: linear-gradient(145deg, #243447 0%, #141D26 62%, #0B1118 100%);
+  box-shadow: 0 24px 60px rgba(8,17,27,.32), 0 0 0 1px rgba(247,248,250,.08) inset, 0 0 32px rgba(197,31,93,.2);
+  pointer-events: none;
+  animation: network-hover-card-center-in 300ms cubic-bezier(.22,1,.36,1) both;
+}
+.about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card .about-ref-network-hover-index,
+.about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card .about-ref-network-hover-footer { color: #F2A2C3; }
+.about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card h3 { color: #F7F8FA; }
+.about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card p { color: rgba(247,248,250,.78); }
+@keyframes network-hover-card-center-in {
+  from { opacity: 0; transform: translate(-50%, -44%) scale(.94); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@media (max-width: 760px) {
+  .about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card {
+    top: 56%;
+    width: min(290px, 72vw);
+  }
+}

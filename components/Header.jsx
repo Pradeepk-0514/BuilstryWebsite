@@ -23,12 +23,26 @@ export default function Header() {
   useEffect(() => {
     let previousY = window.scrollY;
     let directionTravel = 0;
+    const main = document.querySelector("main");
+    let mainBottom = Number.POSITIVE_INFINITY;
+    const measureMainEnd = () => {
+      if (main) mainBottom = main.getBoundingClientRect().bottom + window.scrollY;
+    };
+    measureMainEnd();
+    const mainResizeObserver = main && "ResizeObserver" in window
+      ? new ResizeObserver(measureMainEnd)
+      : null;
+    if (main && mainResizeObserver) mainResizeObserver.observe(main);
+    window.addEventListener("resize", measureMainEnd, { passive: true });
+
     const onScroll = () => {
       const currentY = Math.max(0, window.scrollY);
       const delta = currentY - previousY;
       previousY = currentY;
 
-      if (currentY <= 24 || openRef.current) {
+      const footerRegionVisible = currentY + window.innerHeight >= mainBottom
+        && currentY < document.documentElement.scrollHeight;
+      if (footerRegionVisible || currentY <= 24 || openRef.current) {
         directionTravel = 0;
         setHidden(false);
         return;
@@ -45,8 +59,12 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measureMainEnd);
+      mainResizeObserver?.disconnect();
+    };
+  }, [pathname]);
 
   useEffect(() => {
     setHidden(false);

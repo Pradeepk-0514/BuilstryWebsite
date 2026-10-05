@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "./RouterLink";
+import ProblemCTA from "./ProblemCTA";
 
 
 export default function InsightsPage() {
@@ -18,5 +19,6 @@ export default function InsightsPage() {
     <section className="insights-built-section"><div className="insights-section-heading"><div><span>BUILT / INBUILT</span><small>Exploring ideas that should — or shouldn&apos;t — exist.</small></div><Link href="/projects">View all <b>→</b></Link></div><div className="insights-built-grid"><article className="insights-built-card insights-built"><div className="insights-built-copy"><span className="insights-status insights-status-built">BUILT</span><h3>AI-Powered Placement Intelligence Platform</h3><p>Helping colleges predict, track and improve student placement outcomes with data and AI.</p><Link href="/projects">View case study <b>→</b></Link></div><div className="insights-dashboard-art" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div></article><article className="insights-built-card insights-inbuilt"><div className="insights-built-copy"><span className="insights-status">INBUILT</span><h3>A better way to evaluate student employability.</h3><p>Why existing assessments fail — and what a future-ready platform should look like.</p><Link href="/launchpad">Explore the idea <b>→</b></Link></div><div className="insights-unbuilt-art" aria-hidden="true"><i /><i /><i /><i /><i /></div></article></div></section>
 
     <section className="insights-newsletter"><div className="insights-newsletter-icon">✉</div><div className="insights-newsletter-copy"><h2>NEVER STOP QUESTIONING.</h2><p>Get curated insights, research and perspectives straight to your inbox.</p></div><form onSubmit={(event) => { event.preventDefault(); setSubscribed(true); }}><input type="email" placeholder="Enter your email" aria-label="Email address" required /><button type="submit">{subscribed ? "Subscribed" : "Subscribe"} <span>→</span></button></form></section>
+    <ProblemCTA />
   </div>;
 }

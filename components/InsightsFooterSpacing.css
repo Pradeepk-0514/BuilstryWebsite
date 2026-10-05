@@ -1,0 +1,31 @@
+/* Keep the final Insights newsletter fully visible above the sticky footer. */
+.insights-page > .insights-built-section {
+  padding-bottom: clamp(24px, 3vw, 40px);
+}
+
+.insights-page > .insights-newsletter {
+  margin-bottom: clamp(18px, 2vw, 24px);
+}
+
+/* Let this route's footer follow the final section instead of sliding underneath it. */
+body:has(.insights-page) .site-footer {
+  position: relative;
+  bottom: auto;
+}
+
+@media (max-width: 900px) {
+  /* The global viewport-height minimum leaves too little room above the sticky footer. */
+  body:has(.insights-page) .site-footer {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .insights-page > .insights-built-section {
+    padding-bottom: 22px;
+  }
+
+  .insights-page > .insights-newsletter {
+    margin-bottom: 18px;
+  }
+}

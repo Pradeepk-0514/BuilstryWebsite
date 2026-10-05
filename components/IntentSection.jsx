@@ -10,6 +10,20 @@ const intents = [
   ["✦", "I HAVE AN IDEA.", "Let's see if it should exist.", "/launchpad"],
 ];
 const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+function updateIntentSpotlight(event) {
+  if (event.pointerType === "touch") return;
+  const card = event.currentTarget;
+  const bounds = card.getBoundingClientRect();
+  const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / Math.max(bounds.width, 1)));
+  const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / Math.max(bounds.height, 1)));
+  card.style.setProperty("--intent-spot-x", `${x * 100}%`);
+  card.style.setProperty("--intent-spot-y", `${y * 100}%`);
+}
+function resetIntentSpotlight(event) {
+  if (event.pointerType === "touch") return;
+  event.currentTarget.style.removeProperty("--intent-spot-x");
+  event.currentTarget.style.removeProperty("--intent-spot-y");
+}
 
 export default function IntentSection() {
   const sectionRef = useRef(null);
@@ -77,7 +91,7 @@ export default function IntentSection() {
     <div className="intent-sticky-wrapper">
       <div className="intent-title"><span className="intent-kicker">BUILSTRY / BUILD WITH INTENT</span><h2 id="intent-title">WHAT ARE YOU<br />TRYING TO <em>BUILD?</em></h2><div className="intent-sequence-label"><span>{`0${activeIndex + 1}`}</span><i /><span>04</span></div></div>
       <div className="intent-card-viewport" ref={viewportRef} aria-label="Build intent choices">
-        <div className="intent-card-track" ref={trackRef}>{intents.map(([icon, title, text, href], index) => <Link className={`intent-card ${index === activeIndex ? "is-active" : ""} ${index < activeIndex ? "is-complete" : ""}`} href={href} key={title}><div className="intent-card-top"><span className="intent-index">0{index + 1}</span><span className="intent-icon" aria-hidden="true">{icon}</span></div><h3>{title}</h3><p>{text}</p><span className="intent-arrow">Explore <b>→</b></span></Link>)}</div>
+        <div className="intent-card-track" ref={trackRef}>{intents.map(([icon, title, text, href], index) => <Link className={`intent-card ${index === activeIndex ? "is-active" : ""} ${index < activeIndex ? "is-complete" : ""}`} href={href} key={title} onPointerMove={updateIntentSpotlight} onPointerLeave={resetIntentSpotlight}><div className="intent-card-top"><span className="intent-index">0{index + 1}</span><span className="intent-icon" aria-hidden="true">{icon}</span></div><h3>{title}</h3><p>{text}</p><span className="intent-arrow">Explore <b>→</b></span></Link>)}</div>
       </div>
     </div>
   </section>;

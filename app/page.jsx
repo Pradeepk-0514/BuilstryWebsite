@@ -7,7 +7,7 @@ import ImpactStats from "../components/ImpactStats";
 import FAQ from "../components/FAQ";
 import CuriositySection from "../components/CuriositySection";
 import IntentSection from "../components/IntentSection";
-import HomeConceptScene from "../components/HomeConceptScene";
+import ProblemCTA from "../components/ProblemCTA";
 import "../components/HomeApproachSections.css";
 
 export default function HomePage() {
@@ -28,6 +28,6 @@ export default function HomePage() {
 
     <IntentSection />
 
-    <section id="connect" className="cta-section home-end-cta" aria-labelledby="home-connect-title"><div className="home-connect-copy"><h2 id="home-connect-title" className="home-connect-title"><span>GOT A <em>PROBLEM</em></span><span>WORTH <em>SOLVING?</em></span></h2><p>Let&apos;s figure out what should exist.</p><div className="home-connect-actions"><Link className="home-connect-link primary" href="/contact">Start a Conversation <ArrowRight size={17} aria-hidden="true" /></Link><Link className="home-connect-link secondary" href="/contact?mode=booking">Book a Call <ArrowRight size={17} aria-hidden="true" /></Link></div></div><HomeConceptScene /><p className="home-connect-note">BUILD WHAT SHOULD EXIST</p></section>
-  </div>;
+    <ProblemCTA />
+    </div>;
 }

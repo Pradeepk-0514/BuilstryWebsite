@@ -9,7 +9,7 @@
   height: 100vh;
   height: 100svh;
   min-height: 0;
-  padding: clamp(116px, 17vh, 176px) clamp(5vw, 7vw, 112px) 72px;
+  padding: clamp(116px, 17vh, 176px) clamp(32px, 4vw, 64px) 72px;
   overflow: hidden;
   isolation: isolate;
   background: #F7F8FA;
@@ -165,7 +165,7 @@
 .about-website-reference .about-ref-mindset-card:focus-visible .about-ref-mindset-arrow { color: #D44B83;transform:translateX(3px); }
 
 @media (max-width: 1120px) and (min-width: 761px) {
-  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:112px 5vw 70px;overflow:visible; }
+  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:112px clamp(24px, 3.6vw, 38px) 70px;overflow:visible; }
   .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(46px,6vw,68px); }
   .about-website-reference .about-ref-mindset-track { grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:48px; }
   .about-website-reference .about-ref-mindset-card { height:238px;padding:21px 20px; }
@@ -173,7 +173,7 @@
   .about-website-reference .about-ref-mindset-description { font-size:11px; }
 }
 @media (max-width: 760px) {
-  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:94px 5vw 48px;overflow:visible; }
+  .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:94px clamp(12px, 4vw, 26px) 48px;overflow:visible; }
   .about-website-reference .about-ref-mindset-kicker { margin-bottom:14px;font-size:11px; }
   .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(40px,9.6vw,62px); }
   .about-website-reference .about-ref-mindset-copy p { max-width:520px;font-size:12px; }
@@ -188,7 +188,7 @@
   .about-website-reference .about-ref-mindset-card:focus-visible { transform:translateY(-6px) scale(1.012); }
 }
 @media (max-width: 480px) {
-  .about-website-reference .about-ref-mindset-section { padding:88px 5vw 40px; }
+  .about-website-reference .about-ref-mindset-section { padding:88px clamp(12px, 4vw, 20px) 40px; }
   .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(36px,10vw,48px); }
   .about-website-reference .about-ref-mindset-track { grid-template-columns:1fr;gap:12px; }
   .about-website-reference .about-ref-mindset-card { height:195px;padding:18px 17px; }

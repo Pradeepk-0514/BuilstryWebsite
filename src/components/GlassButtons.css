@@ -1,0 +1,114 @@
+/* Shared premium glass treatment for native buttons and button-style CTAs. */
+button:not([data-glass-exempt]) {
+  -webkit-backdrop-filter: blur(9px) saturate(118%);
+  backdrop-filter: blur(9px) saturate(118%);
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 8px 20px rgba(20,29,38,.1);
+}
+
+button:not([data-glass-exempt]):not(.about-ref-fan-card):not(.journey3d-sign) {
+  transition: background-color .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease), filter .22s ease, color .22s var(--ease), transform .22s var(--ease), translate .22s var(--ease);
+}
+
+a.button,
+a.nav-cta,
+a.home-connect-link,
+a.insights-button,
+a.about-ref-showcase-cta {
+  -webkit-backdrop-filter: blur(9px) saturate(118%);
+  backdrop-filter: blur(9px) saturate(118%);
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 8px 20px rgba(20,29,38,.1);
+  transition: background-color .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease), filter .22s ease, color .22s var(--ease), transform .22s var(--ease);
+}
+
+button:not([data-glass-exempt]):hover:not(:disabled),
+a.button:hover,
+a.nav-cta:hover,
+a.home-connect-link:hover,
+a.insights-button:hover,
+a.about-ref-showcase-cta:hover {
+  -webkit-backdrop-filter: blur(12px) saturate(124%);
+  backdrop-filter: blur(12px) saturate(124%);
+  border-color: color-mix(in srgb, var(--magenta) 44%, currentColor);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 12px 26px rgba(20,29,38,.14), 0 0 0 1px rgba(197,31,93,.12);
+  filter: brightness(1.035);
+}
+
+button:not([data-glass-exempt]):hover:not(:disabled):not(.about-ref-fan-card):not(.journey3d-sign) {
+  translate: 0 -1px;
+}
+button:not([data-glass-exempt]):active:not(:disabled),
+a.button:active,
+a.nav-cta:active,
+a.home-connect-link:active,
+a.insights-button:active,
+a.about-ref-showcase-cta:active {
+  filter: brightness(.98);
+  translate: 0 0;
+}
+
+:is(a.button-primary, a.nav-cta, a.home-connect-link.primary, button.cta-modal-primary, button.verify-submit) {
+  background-color: rgba(197,31,93,.9);
+  border-color: rgba(255,255,255,.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 8px 22px rgba(197,31,93,.22);
+}
+:is(a.button-primary, a.nav-cta, a.home-connect-link.primary, button.cta-modal-primary, button.verify-submit):hover {
+  background-color: rgba(173,24,79,.96);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 12px 26px rgba(197,31,93,.28), 0 0 0 1px rgba(197,31,93,.16);
+}
+
+button.button-ghost,
+a.button-ghost,
+a.home-connect-link.secondary {
+  background-color: rgba(247,248,250,.085);
+  border-color: rgba(247,248,250,.28);
+}
+button.nav-dropdown-trigger,
+button.mobile-toggle,
+button.mobile-build-toggle {
+  background-color: rgba(247,248,250,.065);
+  border-color: rgba(247,248,250,.22);
+}
+button.nav-dropdown-trigger.nav-active { background-color: rgba(197,31,93,.16); }
+button.faq-trigger {
+  background-color: rgba(36,52,71,.035);
+  border-color: rgba(36,52,71,.12);
+  border-radius: 10px;
+}
+button.faq-trigger[aria-expanded="true"] {
+  background-color: rgba(197,31,93,.055);
+  border-color: rgba(197,31,93,.2);
+}
+button.cta-modal-back,
+button.cta-change-focus {
+  background-color: rgba(36,52,71,.035);
+  border-color: rgba(36,52,71,.14);
+}
+button.cta-modal-close { background-color: rgba(255,255,255,.72); }
+button.cta-choice,
+button.cta-pillar-choice,
+button.cta-time-slot,
+button.about-ref-people-controls button {
+  -webkit-backdrop-filter: blur(10px) saturate(118%);
+  backdrop-filter: blur(10px) saturate(118%);
+}
+button.cta-pillar-choice:hover,
+button.cta-pillar-choice:focus-visible,
+button.cta-pillar-choice.is-selected { background-color: rgba(255,255,255,.88); }
+button.cta-choice.is-selected { background-color: rgba(197,31,93,.1); }
+a.insights-button { background-color: rgba(255,255,255,.38); }
+button.about-ref-fan-card {
+  background: linear-gradient(to bottom, rgba(20,29,38,.94) 0 42%, rgba(36,52,71,.92) 42% 100%);
+}
+button.about-ref-people-controls button { background-color: rgba(255,255,255,.58); }
+
+@media (prefers-reduced-motion: reduce) {
+  button:not([data-glass-exempt]),
+  a.button,
+  a.nav-cta,
+  a.home-connect-link,
+  a.insights-button,
+  a.about-ref-showcase-cta { transition-duration: .01ms; }
+  button:not([data-glass-exempt]):hover { translate: none; }
+}

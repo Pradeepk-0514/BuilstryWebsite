@@ -1,35 +1,45 @@
 "use client";
-
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { ContactShadows, RoundedBox, Text } from "@react-three/drei";
 import Link from "./RouterLink";
 import {
   ArrowRight,
   Clock3,
-  Code2,
   Diamond,
-  GraduationCap,
-  Handshake,
   Lightbulb,
-  PencilRuler,
   Target,
   UsersRound,
 } from "lucide-react";
 
-const networkCards = [
-  { key: "founders", title: "FOUNDERS", description: "Vision & leadership to spark what’s next.", Icon: UsersRound },
-  { key: "students", title: "STUDENTS", description: "Ideas & energy to challenge the status quo.", Icon: GraduationCap },
-  { key: "builders", title: "BUILDERS", description: "Code & craft to turn ideas into reality.", Icon: Code2 },
-  { key: "designers", title: "DESIGNERS", description: "Experience & aesthetics to make it human.", Icon: PencilRuler },
-  { key: "partners", title: "MENTORS & PARTNERS", description: "Guidance & reach to scale impact.", Icon: Handshake },
+const principles = [
+  { id: "clarity", title: "CLARITY", contrast: "OVER COMPLEXITY", description: "We choose simple, clear thinking over unnecessary complexity.", Icon: Target },
+  { id: "evidence", title: "EVIDENCE", contrast: "OVER ASSUMPTIONS", description: "We rely on what’s real, not what’s assumed.", Icon: Lightbulb },
+  { id: "useful", title: "USEFUL", contrast: "OVER IMPRESSIVE", description: "We build what creates real value, not what just looks good.", Icon: Diamond },
+  { id: "long-term", title: "LONG-TERM", contrast: "OVER SHORT-TERM", description: "We care about lasting impact, not quick wins.", Icon: Clock3 },
+  { id: "building", title: "BUILDING", contrast: "OVER TALKING", description: "We turn ideas into real solutions.", Icon: UsersRound },
+];
+const networkOrbitCards = [
+  { title: "FOUNDERS", description: "Vision & leadership to spark what’s next.", color: "#F7F8FA", accent: "#C51F5D" },
+  { title: "STUDENTS", description: "Ideas & energy to challenge the status quo.", color: "#F4B5CF", accent: "#243447" },
+  { title: "BUILDERS", description: "Code & craft to turn ideas into reality.", color: "#D8E5F0", accent: "#C51F5D" },
+  { title: "DESIGNERS", description: "Experience & aesthetics to make it human.", color: "#FFFFFF", accent: "#243447" },
+  { title: "MENTORS & PARTNERS", description: "Guidance & reach to scale impact.", color: "#F7E4ED", accent: "#C51F5D" },
 ];
 
-const principles = [
-  { title: "CLARITY", contrast: "OVER COMPLEXITY", description: "We choose simple, clear thinking over unnecessary complexity.", Icon: Target },
-  { title: "EVIDENCE", contrast: "OVER ASSUMPTIONS", description: "We rely on what’s real, not what’s assumed.", Icon: Lightbulb },
-  { title: "USEFUL", contrast: "OVER IMPRESSIVE", description: "We build what creates real value, not what just looks good.", Icon: Diamond },
-  { title: "LONG-TERM", contrast: "OVER SHORT-TERM", description: "We care about lasting impact, not quick wins.", Icon: Clock3 },
-  { title: "BUILDING", contrast: "OVER TALKING", description: "We turn ideas into real solutions.", Icon: UsersRound },
-];
+function updatePrincipleTilt(event) {
+  if (event.pointerType && event.pointerType !== "mouse") return;
+  const bounds = event.currentTarget.getBoundingClientRect();
+  const x = (event.clientX - bounds.left) / Math.max(bounds.width, 1);
+  const y = (event.clientY - bounds.top) / Math.max(bounds.height, 1);
+  event.currentTarget.style.setProperty("--pointer-tilt-x", `${((0.5 - y) * 9).toFixed(2)}deg`);
+  event.currentTarget.style.setProperty("--pointer-tilt-y", `${((x - 0.5) * 9).toFixed(2)}deg`);
+}
+
+function resetPrincipleTilt(event) {
+  event.currentTarget.style.removeProperty("--pointer-tilt-x");
+  event.currentTarget.style.removeProperty("--pointer-tilt-y");
+}
 
 function ScrollCue() {
   return (
@@ -50,22 +60,6 @@ function NetworkOrbit() {
           <stop offset=".48" stopColor="#C51F5D" stopOpacity=".74" />
           <stop offset="1" stopColor="#6D7DAB" stopOpacity=".16" />
         </linearGradient>
-        <linearGradient id="network-cube-top" x1="344" y1="260" x2="560" y2="348" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FFFFFF" stopOpacity=".92" />
-          <stop offset=".62" stopColor="#F7C4D9" stopOpacity=".82" />
-          <stop offset="1" stopColor="#C51F5D" stopOpacity=".72" />
-        </linearGradient>
-        <linearGradient id="network-cube-left" x1="340" y1="320" x2="451" y2="482" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F7F8FA" stopOpacity=".88" />
-          <stop offset="1" stopColor="#C51F5D" stopOpacity=".58" />
-        </linearGradient>
-        <linearGradient id="network-cube-right" x1="450" y1="320" x2="570" y2="478" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F7A7C6" stopOpacity=".76" />
-          <stop offset="1" stopColor="#8D1648" stopOpacity=".64" />
-        </linearGradient>
-        <filter id="network-cube-glow" x="260" y="190" width="390" height="380" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
-          <feGaussianBlur stdDeviation="28" />
-        </filter>
       </defs>
       <ellipse cx="450" cy="333" rx="354" ry="119" stroke="url(#network-orbit-line)" strokeWidth="2" transform="rotate(-12 450 333)" />
       <ellipse cx="450" cy="333" rx="315" ry="167" stroke="#7E8CA8" strokeOpacity=".16" strokeWidth="1.5" transform="rotate(14 450 333)" />
@@ -76,59 +70,34 @@ function NetworkOrbit() {
       <circle cx="256" cy="473" r="5" fill="#9AA5BD" />
       <circle cx="664" cy="211" r="6" fill="#C51F5D" fillOpacity=".7" />
       <circle cx="603" cy="465" r="4" fill="#C51F5D" fillOpacity=".65" />
-      <path d="M350 263 450 205l101 58-101 59-100-59Z" fill="#C51F5D" fillOpacity=".22" filter="url(#network-cube-glow)" />
-      <g className="about-ref-network-cube">
-        <path d="m450 225 112 64-112 64-112-64 112-64Z" fill="url(#network-cube-top)" stroke="#FFFFFF" strokeOpacity=".96" strokeWidth="5" />
-        <path d="m338 289 112 64v131l-112-65V289Z" fill="url(#network-cube-left)" stroke="#FFFFFF" strokeOpacity=".76" strokeWidth="4" />
-        <path d="m562 289-112 64v131l112-65V289Z" fill="url(#network-cube-right)" stroke="#FFFFFF" strokeOpacity=".78" strokeWidth="4" />
-        <path d="m396 289 54-31 55 31-55 32-54-32Z" fill="#C51F5D" fillOpacity=".82" stroke="#FFFFFF" strokeOpacity=".9" strokeWidth="3" />
-        <path d="m450 321 55-32v65l-55 33v-66Z" fill="#A5164E" fillOpacity=".76" />
-      </g>
     </svg>
   );
 }
 
 function PrinciplesOrbit() {
   return (
-    <svg className="about-ref-principles-orbit" viewBox="0 0 900 430" fill="none" aria-hidden="true">
+    <svg className="about-ref-principles-orbit" viewBox="0 0 900 520" preserveAspectRatio="none" fill="none" aria-hidden="true">
       <defs>
-        <linearGradient id="principles-orbit-line" x1="126" y1="285" x2="781" y2="302" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#8793AE" stopOpacity=".12" />
-          <stop offset=".47" stopColor="#C51F5D" stopOpacity=".72" />
-          <stop offset="1" stopColor="#C51F5D" stopOpacity=".2" />
+        <linearGradient id="principles-orbit-line" x1="94" y1="197" x2="822" y2="376" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#9AA8BA" stopOpacity=".12" />
+          <stop offset=".49" stopColor="#C51F5D" stopOpacity=".54" />
+          <stop offset="1" stopColor="#7486A0" stopOpacity=".17" />
         </linearGradient>
-        <linearGradient id="principles-cube-top" x1="344" y1="185" x2="568" y2="278" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FFFFFF" stopOpacity=".94" />
-          <stop offset=".58" stopColor="#F7B6D0" stopOpacity=".82" />
-          <stop offset="1" stopColor="#C51F5D" stopOpacity=".68" />
-        </linearGradient>
-        <linearGradient id="principles-cube-left" x1="340" y1="244" x2="450" y2="385" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F7F8FA" stopOpacity=".9" />
-          <stop offset="1" stopColor="#C51F5D" stopOpacity=".58" />
-        </linearGradient>
-        <linearGradient id="principles-cube-right" x1="450" y1="244" x2="565" y2="390" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#F7A7C6" stopOpacity=".78" />
-          <stop offset="1" stopColor="#861547" stopOpacity=".66" />
-        </linearGradient>
-        <filter id="principles-cube-glow" x="245" y="126" width="410" height="340" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
-          <feGaussianBlur stdDeviation="25" />
+        <filter id="principle-orbit-glow" x="-50%" y="-50%" width="200%" height="200%" colorInterpolationFilters="sRGB">
+          <feGaussianBlur stdDeviation="5" />
         </filter>
       </defs>
-      <ellipse cx="450" cy="294" rx="365" ry="100" stroke="url(#principles-orbit-line)" strokeWidth="2" transform="rotate(-11 450 294)" />
-      <ellipse cx="450" cy="294" rx="310" ry="135" stroke="#8793AE" strokeOpacity=".18" strokeWidth="1.4" transform="rotate(12 450 294)" />
-      <path d="M140 300c94-97 193-97 310 0s207 102 310 0" stroke="url(#principles-orbit-line)" strokeWidth="1.5" />
-      <circle cx="146" cy="304" r="7" fill="#C51F5D" fillOpacity=".82" />
-      <circle cx="744" cy="298" r="8" fill="#D55B8A" fillOpacity=".72" />
-      <circle cx="285" cy="392" r="5" fill="#9BA7BF" />
-      <circle cx="642" cy="383" r="5" fill="#C51F5D" fillOpacity=".68" />
-      <path d="m349 199 101-59 101 59-101 60-101-60Z" fill="#C51F5D" fillOpacity=".2" filter="url(#principles-cube-glow)" />
-      <g className="about-ref-principles-cube">
-        <path d="m450 166 108 62-108 63-108-63 108-62Z" fill="url(#principles-cube-top)" stroke="#FFFFFF" strokeOpacity=".96" strokeWidth="5" />
-        <path d="m342 228 108 63v122l-108-63V228Z" fill="url(#principles-cube-left)" stroke="#FFFFFF" strokeOpacity=".76" strokeWidth="4" />
-        <path d="m558 228-108 63v122l108-63V228Z" fill="url(#principles-cube-right)" stroke="#FFFFFF" strokeOpacity=".8" strokeWidth="4" />
-        <path d="m399 228 51-30 54 30-54 32-51-32Z" fill="#C51F5D" fillOpacity=".82" stroke="#FFFFFF" strokeOpacity=".9" strokeWidth="3" />
-        <path d="m450 260 54-32v63l-54 31v-62Z" fill="#9F174C" fillOpacity=".78" />
-      </g>
+      <ellipse cx="493" cy="261" rx="377" ry="131" stroke="url(#principles-orbit-line)" strokeWidth="1.8" transform="rotate(-11 493 261)" />
+      <ellipse cx="489" cy="264" rx="322" ry="177" stroke="#8695AA" strokeOpacity=".15" strokeWidth="1.25" transform="rotate(13 489 264)" />
+      <ellipse cx="495" cy="265" rx="268" ry="91" stroke="#C51F5D" strokeOpacity=".18" strokeWidth="1.1" transform="rotate(-4 495 265)" />
+      <path d="M116 277c95-112 224-111 377-13 145 93 242 97 349-5" stroke="url(#principles-orbit-line)" strokeWidth="1.5" />
+      <circle cx="116" cy="277" r="7" fill="#C51F5D" fillOpacity=".78" />
+      <circle cx="842" cy="259" r="7" fill="#71829C" fillOpacity=".8" />
+      <circle cx="245" cy="393" r="4.5" fill="#C51F5D" fillOpacity=".68" />
+      <circle cx="695" cy="385" r="5" fill="#C51F5D" fillOpacity=".62" />
+      <circle cx="738" cy="120" r="3.5" fill="#8695AA" fillOpacity=".68" />
+      <circle cx="311" cy="151" r="3" fill="#C51F5D" fillOpacity=".52" />
+      <circle cx="493" cy="265" r="29" fill="#C51F5D" fillOpacity=".12" filter="url(#principle-orbit-glow)" />
     </svg>
   );
 }
@@ -150,9 +119,129 @@ function HandwrittenNote({ variant = "network" }) {
   );
 }
 
-export function NetworkShowcaseSection() {
-  const [hoveredPillar, setHoveredPillar] = useState(null);
+function OrbitCard({ card, angle, index, activeIndex, interaction, orbitRef, onCardHover }) {
+  const group = useRef(null);
+  useFrame((state) => {
+    if (!group.current) return;
+    const elapsed = state.clock.getElapsedTime();
+    const frontness = Math.max(0, Math.sin(angle + (orbitRef.current?.rotation.y || 0)));
+    const target = [Math.cos(angle) * 1.86, Math.sin(elapsed * 0.78 + index * 1.7) * 0.12 + Math.sin(angle * 1.5) * 0.06 - frontness * 0.56, Math.sin(angle) * 1.86];
+    const focused = activeIndex === index && interaction.current?.index === index;
+    if (interaction.current?.index !== null && !focused) return;
+    const focusAmount = focused ? (interaction.current.phase === "release" ? interaction.current.progress : interaction.current.progress) : 0;
+    const ease = focusAmount * focusAmount * (3 - 2 * focusAmount);
+    group.current.position.x += ((focused ? 0 : target[0]) - group.current.position.x) * 0.14;
+    group.current.position.y += ((focused ? 0 : target[1]) - group.current.position.y) * 0.14;
+    group.current.position.z += ((focused ? 0 : target[2]) - group.current.position.z) * 0.14;
+    group.current.scale.setScalar(1 + ease * 0.14);
+    group.current.rotation.x += ((focused ? 0 : Math.sin(elapsed * 0.52 + index) * 0.035 + frontness * 0.24) - group.current.rotation.x) * 0.12;
+    group.current.rotation.z += ((focused ? 0 : Math.cos(elapsed * 0.42 + index) * 0.025) - group.current.rotation.z) * 0.12;
+    group.current.rotation.y += ((focused ? 0 : 0) - group.current.rotation.y) * 0.12;
+  });
+  const focused = activeIndex === index;
+  return (
+    <group ref={group} onPointerEnter={(event) => { event.stopPropagation(); onCardHover?.(card); interaction.current?.start?.(index); }} onPointerDown={(event) => { event.stopPropagation(); onCardHover?.(card); interaction.current?.start?.(index); }}>
+      <RoundedBox args={[1.42, 0.94, 0.14]} radius={0.12} smoothness={5} castShadow receiveShadow>
+        <meshStandardMaterial color={focused ? "#243447" : card.color} roughness={0.28} metalness={0.12} emissive={focused ? "#243447" : card.accent} emissiveIntensity={focused ? 0.12 : 0.08} />
+      </RoundedBox>
+      {[1, -1].map((side) => (
+        <group key={side} rotation={[0, side === -1 ? Math.PI : 0, 0]}>
+          <mesh position={[0, 0.18, 0.085]}>
+            <planeGeometry args={[1.08, 0.045]} />
+            <meshBasicMaterial color={card.accent} transparent opacity={0.8} />
+          </mesh>
+          <Text position={[0, 0.29, 0.09]} fontSize={0.115} color={focused ? "#F7F8FA" : "#243447"} anchorX="center" anchorY="middle" letterSpacing={0.02}>{card.title}</Text>
+          <Text position={[0, 0.01, 0.09]} fontSize={0.068} color={focused ? "#DCE6EF" : "#526277"} maxWidth={1.12} lineHeight={1.15} textAlign="center" anchorX="center" anchorY="middle">{card.description}</Text>
+          <Text position={[0, -0.33, 0.09]} fontSize={0.06} color={card.accent} anchorX="center" anchorY="middle" letterSpacing={0.1}>EXPLORE →</Text>
+        </group>
+      ))}
+    </group>
+  );
+}
 
+function CubeFaceMarks() {
+  const faces = [
+    { position: [0, 0, 0.805], rotation: [0, 0, 0] },
+    { position: [0, 0, -0.805], rotation: [0, Math.PI, 0] },
+    { position: [0.805, 0, 0], rotation: [0, Math.PI / 2, 0] },
+    { position: [-0.805, 0, 0], rotation: [0, -Math.PI / 2, 0] },
+    { position: [0, 0.805, 0], rotation: [-Math.PI / 2, 0, 0] },
+    { position: [0, -0.805, 0], rotation: [Math.PI / 2, 0, 0] },
+  ];
+  return faces.map((face, index) => (
+    <Text key={index} position={face.position} rotation={face.rotation} fontSize={0.48} color="#F7F8FA" anchorX="center" anchorY="middle" outlineColor="#F7F8FA" outlineWidth={0.008}>B</Text>
+  ));
+}
+
+function NetworkOrbitScene({ onCardHover }) {
+  const cube = useRef(null);
+  const orbit = useRef(null);
+  const interaction = useRef({ index: null, phase: "idle", progress: 0, startedAt: 0, start: null });
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [paused, setPaused] = useState(false);
+  useFrame((state, delta) => {
+    const elapsed = state.clock.getElapsedTime();
+    if (cube.current && !paused) cube.current.rotation.y += delta * 0.36;
+    if (orbit.current && !paused) {
+      orbit.current.rotation.y -= delta * 0.17;
+      orbit.current.position.y = Math.sin(elapsed * 0.48) * 0.03;
+    }
+    const current = interaction.current;
+    if (current.index !== null) {
+      const age = (performance.now() - current.startedAt) / 1000;
+      if (current.phase === "focus") {
+        current.progress = Math.min(1, age / 0.42);
+        if (age >= 2.42) {
+          current.phase = "release";
+          current.startedAt = performance.now();
+        }
+      } else if (current.phase === "release") {
+        current.progress = Math.max(0, 1 - age / 0.42);
+        if (age >= 0.42) {
+          current.index = null;
+          current.phase = "idle";
+          current.progress = 0;
+          setActiveIndex(null);
+          setPaused(false);
+          onCardHover?.(null);
+        }
+      }
+    }
+  });
+  interaction.current.start = (index) => {
+    if (interaction.current.index !== null) return;
+    interaction.current.index = index;
+    interaction.current.phase = "focus";
+    interaction.current.progress = 0;
+    interaction.current.startedAt = performance.now();
+    setActiveIndex(index);
+    setPaused(true);
+  };
+  return (
+    <>
+      <ambientLight intensity={1.15} color="#F7F8FA" />
+      <directionalLight castShadow position={[4, 6, 5]} intensity={3.2} color="#FFFFFF" shadow-mapSize={[1024, 1024]} />
+      <pointLight position={[-3, 1.5, 2]} intensity={8} distance={7} color="#C51F5D" />
+      <pointLight position={[3, -1, -2]} intensity={4} distance={6} color="#8DB6D4" />
+      <group ref={orbit}>
+        {networkOrbitCards.map((card, index) => {
+          const angle = (index / networkOrbitCards.length) * Math.PI * 2;
+          return <OrbitCard card={card} angle={angle} index={index} activeIndex={activeIndex} interaction={interaction} orbitRef={orbit} onCardHover={onCardHover} key={card.title} />;
+        })}
+      </group>
+      <group ref={cube}>
+        <RoundedBox args={[1.56, 1.56, 1.56]} radius={0.24} smoothness={7} castShadow receiveShadow>
+          <meshStandardMaterial color="#141D26" roughness={0.24} metalness={0.24} emissive="#0B1118" emissiveIntensity={0.12} />
+        </RoundedBox>
+        <CubeFaceMarks />
+      </group>
+      <ContactShadows position={[0, -1.1, 0]} opacity={0.42} scale={7} blur={2.8} far={4.5} resolution={512} color="#141D26" />
+    </>
+  );
+}
+
+export function NetworkShowcaseSection() {
+  const [hoveredCard, setHoveredCard] = useState(null);
   return (
     <section className="about-ref-showcase about-ref-network-showcase" aria-labelledby="about-network-heading">
       <div className="about-ref-network-copy">
@@ -166,33 +255,15 @@ export function NetworkShowcaseSection() {
         <span className="about-ref-showcase-microcopy">MORE PERSPECTIVES.<br />BETTER POSSIBILITIES.</span>
       </div>
 
+      {hoveredCard && <article className="about-ref-network-hover-card" aria-live="polite"><span className="about-ref-network-hover-index">NETWORK / 0{networkOrbitCards.indexOf(hoveredCard) + 1}</span><h3>{hoveredCard.title}</h3><p>{hoveredCard.description}</p><span className="about-ref-network-hover-footer"><i />BUILSTRY / EXPLORE</span></article>}
+
       <div className="about-ref-network-stage">
         <NetworkOrbit />
         <HandwrittenNote />
-        <div className="about-ref-network-cards">
-          <div className="about-ref-network-orbit-ring">
-            {networkCards.map(({ key, title, description, Icon }, index) => {
-              const hovered = hoveredPillar === index;
-              const muted = hoveredPillar !== null && !hovered;
-              return (
-                <Link
-                  className={`about-ref-network-card about-ref-network-card--${key}${hovered ? " is-hovered" : ""}${muted ? " is-muted" : ""}`}
-                  href="/capabilities"
-                  key={key}
-                  aria-label={`Explore ${title}: ${description}`}
-                  onMouseEnter={() => setHoveredPillar(index)}
-                  onMouseLeave={() => setHoveredPillar(null)}
-                  onFocus={() => setHoveredPillar(index)}
-                  onBlur={() => setHoveredPillar(null)}
-                >
-                  <span className="about-ref-network-card-icon"><Icon aria-hidden="true" size={23} strokeWidth={1.9} /></span>
-                  <strong>{title}</strong>
-                  <span className="about-ref-network-card-description">{description}</span>
-                  <span className="about-ref-network-card-explore">EXPLORE <ArrowRight aria-hidden="true" size={15} /></span>
-                </Link>
-              );
-            })}
-          </div>
+        <div className="about-ref-network-canvas" aria-label="A rotating Builstry cube surrounded by orbiting network cards">
+          <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.9, 7.6], fov: 38 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}>
+            <NetworkOrbitScene onCardHover={setHoveredCard} />
+          </Canvas>
         </div>
       </div>
 
@@ -216,39 +287,32 @@ export function PrinciplesShowcaseSection() {
       </div>
 
       <div className="about-ref-principles-stage">
-        <HandwrittenNote variant="principles" />
-        <svg className="about-ref-principles-wires" viewBox="0 0 900 460" preserveAspectRatio="none" fill="none" aria-hidden="true">
-          <path d="M25 191C133 214 206 163 304 191s199 40 296 8 173-19 275 13" stroke="#C51F5D" strokeOpacity=".27" strokeWidth="1.5" />
-          <path d="M106 354c98-78 203-76 344 1s245 72 348-3" stroke="#8C98B0" strokeOpacity=".22" strokeWidth="1.2" />
-          {[92, 267, 450, 632, 808].map((x) => <circle key={x} cx={x} cy="197" r="5.5" fill="#F7F8FA" stroke="#C51F5D" strokeOpacity=".55" strokeWidth="2" />)}
-        </svg>
-        <div className="about-ref-principles-card-row">
-          {principles.map(({ title, contrast, description, Icon }, index) => {
-            const hovered = hoveredPrinciple === index;
-            const muted = hoveredPrinciple !== null && !hovered;
+        <PrinciplesOrbit />
+        <div className="about-ref-principles-nodes">
+          {principles.map(({ id, title, contrast, description, Icon }, index) => {
+            const active = hoveredPrinciple === null ? index === 0 : hoveredPrinciple === index;
             return (
               <article
-                className={`about-ref-principle-card${index === 0 ? " about-ref-principle-card--first" : ""}${hovered ? " is-hovered" : ""}${muted ? " is-muted" : ""}`}
+                className={`about-ref-principle-node about-ref-principle-node--${id}${active ? " is-active" : ""}`}
                 key={title}
                 tabIndex={0}
                 role="group"
                 aria-label={`${title} ${contrast}: ${description}`}
                 onMouseEnter={() => setHoveredPrinciple(index)}
-                onMouseLeave={() => setHoveredPrinciple(null)}
+                onMouseLeave={(event) => { setHoveredPrinciple(null); resetPrincipleTilt(event); }}
+                onPointerMove={updatePrincipleTilt}
+                onPointerLeave={(event) => { setHoveredPrinciple(null); resetPrincipleTilt(event); }}
                 onFocus={() => setHoveredPrinciple(index)}
                 onBlur={() => setHoveredPrinciple(null)}
               >
-                <small className="about-ref-principle-number">{String(index + 1).padStart(2, "0")}</small>
                 <span className="about-ref-principle-icon"><Icon aria-hidden="true" size={25} strokeWidth={1.8} /></span>
                 <strong>{title}</strong>
                 <span className="about-ref-principle-contrast">{contrast}</span>
-                <p>{description}</p>
-                <i className="about-ref-principle-accent" />
+                <span className="about-ref-principle-description">{description}</span>
               </article>
             );
           })}
         </div>
-        <PrinciplesOrbit />
       </div>
 
       <ScrollCue />

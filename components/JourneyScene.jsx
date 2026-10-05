@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Html, Sparkles, useGLTF } from "@react-three/drei";
+import { Environment, Sparkles, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { getJourneyLayout, milestones } from "./journeyData";
@@ -147,10 +147,19 @@ function JourneyAssets({ layout, activeIndex, progressRef, reducedMotion }) {
   const { scene: source } = useGLTF(GLB_URL);
   const scene = useMemo(() => source.clone(true), [source]);
   const anchors = useMemo(() => milestones.map((item) => scene.getObjectByName(item.anchor)), [scene]);
+  const allLandmarkAnchors = useMemo(() => {
+    const found = [];
+    scene.traverse((node) => {
+      if (node.name.startsWith("Journey_")) found.push(node);
+    });
+    return found;
+  }, [scene]);
   const targetPosition = useMemo(() => new THREE.Vector3(), []);
   const targetScale = useMemo(() => new THREE.Vector3(), []);
 
   useEffect(() => {
+    const selectedAnchors = new Set(milestones.map(({ anchor }) => anchor));
+    allLandmarkAnchors.forEach((node) => { node.visible = selectedAnchors.has(node.name); });
     scene.traverse((node) => {
       if (!node.isMesh) return;
       node.castShadow = true;
@@ -161,7 +170,7 @@ function JourneyAssets({ layout, activeIndex, progressRef, reducedMotion }) {
         if (material && "envMapIntensity" in material) material.envMapIntensity = 0.72;
       });
     });
-  }, [scene]);
+  }, [allLandmarkAnchors, scene]);
 
   useFrame((state, delta) => {
     const elapsed = state.clock.elapsedTime;
@@ -185,107 +194,6 @@ function JourneyAssets({ layout, activeIndex, progressRef, reducedMotion }) {
   });
 
   return <primitive object={scene} dispose={null} />;
-}
-
-function MilestoneSign({ item, index, activeIndex, setActiveIndex, layout, reducedMotion, signRef, buttonRef, signWidth }) {
-  const width = signWidth;
-  return (
-    <group ref={signRef}>
-      <Html transform distanceFactor={layout === "mobile" ? 5.25 : 4.5} position={[layout === "mobile" ? 0 : -0.82, layout === "mobile" ? 1.45 : 1.65, 1.12]} zIndexRange={[16, 0]} style={{ pointerEvents: "auto" }}>
-        <button
-          ref={buttonRef}
-          type="button"
-          className={`journey3d-sign${activeIndex === index ? " is-active" : ""}${reducedMotion ? " is-still" : ""}`}
-          style={{ "--sign-width": `${width}px` }}
-          tabIndex={index === 0 || reducedMotion ? 0 : -1}
-          aria-hidden={index === 0 || reducedMotion ? undefined : "true"}
-          aria-pressed={activeIndex === index}
-          aria-label={`${item.year}: ${item.title}. ${item.description}`}
-          onPointerEnter={() => setActiveIndex(index)}
-          onPointerLeave={() => setActiveIndex(null)}
-          onFocus={() => setActiveIndex(index)}
-          onBlur={() => setActiveIndex(null)}
-          onClick={() => setActiveIndex(index)}
-        >
-          <span className="journey3d-sign-icon" aria-hidden="true"><i>{String(index + 1).padStart(2, "0")}</i></span>
-          <span className="journey3d-sign-year">{item.year}</span>
-          <strong>{item.title}</strong>
-          <span className="journey3d-sign-description">{item.description}</span>
-          <span className="journey3d-sign-phase"><i />{item.phase}</span>
-        </button>
-      </Html>
-    </group>
-  );
-}
-
-function MilestoneSignLayer({ layout, activeIndex, setActiveIndex, progressRef, reducedMotion }) {
-  const { camera, size } = useThree();
-  const signRefs = useRef([]);
-  const buttonRefs = useRef([]);
-  const editorialRef = useRef(null);
-  const signOffset = useMemo(() => new THREE.Vector3(), []);
-  const safeLanePoint = useMemo(() => new THREE.Vector3(), []);
-
-  useEffect(() => {
-    editorialRef.current = document.querySelector(".journey3d-editorial");
-  }, []);
-
-  const mobileSignWidth = Math.min(138, Math.max(120, Math.round(size.width * 0.35)));
-  const signWidth = layout === "mobile" ? mobileSignWidth : layout === "desktop" ? 148 : 156;
-
-  useFrame((_, delta) => {
-    const progress = reducedMotion ? 1 : THREE.MathUtils.clamp(progressRef.current || 0, 0, 1);
-    milestones.forEach((item, index) => {
-      const sign = signRefs.current[index];
-      if (!sign) return;
-      const [x, y, z] = item[layout];
-      const isSummit = index === milestones.length - 1;
-      const offsetY = layout === "mobile"
-        ? (isSummit ? (reducedMotion ? -0.78 : 0.55) : -1.2)
-        : (isSummit ? -0.63 : 0);
-
-      if (layout === "mobile") {
-        const left = isSummit
-          ? Math.max(12, Math.min((editorialRef.current?.getBoundingClientRect().right ?? size.width * 0.48) + 10, size.width - signWidth - 12))
-          : index % 2 === 0 ? 12 : size.width - signWidth - 12;
-        const centerNdcX = ((left + signWidth / 2) / size.width) * 2 - 1;
-        camera.updateMatrixWorld();
-        safeLanePoint.set(centerNdcX, 0, 0.5).unproject(camera);
-        signOffset.set(safeLanePoint.x, y + offsetY, z);
-      } else {
-        signOffset.set(x, y + offsetY, z);
-      }
-      sign.position.lerp(signOffset, 1 - Math.exp(-delta * 5.5));
-      const reveal = stopReveal(progress, index, reducedMotion);
-      sign.scale.setScalar(Math.max(0.0001, reveal));
-      const button = buttonRefs.current[index];
-      const isRevealed = reducedMotion || reveal > 0.08;
-      if (button && button.tabIndex !== (isRevealed ? 0 : -1)) {
-        button.tabIndex = isRevealed ? 0 : -1;
-        if (isRevealed) button.removeAttribute("aria-hidden");
-        else button.setAttribute("aria-hidden", "true");
-      }
-    });
-  });
-
-  return (
-    <group>
-      {milestones.map((item, index) => (
-        <MilestoneSign
-          key={item.id}
-          item={item}
-          index={index}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
-          layout={layout}
-          reducedMotion={reducedMotion}
-          signWidth={signWidth}
-          signRef={(node) => { signRefs.current[index] = node; }}
-          buttonRef={(node) => { buttonRefs.current[index] = node; }}
-        />
-      ))}
-    </group>
-  );
 }
 
 function LightSpecks({ reducedMotion }) {
@@ -316,7 +224,7 @@ function SceneMotionRig({ children, progressRef, reducedMotion }) {
   return <group ref={rig}>{children}</group>;
 }
 
-function SceneContent({ layout, activeIndex, setActiveIndex, progressRef, reducedMotion }) {
+function SceneContent({ layout, activeIndex, progressRef, reducedMotion }) {
   return (
     <>
       <CameraFit layout={layout} progressRef={progressRef} reducedMotion={reducedMotion} />
@@ -346,13 +254,6 @@ function SceneContent({ layout, activeIndex, setActiveIndex, progressRef, reduce
           <JourneyAssets layout={layout} activeIndex={activeIndex} progressRef={progressRef} reducedMotion={reducedMotion} />
           <LightSpecks reducedMotion={reducedMotion} />
         </SceneMotionRig>
-        <MilestoneSignLayer
-          layout={layout}
-          activeIndex={activeIndex}
-          setActiveIndex={setActiveIndex}
-          progressRef={progressRef}
-          reducedMotion={reducedMotion}
-        />
       </Suspense>
       <EffectComposer multisampling={0}>
         <Bloom intensity={0.4} luminanceThreshold={0.75} luminanceSmoothing={0.58} mipmapBlur />
@@ -376,7 +277,7 @@ function useViewportSize() {
   return size;
 }
 
-export default function JourneyScene({ activeIndex, setActiveIndex, progressRef, reducedMotion }) {
+export default function JourneyScene({ activeIndex, progressRef, reducedMotion }) {
   const { width, height } = useViewportSize();
   const layout = getJourneyLayout(width / Math.max(height, 1));
   return (
@@ -386,14 +287,13 @@ export default function JourneyScene({ activeIndex, setActiveIndex, progressRef,
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true, powerPreference: "high-performance", toneMapping: THREE.ACESFilmicToneMapping }}
       camera={{ position: [0, 5.9, 28], zoom: 94, near: 0.1, far: 100 }}
-      aria-label="Interactive 3D Builstry journey from 2018 to 2024 and beyond"
+      aria-label="Interactive 3D Builstry journey from 2024 to 2026 and beyond"
       role="region"
       fallback={<div className="journey3d-canvas-fallback">Builstry — Find. Think. Build.</div>}
     >
       <SceneContent
         layout={layout}
         activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
         progressRef={progressRef}
         reducedMotion={reducedMotion}
       />

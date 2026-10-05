@@ -14,7 +14,7 @@ const questions = [
 ];
 
 export default function FAQ() {
-  const [open, setOpen] = useState(0);
+  const [open, setOpen] = useState(5);
   const [response, setResponse] = useState("");
 
   return (

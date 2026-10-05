@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"Home"},{"path":"/about","title":"About"},{"path":"/insights","title":"Insights"},{"path":"/blog","title":"Blog"},{"path":"/blog/:slug","title":"Blog Article"},{"path":"/verify-certificate","title":"Verify Certificate"},{"path":"/:slug","title":"Content Page"}]}

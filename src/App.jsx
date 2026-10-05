@@ -2,6 +2,8 @@ import React, { useLayoutEffect } from "react";
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ScrollExperience from "./components/ScrollExperience";
+import { CtaModalProvider } from "./components/CtaModalContext";
 import Home from "../app/page";
 import About from "../components/AboutReferencePage";
 import Insights from "../components/InsightsPage";
@@ -16,7 +18,11 @@ function RouteScrollManager() {
     const root = document.documentElement;
     const previousScrollBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = "auto";
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (window.__builstryLenis) {
+      window.__builstryLenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
     root.scrollTop = 0;
     document.body.scrollTop = 0;
     document.querySelectorAll("[data-route-scroll], .approach-window, .curiosity-rail").forEach((element) => {
@@ -72,8 +78,10 @@ function NotFoundPage() {
 
 export default function App() {
   return (
+    <CtaModalProvider>
     <>
       <Header />
+      <ScrollExperience />
       <RouteScrollManager />
       <main>
         <Routes>
@@ -89,5 +97,6 @@ export default function App() {
       </main>
       <Footer />
     </>
+    </CtaModalProvider>
   );
 }
