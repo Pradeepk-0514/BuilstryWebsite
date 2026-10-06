@@ -13,13 +13,14 @@ import "./AboutReferenceShowcaseSections.css";
 import "./ApproachSection.css";
 import "./AboutBackgroundRhythm.css";
 import "./AboutPrinciplesOrbit.css";
+import "./AboutPeopleReference.css";
 
 const stages = [["01", "PROBLEM", "Real problems exist everywhere.", "⌕"], ["02", "UNDERSTANDING", "We dig deep to see what's true.", "♧"], ["03", "STRATEGY", "We reframe and find the right way.", "↗"], ["04", "CREATION", "We build systems, products and experiences.", "◇"], ["05", "IMPACT", "We create value that moves people forward.", "◎"]];
 const directions = [["01", "INDUSTRY SOLUTIONS", "We find problems worth solving across industries and build solutions that create real impact.", "industry"], ["02", "BUSINESS & PRODUCT STRATEGY", "We help businesses and products reach their true potential with the right strategy, systems and execution.", "strategy"], ["03", "INNOVATION & COMMUNITY", "We create platforms for ideas, run hackathons, empower students and inspire the next generation of builders.", "community"]];
 const people = [["MUKESHKUMAR", "Founder & Product Strategist", "Problem finder, product thinker. Builder at heart.", "MK", "/assets/people/mukeshkumar-profile.png"], ["ROWFIN", "Co-founder & Growth", "Turns ideas into momentum and connects the dots.", "R", "/assets/people/rowfin-profile.png"], ["DESIGN PARTNER", "Experience & Interface", "Designs clarity into every interaction.", "DP", "/assets/people/design-partner-profile.png"], ["TECH PARTNER", "Engineering & Systems", "Builds robust systems that scale.", "TP", "/assets/people/tech-partner-profile.png"]];
 
 export default function AboutReferencePage() {
-  const [activeStage, setActiveStage] = useState(0), [activeDirection, setActiveDirection] = useState(null), [activePerson, setActivePerson] = useState(null), [hoveredPerson, setHoveredPerson] = useState(null), [dragStart, setDragStart] = useState(null);
+  const [activeStage, setActiveStage] = useState(0), [activeDirection, setActiveDirection] = useState(null), [activePerson, setActivePerson] = useState(1), [hoveredPerson, setHoveredPerson] = useState(null), [dragStart, setDragStart] = useState(null);
   const whyRef = useRef(null);
   useEffect(() => { const section = whyRef.current; if (!section) return; const timer = window.setInterval(() => { if (document.visibilityState === "visible") setActiveStage((current) => (current + 1) % stages.length); }, 3200); return () => window.clearInterval(timer); }, []);
   const moveStage = (index) => setActiveStage(Math.max(0, Math.min(stages.length - 1, index)));

@@ -7,8 +7,12 @@ import {
   ArrowRight,
   Clock3,
   Diamond,
+  GraduationCap,
+  Handshake,
   Lightbulb,
+  Pencil,
   Target,
+  TrendingUp,
   UsersRound,
 } from "lucide-react";
 
@@ -241,13 +245,15 @@ function NetworkOrbitScene({ onCardHover }) {
 }
 
 export function NetworkShowcaseSection() {
-  const [hoveredCard, setHoveredCard] = useState(null);
   return (
     <section className="about-ref-showcase about-ref-network-showcase" aria-labelledby="about-network-heading">
       <div className="about-ref-network-copy">
         <span className="about-ref-showcase-kicker">THE NETWORK<i /></span>
         <h2 id="about-network-heading" className="about-ref-showcase-heading">
-          <span>BUILSTRY</span><span className="is-accent">IS BIGGER</span><span>THAN</span><span>ITS TEAM.</span>
+          <span>BUILSTRY</span>
+          <span className="is-accent">IS BIGGER</span>
+          <span>THAN</span>
+          <span>ITS TEAM.</span>
         </h2>
         <p>We work with founders, mentors, researchers, students and partners to turn bold ideas into real impact.</p>
         <Link className="about-ref-showcase-cta" href="/careers">Join our journey <ArrowRight aria-hidden="true" size={20} /></Link>
@@ -255,18 +261,51 @@ export function NetworkShowcaseSection() {
         <span className="about-ref-showcase-microcopy">MORE PERSPECTIVES.<br />BETTER POSSIBILITIES.</span>
       </div>
 
-      {hoveredCard && <article className="about-ref-network-hover-card" aria-live="polite"><span className="about-ref-network-hover-index">NETWORK / 0{networkOrbitCards.indexOf(hoveredCard) + 1}</span><h3>{hoveredCard.title}</h3><p>{hoveredCard.description}</p><span className="about-ref-network-hover-footer"><i />BUILSTRY / EXPLORE</span></article>}
+      <div className="about-ref-network-stage" aria-label="A sticky-card network journey across founders, partners, investors, and students">
+        <svg className="about-ref-network-orbit" viewBox="0 0 980 620" fill="none" aria-hidden="true">
+          <ellipse cx="490" cy="325" rx="410" ry="150" stroke="rgba(197, 31, 93, 0.28)" strokeWidth="2" transform="rotate(-15 490 325)" />
+          <path d="M130 330C240 190 360 180 500 330C640 480 760 470 858 332" stroke="rgba(197, 31, 93, 0.24)" strokeWidth="1.5" fill="none" />
+          <circle cx="130" cy="330" r="6" fill="#F3579E" />
+          <circle cx="858" cy="332" r="7" fill="#F3579E" opacity="0.9" />
+          <circle cx="350" cy="468" r="5" fill="#F3579E" opacity="0.7" />
+          <circle cx="670" cy="220" r="5" fill="#F3579E" opacity="0.8" />
+        </svg>
 
-      <div className="about-ref-network-stage">
-        <NetworkOrbit />
-        <HandwrittenNote />
-        <div className="about-ref-network-canvas" aria-label="A rotating Builstry cube surrounded by orbiting network cards">
-          <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 1.9, 7.6], fov: 38 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}>
-            <NetworkOrbitScene onCardHover={setHoveredCard} />
-          </Canvas>
+        <div className="about-ref-network-handnote">Different minds.<br />Same mission.</div>
+
+        <div className="about-ref-network-stack" aria-label="Builstry network groups">
+          <div className="about-ref-network-tile about-ref-network-tile--founders">
+            <div className="about-ref-network-tile-icon"><UsersRound size={29} strokeWidth={1.8} /></div>
+            <span>Founders</span>
+            <small>Visionaries building what&apos;s next.</small>
+            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore founders"><ArrowRight size={16} /></button>
+          </div>
+          <div className="about-ref-network-tile about-ref-network-tile--mentors">
+            <div className="about-ref-network-tile-icon"><Handshake size={27} strokeWidth={1.8} /></div>
+            <span>Mentors &amp;<br />Partners</span>
+            <small>Guidance,<br />support, growth.</small>
+            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore mentors and partners"><ArrowRight size={16} /></button>
+          </div>
+          <div className="about-ref-network-tile about-ref-network-tile--investors">
+            <div className="about-ref-network-tile-icon"><TrendingUp size={27} strokeWidth={1.8} /></div>
+            <span>Investors</span>
+            <small>Fueling<br />opportunities.</small>
+            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore investors"><ArrowRight size={16} /></button>
+          </div>
+          <div className="about-ref-network-tile about-ref-network-tile--designers">
+            <div className="about-ref-network-tile-icon"><Pencil size={27} strokeWidth={1.8} /></div>
+            <span>Designers</span>
+            <small>Building<br />experiences.</small>
+            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore designers"><ArrowRight size={16} /></button>
+          </div>
+          <div className="about-ref-network-tile about-ref-network-tile--students">
+            <div className="about-ref-network-tile-icon"><GraduationCap size={27} strokeWidth={1.8} /></div>
+            <span>Students</span>
+            <small>Learning &amp;<br />creating tomorrow.</small>
+            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore students"><ArrowRight size={16} /></button>
+          </div>
         </div>
       </div>
-
       <ScrollCue />
     </section>
   );

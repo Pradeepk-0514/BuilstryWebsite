@@ -47,6 +47,154 @@
 }
 .about-website-reference .about-ref-showcase::before { top: -5px; right: -68px; transform: rotate(44deg); }
 .about-website-reference .about-ref-showcase::after { bottom: 2px; left: -66px; transform: rotate(44deg); }
+.about-website-reference .about-ref-network-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 570px;
+}
+.about-website-reference .about-ref-network-stack {
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: min(100%, 820px);
+  height: 390px;
+  transform: perspective(1200px) rotateX(8deg) rotateY(-6deg);
+}
+.about-website-reference .about-ref-network-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 260px;
+  padding: 22px 18px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12));
+  box-shadow: 0 36px 52px rgba(29, 35, 43, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #1f2530;
+  text-align: center;
+  overflow: hidden;
+}
+.about-website-reference .about-ref-network-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255,255,255,0.34), rgba(255,255,255,0.02));
+  pointer-events: none;
+}
+.about-website-reference .about-ref-network-tile > * { position: relative; z-index: 1; }
+.about-website-reference .about-ref-network-tile--founders {
+  width: 270px;
+  height: 330px;
+  margin-right: -22px;
+  background: linear-gradient(180deg, rgba(255, 72, 152, 0.92), rgba(237, 42, 127, 0.92));
+  box-shadow: 0 38px 60px rgba(255, 82, 165, 0.28);
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+.about-website-reference .about-ref-network-tile--founders .about-ref-network-tile-icon {
+  color: rgba(255,255,255,0.96);
+  border-color: rgba(255,255,255,0.66);
+  background: rgba(255,255,255,0.1);
+}
+.about-website-reference .about-ref-network-tile--mentors {
+  width: 245px;
+  height: 270px;
+  margin-right: -18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(244, 245, 248, 0.88));
+  transform: translateY(24px) rotate(-4deg);
+}
+.about-website-reference .about-ref-network-tile--investors {
+  width: 225px;
+  height: 250px;
+  margin-right: -12px;
+  background: linear-gradient(180deg, rgba(16, 17, 21, 0.88), rgba(26, 31, 38, 0.96));
+  transform: translateY(38px) rotate(0deg);
+  color: #fff;
+  border-color: rgba(255,255,255,0.08);
+}
+.about-website-reference .about-ref-network-tile--investors .about-ref-network-tile-icon {
+  color: rgba(255,255,255,0.94);
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.about-website-reference .about-ref-network-tile--students {
+  width: 200px;
+  height: 240px;
+  transform: translateY(52px) rotate(4deg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(245,245,246,0.9));
+}
+.about-website-reference .about-ref-network-tile-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 29, 38, 0.15);
+  background: rgba(255,255,255,0.2);
+  color: #1f2530;
+}
+.about-website-reference .about-ref-network-tile span {
+  display: block;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: clamp(1.4rem, 2vw, 2.2rem);
+  line-height: 1.02;
+}
+.about-website-reference .about-ref-network-tile small {
+  display: block;
+  margin-top: 12px;
+  max-width: 160px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: inherit;
+  opacity: 0.75;
+}
+.about-website-reference .about-ref-network-tile-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  color: #1f2530;
+  box-shadow: 0 8px 16px rgba(18, 21, 27, 0.08);
+  cursor: pointer;
+}
+.about-website-reference .about-ref-network-tile--founders .about-ref-network-tile-arrow,
+.about-website-reference .about-ref-network-tile--mentors .about-ref-network-tile-arrow {
+  background: rgba(255,255,255,0.9);
+}
+.about-website-reference .about-ref-network-tile--investors .about-ref-network-tile-arrow,
+.about-website-reference .about-ref-network-tile--students .about-ref-network-tile-arrow {
+  background: rgba(255,255,255,0.9);
+  color: #1f2530;
+}
+.about-website-reference .about-ref-network-handnote {
+  position: absolute;
+  right: 36px;
+  top: 26px;
+  color: rgba(94,104,122,0.8);
+  font-family: "Caveat Brush", cursive;
+  font-size: clamp(1.4rem, 1.8vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transform: rotate(-10deg);
+  text-align: left;
+  z-index: 3;
+}
 .about-website-reference .about-ref-showcase-kicker {
   display: inline-flex;
   align-items: center;
