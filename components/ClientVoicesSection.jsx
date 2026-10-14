@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Link from "./RouterLink";
 import { ArrowLeft, ArrowRight, Star, UsersRound } from "lucide-react";
 
@@ -45,84 +45,21 @@ function ReviewerAvatar({ initials, small = false }) {
   return <span className={`cv-avatar${small ? " is-small" : ""}`} aria-hidden="true"><span>{initials}</span></span>;
 }
 
-function CommunityReviewCard({ review, index, selected = false, onSelect }) {
-  return <article data-review-index={index} className={`cv-small-card${selected ? " is-selected" : ""}`} onClick={onSelect}>
-    <div className="cv-small-reviewer"><ReviewerAvatar initials={review.initials} small/><span><b>{review.name}</b><small>{review.role}<br/>{review.date}</small></span></div>
-    <div className="cv-small-rating"><Stars compact/><span>5.0</span></div>
-    <p>“{review.quote}”</p>
-    <SourceMark type={review.sourceType} label={review.source}/>
-  </article>;
-}
-
 export default function ClientVoicesSection() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
-  const [featuredPhase, setFeaturedPhase] = useState("idle");
   const [selectedReview, setSelectedReview] = useState(1);
-  const [reviewHoverPaused, setReviewHoverPaused] = useState(false);
   const reviewTrack = useRef(null);
-  const reviewMotionTrack = useRef(null);
-  const featuredTimers = useRef([]);
   const current = featuredReviews[featuredIndex];
   const previous = featuredReviews[(featuredIndex + featuredReviews.length - 1) % featuredReviews.length];
   const next = featuredReviews[(featuredIndex + 1) % featuredReviews.length];
 
-  const transitionFeatured = useCallback((nextIndex) => {
-    featuredTimers.current.forEach((timer) => window.clearTimeout(timer));
-    setFeaturedPhase("exiting");
-    featuredTimers.current = [window.setTimeout(() => {
-      setFeaturedIndex((index) => typeof nextIndex === "function" ? nextIndex(index) : nextIndex);
-      setFeaturedPhase("entering");
-      featuredTimers.current = [window.setTimeout(() => setFeaturedPhase("idle"), 390)];
-    }, 160)];
-  }, []);
-
-  const stepFeatured = useCallback((direction) => {
-    transitionFeatured((index) => (index + direction + featuredReviews.length) % featuredReviews.length);
-  }, [transitionFeatured]);
-
-  const selectCommunityReview = (index) => {
-    setSelectedReview(index);
-    const card = reviewTrack.current?.querySelector(`.cv-review-loop:not([aria-hidden="true"]) [data-review-index="${index}"]`);
-    card?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  };
-
+  const stepFeatured = (direction) => setFeaturedIndex((index) => (index + direction + featuredReviews.length) % featuredReviews.length);
   const stepReviews = (direction) => {
     const target = Math.max(0, Math.min(communityReviews.length - 1, selectedReview + direction));
-    selectCommunityReview(target);
+    setSelectedReview(target);
+    const card = reviewTrack.current?.querySelector(`[data-review-index="${target}"]`);
+    card?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
   };
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
-    const timer = window.setInterval(() => stepFeatured(1), 2000);
-    return () => window.clearInterval(timer);
-  }, [stepFeatured]);
-
-  useEffect(() => () => featuredTimers.current.forEach((timer) => window.clearTimeout(timer)), []);
-
-  useEffect(() => {
-    const track = reviewMotionTrack.current;
-    const loop = track?.querySelector('.cv-review-loop:not([aria-hidden="true"])');
-    if (!track || !loop) return undefined;
-    const measureLoop = () => {
-      const width = loop.getBoundingClientRect().width;
-      if (width > 0) {
-        track.style.setProperty("--cv-loop-distance", `-${width}px`);
-        track.style.setProperty("--cv-loop-duration", `${width / 26}s`);
-      }
-    };
-    measureLoop();
-    const observer = new ResizeObserver(measureLoop);
-    observer.observe(loop);
-    return () => observer.disconnect();
-  }, []);
-
-  const pauseOnMouseHover = (event) => {
-    if (event.pointerType === "mouse") setReviewHoverPaused(true);
-  };
-  const resumeAfterMouseHover = (event) => {
-    if (event.pointerType === "mouse") setReviewHoverPaused(false);
-  };
-  const phaseClass = featuredPhase === "idle" ? "" : ` is-${featuredPhase}`;
 
   return <section className="client-voices-section" aria-labelledby="client-voices-title">
     <div className="cv-shell">
@@ -145,7 +82,7 @@ export default function ClientVoicesSection() {
             <div className="cv-reviewer"><ReviewerAvatar initials={previous.initials} small/><span><b>{previous.name}</b><small>{previous.role}<i/> {previous.date}</small></span></div>
             <Stars compact/><span className="cv-score-small">5.0</span><span className="cv-quote-mark">“</span><p>{previous.quote}</p><SourceMark type={previous.sourceType} label={previous.source}/>
           </article>
-          <article className={`cv-feature-card cv-feature-card--active${phaseClass}`} aria-live="polite" aria-label={`Review by ${current.name}`}>
+          <article className="cv-feature-card cv-feature-card--active" aria-live="polite" aria-label={`Review by ${current.name}`}>
             <div className="cv-reviewer cv-reviewer--active"><ReviewerAvatar initials={current.initials}/><span><b>{current.name}</b><small>{current.role}<i/> {current.date}</small></span></div>
             <div className="cv-rating-line"><Stars/><span>5.0</span></div>
             <span className="cv-quote-mark">“</span>
@@ -158,23 +95,21 @@ export default function ClientVoicesSection() {
             <Stars compact/><span className="cv-score-small">5.0</span><span className="cv-quote-mark">“</span><p>{next.quote}</p><SourceMark type={next.sourceType} label={next.source}/>
           </article>
           <div className="cv-handnote" aria-hidden="true">Real stories.<br/>Real growth.<svg viewBox="0 0 54 55"><path d="M8 9c22-8 38 5 34 22-2 8-7 14-15 18m0 0 2-12m-2 12 12-3"/></svg></div>
-          <div className="cv-feature-dots" role="group" aria-label="Select featured review">{featuredReviews.map((review, index) => <button key={review.name} type="button" aria-label={`Show ${review.name}'s review`} aria-current={index === featuredIndex ? "true" : undefined} onClick={() => transitionFeatured(index)} />)}</div>
+          <div className="cv-feature-dots" role="group" aria-label="Select featured review">{featuredReviews.map((review, index) => <button key={review.name} type="button" aria-label={`Show ${review.name}'s review`} aria-current={index === featuredIndex ? "true" : undefined} onClick={() => setFeaturedIndex(index)} />)}</div>
           <button className="cv-carousel-arrow cv-arrow-right" type="button" onClick={() => stepFeatured(1)} aria-label="Next featured review"><ArrowRight size={18}/></button>
         </div>
       </div>
 
       <div className="cv-review-row-heading"><span>FROM LEARNERS &amp; PARTNERS</span><div className="cv-row-controls"><button type="button" aria-label="Previous client review" onClick={() => stepReviews(-1)}><ArrowLeft size={16}/></button><button type="button" aria-label="Next client review" onClick={() => stepReviews(1)}><ArrowRight size={16}/></button></div></div>
-      <div className={`cv-review-grid${reviewHoverPaused ? " is-hover-paused" : ""}`} id="client-review-cards" ref={reviewTrack} aria-label="More client reviews, continuously scrolling" onPointerEnter={pauseOnMouseHover} onPointerLeave={resumeAfterMouseHover}>
-        <div className="cv-review-track" ref={reviewMotionTrack}>
-          <div className="cv-review-loop">
-            {communityReviews.map((review, index) => <CommunityReviewCard key={review.name} review={review} index={index} selected={selectedReview === index} onSelect={() => selectCommunityReview(index)} />)}
-          </div>
-          <div className="cv-review-loop" aria-hidden="true">
-            {communityReviews.map((review, index) => <CommunityReviewCard key={`copy-${review.name}`} review={review} index={index} />)}
-          </div>
-        </div>
+      <div className="cv-review-grid" id="client-review-cards" ref={reviewTrack} aria-label="More client reviews">
+        {communityReviews.map((review, index) => <article key={review.name} data-review-index={index} className={`cv-small-card${selectedReview === index ? " is-selected" : ""}`} onClick={() => setSelectedReview(index)}>
+          <div className="cv-small-reviewer"><ReviewerAvatar initials={review.initials} small/><span><b>{review.name}</b><small>{review.role}<br/>{review.date}</small></span></div>
+          <div className="cv-small-rating"><Stars compact/><span>5.0</span></div>
+          <p>“{review.quote}”</p>
+          <SourceMark type={review.sourceType} label={review.source}/>
+        </article>)}
       </div>
-      <div className="cv-review-pagination" aria-label="Review cards">{communityReviews.map((review, index) => <button key={review.name} type="button" aria-label={`Select review ${index + 1}`} aria-current={index === selectedReview ? "true" : undefined} onClick={() => selectCommunityReview(index)} />)}</div>
+      <div className="cv-review-pagination" aria-label="Review cards">{communityReviews.map((review, index) => <button key={review.name} type="button" aria-label={`Select review ${index + 1}`} aria-current={index === selectedReview ? "true" : undefined} onClick={() => { setSelectedReview(index); reviewTrack.current?.querySelector(`[data-review-index="${index}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" }); }} />)}</div>
       <span className="cv-corner-orb cv-corner-orb--left" aria-hidden="true"/><span className="cv-corner-orb cv-corner-orb--right" aria-hidden="true"/>
     </div>
   </section>;

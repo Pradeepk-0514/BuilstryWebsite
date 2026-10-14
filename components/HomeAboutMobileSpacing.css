@@ -1,0 +1,80 @@
+/* Targeted vertical-rhythm corrections for the Home and About pages only. */
+@media (max-width: 760px) {
+  /* Keep the mobile hero's scroll-linked states, but remove an entire extra viewport of runway. */
+  .home-page > .hero-section {
+    min-height: 140svh;
+    height: 140svh;
+  }
+
+  .home-page > .split-section {
+    padding-block: 56px;
+  }
+
+  .home-page > .capabilities-scroll {
+    padding-top: 56px;
+    padding-bottom: 32px;
+  }
+
+  .home-page > .impact-section {
+    padding-block: 56px;
+  }
+
+  .home-page > .faq-modern {
+    padding-top: 48px;
+    padding-bottom: 52px;
+  }
+
+  html body .about-website-reference > .about-ref-directions {
+    padding-top: 56px !important;
+    padding-bottom: 30px !important;
+  }
+
+  .about-website-reference > .about-ref-mindset-section {
+    padding-top: 56px;
+    padding-bottom: 30px;
+  }
+
+  html body .about-website-reference > .about-ref-people {
+    padding-top: 44px !important;
+    padding-bottom: 44px !important;
+  }
+
+  .about-website-reference > .about-ref-people .about-ref-people-intro {
+    margin-bottom: 24px;
+  }
+
+  .about-website-reference > .about-ref-network-showcase {
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .about-website-reference > .about-ref-principles-showcase {
+    padding-top: 56px;
+    padding-bottom: 28px;
+  }
+
+  .home-page > .page-problem-cta,
+  .about-website-reference > .page-problem-cta {
+    min-height: 0;
+    row-gap: 12px;
+    padding: 46px 24px 34px;
+  }
+
+  .home-page > .page-problem-cta .home-connect-actions,
+  .about-website-reference > .page-problem-cta .home-connect-actions {
+    margin-top: 18px;
+  }
+
+  /* The footer follows the CTA in normal flow; let its stacked links determine its height. */
+  body:has(.home-page) #root > .site-footer,
+  body:has(.about-website-reference) #root > .site-footer {
+    min-height: 0;
+    padding-top: 32px;
+    padding-bottom: 16px;
+  }
+
+  body:has(.home-page) #root > .site-footer .footer-grid,
+  body:has(.about-website-reference) #root > .site-footer .footer-grid {
+    padding-bottom: 18px;
+  }
+}

@@ -5,7 +5,7 @@ import App from "./App";
 import "../app/globals.css";
 import "./components/GlassButtons.css";
 import "../components/InsightsFooterSpacing.css";
-import "./components/MobilePolish.css";
+import "../components/HomeAboutMobileSpacing.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
