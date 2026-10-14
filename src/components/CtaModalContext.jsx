@@ -10,7 +10,7 @@ export function CtaModalProvider({ children }) {
       window.__builstryCtaScrollY = window.scrollY;
       window.__builstryLenis?.stop?.();
     }
-    setMode(nextMode === "booking" ? "booking" : nextMode === "home-problem" ? "home-problem" : "inquiry");
+    setMode(nextMode === "booking" ? "booking" : "inquiry");
   }, []);
   const closeCta = useCallback(() => setMode(null), []);
   const value = useMemo(() => ({ openCta }), [openCta]);

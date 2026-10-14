@@ -1,7 +1,7 @@
 import { Link as ReactRouterLink } from "react-router-dom";
 import { useCtaModal } from "../src/components/CtaModalContext";
 
-export default function RouterLink({ href, prefetch, scroll, legacyBehavior, ctaMode, ...props }) {
+export default function RouterLink({ href, prefetch, scroll, legacyBehavior, ...props }) {
   const ctaModal = useCtaModal();
   const { onClick, ...linkProps } = props;
 
@@ -19,11 +19,11 @@ export default function RouterLink({ href, prefetch, scroll, legacyBehavior, cta
     const label = event.currentTarget.textContent?.replace(/\s+/g, " ").trim().toLowerCase() || "";
     const target = new URL(typeof href === "string" ? href : "/", window.location.href);
     const isBooking = target.searchParams.get("mode") === "booking" || /\bbook a call\b/.test(label);
-    const isConversation = /\bstart a conversation\b/.test(label);
+    const isConversation = /\bstart a conversation\b/i.test(label);
 
     if (ctaModal && (isBooking || isConversation)) {
       event.preventDefault();
-      ctaModal.openCta(ctaMode || (isBooking ? "booking" : "inquiry"));
+      ctaModal.openCta(isConversation ? "inquiry" : "booking");
     }
   };
 

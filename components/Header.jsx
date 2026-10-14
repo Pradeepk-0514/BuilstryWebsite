@@ -91,6 +91,7 @@ export default function Header() {
       <Link className={activeClass("/insights")} aria-current={activeClass("/insights") ? "page" : undefined} href="/insights" onClick={closeMenus}>Insights<ArrowUpRight size={14} /></Link>
       <Link className={activeClass("/about")} aria-current={pathname === "/about" ? "page" : undefined} href="/about" onClick={closeMenus}>About<ArrowUpRight size={14} /></Link>
       <Link className={activeClass("/verify-certificate")} aria-current={pathname === "/verify-certificate" ? "page" : undefined} href="/verify-certificate" onClick={closeMenus}>Verify certificate<ArrowUpRight size={14} /></Link>
+      <Link className="mobile-nav-cta" href="/contact" onClick={closeMenus}><Sparkles size={15} /> Start a Conversation <ArrowUpRight size={14} /></Link>
     </motion.div>}</AnimatePresence>
   </header>;
 }
