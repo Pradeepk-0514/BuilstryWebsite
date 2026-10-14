@@ -9,6 +9,8 @@ import CuriositySection from "../components/CuriositySection";
 import IntentSection from "../components/IntentSection";
 import ProblemCTA from "../components/ProblemCTA";
 import "../components/HomeApproachSections.css";
+import ClientVoicesSection from "../components/ClientVoicesSection";
+import "../components/ClientVoicesSection.css";
 
 export default function HomePage() {
   return <div className="page-shell home-page">
@@ -28,13 +30,13 @@ export default function HomePage() {
 
     <CuriositySection />
 
-    <section className="marquee-section"><div className="marquee-track">A PRACTICAL GROWTH ECOSYSTEM <span>✦</span> SMARTER AI SYSTEMS <span>✦</span> BRANDS THAT STAND OUT <span>✦</span> LEARN. BUILD. MOVE. <span>✦</span></div></section>
-
     <ImpactStats />
 
     <FAQ />
 
     <IntentSection />
+
+    <ClientVoicesSection />
 
     <ProblemCTA />
     </div>;

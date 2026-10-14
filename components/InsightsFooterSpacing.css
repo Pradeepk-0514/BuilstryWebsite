@@ -7,10 +7,10 @@
   margin-bottom: clamp(18px, 2vw, 24px);
 }
 
-/* Let this route's footer follow the final section instead of sliding underneath it. */
+/* Let the Insights CTA hand off into the same sticky footer reveal used by the other pages. */
 body:has(.insights-page) .site-footer {
-  position: relative;
-  bottom: auto;
+  position: sticky;
+  bottom: 0;
 }
 
 @media (max-width: 900px) {

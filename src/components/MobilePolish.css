@@ -1,0 +1,165 @@
+/* Compact responsive pass: reduce mobile whitespace while leaving desktop and scroll mechanics untouched. */
+@media (max-width: 900px) {
+  .insights-page .insights-opening-panel { min-height: 88svh; }
+  .insights-page .insights-opening-visual { height: 88svh; min-height: 540px; }
+
+  .home-page > .light-section.split-section,
+  .home-page > .dark-section,
+  .home-page > .benefits-section,
+  .home-page > .capabilities-scroll,
+  .home-page > .impact-section,
+  .home-page > .faq-section {
+    padding-top: 68px;
+    padding-bottom: 68px;
+  }
+  .home-page > .capabilities-scroll { padding-bottom: 30px; }
+  .home-page > .faq-section { padding-bottom: 38px; }
+  .home-page .section-heading,
+  .home-page .benefits-section .section-heading { margin-bottom: 36px; }
+  .home-page .capability-step { padding-bottom: 54px; }
+  .home-page .capability-step h3 { margin-top: 32px; }
+  .home-page .impact-stat { min-height: 154px; }
+  .home-page .impact-stat strong { margin-top: 30px; }
+
+  .inner-page .inner-hero {
+    min-height: 0;
+    align-items: flex-start;
+    padding: 132px 6vw 62px;
+  }
+  .inner-page > .inner-cards,
+  .inner-page > .product-grid,
+  .inner-page > .people-section,
+  .inner-page > .dark-section,
+  .inner-page > .benefits-section { padding: 62px 6vw; }
+  .inner-page .section-heading { margin-bottom: 34px; }
+  .inner-page .vertical-card { min-height: 410px; padding: 22px; }
+  .inner-page .icon-tile { margin: 42px 0 22px; }
+  .inner-page .vertical-card h3 { font-size: 26px; }
+  .inner-page .product-card { min-height: 320px; }
+}
+
+@media (max-width: 760px) {
+  .insights-page .insights-opening-visual { height: 32svh; min-height: 245px; padding: 14px; }
+  .insights-page .insights-opening-panel { min-height: 72svh; }
+  .insights-page .insights-opening-inner { padding: 40px 22px 50px; }
+  .insights-page .insights-opening-index { margin-bottom: 22px; }
+  .insights-page .insights-featured-panel .insights-category { margin-top: 32px; }
+  .insights-page .insights-built-section { padding-top: 56px; padding-bottom: 24px; }
+  .insights-page .insights-built-card { min-height: 215px; }
+  .insights-page .insights-built-copy { padding: 18px; }
+  .insights-page .insights-newsletter { margin-top: 14px; margin-bottom: 18px; padding: 16px; }
+
+  .about-website-reference .about-ref-why-copy { padding: 62px 22px 38px; }
+  .about-website-reference > .about-ref-why .about-ref-fan { padding: 38px 22px 44px; }
+  html body .about-website-reference > .about-ref-directions {
+    min-height: auto !important;
+    padding: 58px 22px 34px !important;
+  }
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card,
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card[data-reveal] {
+    height: 292px !important;
+    min-height: 292px !important;
+  }
+  html body .about-website-reference .about-ref-directions-grid.has-selection .about-ref-direction-card.is-selected {
+    height: 320px !important;
+    min-height: 320px !important;
+  }
+  html body .about-website-reference .about-ref-mindset-section { padding: 58px 22px 30px !important; }
+  html body .about-website-reference .about-ref-mindset-card { height: 180px !important; }
+  .about-website-reference .about-ref-mindset-track { gap: 10px; }
+  .about-website-reference .about-ref-people { padding: 52px 22px 42px; }
+  .about-website-reference .about-ref-people-intro { margin-bottom: 28px; }
+  .about-website-reference .about-ref-person-photo { height: 148px; }
+  .about-website-reference .about-ref-person-info { padding: 14px 12px 12px; }
+  .about-website-reference .about-ref-showcase { padding-top: 60px !important; padding-bottom: 26px !important; }
+  .about-website-reference .about-ref-network-stage { margin-top: 22px; padding-top: 64px; }
+  .about-website-reference .about-ref-network-card,
+  .about-website-reference .about-ref-network-card--founders,
+  .about-website-reference .about-ref-network-card--students,
+  .about-website-reference .about-ref-network-card--builders,
+  .about-website-reference .about-ref-network-card--designers,
+  .about-website-reference .about-ref-network-card--partners { min-height: 154px; }
+}
+
+@media (max-width: 540px) {
+  .hero-section { padding: 116px 22px 54px; }
+  .home-page > .light-section.split-section,
+  .home-page > .dark-section,
+  .home-page > .benefits-section,
+  .home-page > .capabilities-scroll,
+  .home-page > .impact-section,
+  .home-page > .faq-section,
+  .inner-page > .inner-cards,
+  .inner-page > .product-grid,
+  .inner-page > .people-section,
+  .inner-page > .dark-section,
+  .inner-page > .benefits-section { padding-inline: 22px; }
+  .home-page > .light-section.split-section,
+  .home-page > .dark-section,
+  .home-page > .benefits-section,
+  .home-page > .capabilities-scroll,
+  .home-page > .impact-section,
+  .home-page > .faq-section { padding-top: 56px; padding-bottom: 56px; }
+  .home-page > .capabilities-scroll { padding-bottom: 26px; }
+  .home-page > .faq-section { padding-bottom: 34px; }
+  .home-page .section-heading,
+  .home-page .benefits-section .section-heading { gap: 14px; margin-bottom: 28px; }
+  .inner-page .inner-hero { padding: 122px 22px 54px; }
+  .inner-page > .inner-cards,
+  .inner-page > .product-grid,
+  .inner-page > .people-section,
+  .inner-page > .dark-section,
+  .inner-page > .benefits-section { padding-top: 54px; padding-bottom: 54px; }
+  .inner-page .vertical-card { min-height: 360px; padding: 18px; }
+  .inner-page .icon-tile { width: 46px; height: 46px; margin: 32px 0 18px; }
+  .inner-page .vertical-card h3 { font-size: 24px; }
+  .inner-page .vertical-card p { min-height: 0; }
+  .inner-page .product-card { min-height: 290px; padding: 22px; }
+
+  .insights-page .insights-opening-visual { height: 30svh; min-height: 230px; }
+  .insights-page .insights-opening-panel { min-height: 58svh; }
+  .insights-page .insights-opening-inner { padding: 34px 20px 44px; }
+  .insights-page .insights-opening-index { margin-bottom: 18px; }
+  .insights-page .insights-featured-panel .insights-category { margin-top: 26px; }
+  .insights-page .insights-built-section { padding-top: 48px; }
+  .insights-page .insights-newsletter { margin-inline: 18px; }
+  .insights-page .insights-built-card { min-height: 205px; }
+
+  .about-website-reference .about-ref-why-copy { padding: 56px 20px 34px; }
+  .about-website-reference > .about-ref-why .about-ref-fan { margin: 0 20px 20px; padding: 32px 18px 36px; }
+  html body .about-website-reference > .about-ref-directions { padding: 52px 20px 28px !important; }
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card,
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card[data-reveal] {
+    height: 282px !important;
+    min-height: 282px !important;
+  }
+  html body .about-website-reference .about-ref-directions-grid.has-selection .about-ref-direction-card.is-selected {
+    height: 308px !important;
+    min-height: 308px !important;
+  }
+  html body .about-website-reference .about-ref-mindset-section { padding: 52px 20px 26px !important; }
+  html body .about-website-reference .about-ref-mindset-card { height: 176px !important; }
+  .about-website-reference .about-ref-mindset-track { gap: 9px; }
+  .about-website-reference .about-ref-people { padding: 46px 20px 36px; }
+  .about-website-reference .about-ref-people-intro { margin-bottom: 24px; }
+  .about-website-reference .about-ref-person-photo { height: 140px; }
+  .about-website-reference .about-ref-showcase { padding: 54px 20px 24px !important; }
+  .about-website-reference .about-ref-principles-showcase { padding-top: 48px !important; }
+}
+
+@media (max-width: 360px) {
+  .site-header { gap: 10px; padding-left: 12px; }
+  .brand { gap: 8px; font-size: 12px; }
+  .home-page > .hero-section { padding-inline: 18px; }
+  .home-page .hero-actions { gap: 8px; }
+  .about-website-reference .about-ref-why-copy,
+  .about-website-reference .about-ref-directions,
+  .about-website-reference .about-ref-thinking,
+  .about-website-reference .about-ref-people { padding-inline: 18px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insights-page .insights-opening-visual,
+  .insights-page .insights-opening-panel,
+  .about-website-reference .about-ref-person-photo img { scroll-behavior: auto; }
+}

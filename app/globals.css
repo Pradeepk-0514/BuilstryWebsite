@@ -6037,3 +6037,44 @@ body:has(.page-problem-cta) > .site-footer .footer-bottom { margin-top: auto; }
   .about-website-reference .about-ref-network-tile span { font-size: 20px; }
   .about-website-reference .about-ref-network-tile small { font-size: 10px; }
 }
+
+/* Final requested refinements for the attached project ZIP. */
+/* The fixed magenta progress strip is not part of the homepage experience. */
+.home-page ~ .scroll-progress,
+body:has(.home-page) > .scroll-progress,
+.home-page .scroll-progress { display: none !important; }
+
+/* A compact, explicit action under the sixth FAQ response field. */
+.home-page > .faq-modern .faq-modern-response { display: flex; flex-direction: column; align-items: flex-start; }
+.home-page > .faq-modern .faq-modern-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-top: 14px;
+  padding: 0 22px;
+  border: 1px solid #C51F5D;
+  border-radius: 999px;
+  background: #C51F5D;
+  color: #F7F8FA;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .04em;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(197,31,93,.18);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.home-page > .faq-modern .faq-modern-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #AE1B52;
+  box-shadow: 0 12px 24px rgba(197,31,93,.25);
+}
+.home-page > .faq-modern .faq-modern-submit:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+
+/* Rounded conversation actions on Insights and About, matching the homepage CTA treatment. */
+.page-problem-cta .home-connect-link { border-radius: 999px; }
+
+/* The journey punctuation is intentionally steel-navy, not magenta or black. */
+.about-website-reference .journey-modern-intro h2 .journey-modern-dot,
+.about-website-reference .journey-modern-dot { color: #243447 !important; }

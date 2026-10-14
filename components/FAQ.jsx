@@ -33,6 +33,7 @@ function FAQIllustration() {
 export default function FAQ() {
   const [open, setOpen] = useState(5);
   const [response, setResponse] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <section className="faq-section faq-modern" aria-labelledby="faq-title">
@@ -71,7 +72,10 @@ export default function FAQ() {
                   {isInputQuestion ? (
                     <div className="faq-modern-response">
                       <p className="faq-modern-response-note">Tell us what you are thinking and we&apos;ll help shape the next step.</p>
-                      <textarea value={response} onChange={(event) => setResponse(event.target.value)} placeholder="Tell us what you’re thinking…" aria-label="Your response" />
+                      <textarea value={response} onChange={(event) => { setResponse(event.target.value); setSubmitted(false); }} placeholder="Tell us what you’re thinking…" aria-label="Your response" />
+                      <button className="faq-modern-submit" type="button" onClick={() => setSubmitted(true)} disabled={!response.trim()}>
+                        {submitted ? "Submitted" : "Submit"}
+                      </button>
                     </div>
                   ) : <p>{answer}</p>}
                 </div>
