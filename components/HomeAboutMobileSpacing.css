@@ -4,6 +4,11 @@
   .home-page > .hero-section {
     min-height: 140svh;
     height: 140svh;
+    padding: 0;
+  }
+
+  .home-page > .hero-section > .hero-shell {
+    padding-block: clamp(76px, 13svh, 104px) clamp(24px, 5svh, 40px);
   }
 
   .home-page > .split-section {
