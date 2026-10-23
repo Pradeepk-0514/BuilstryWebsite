@@ -6,6 +6,7 @@ import "../app/globals.css";
 import "./components/GlassButtons.css";
 import "../components/InsightsFooterSpacing.css";
 import "../components/HomeAboutMobileSpacing.css";
+import "../components/AboutNetworkHero.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

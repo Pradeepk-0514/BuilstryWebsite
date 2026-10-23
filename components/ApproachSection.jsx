@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
+import useMobileHorizontalScroll from "./useMobileHorizontalScroll";
 
 const steps = [
   ["01", "FIND", "Identify what truly needs solving.", "Start with the signal, not the noise."],
@@ -15,9 +16,21 @@ const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 
 export default function ApproachSection() {
   const sectionRef = useRef(null);
+  const stageRef = useRef(null);
   const trackRef = useRef(null);
   const viewportRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
+
+  useMobileHorizontalScroll({
+    sectionRef,
+    stageRef,
+    trackRef,
+    viewportRef,
+    onIndexChange: (index) => {
+      setActiveStep(index);
+      if (sectionRef.current) sectionRef.current.dataset.activeCard = `${index + 1}`;
+    },
+  });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -35,12 +48,6 @@ export default function ApproachSection() {
       section.dataset.activeCard = `${index + 1}`;
       setActiveStep((current) => current === index ? current : index);
     };
-    const reset = () => {
-      section.style.height = "";
-      section.dataset.phase = "mobile";
-      track.style.transform = "translate3d(0, 0, 0)";
-      syncMobileStep();
-    };
     const update = () => {
       frame = 0;
       if (mobile()) return;
@@ -57,7 +64,7 @@ export default function ApproachSection() {
       setActiveStep((current) => current === index ? current : index);
     };
     const measure = () => {
-      if (mobile()) return reset();
+      if (mobile()) return;
       viewport.scrollLeft = 0;
       const header = document.querySelector(".site-header");
       const offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
@@ -76,22 +83,21 @@ export default function ApproachSection() {
       update();
     };
     const onScroll = () => { if (mobile()) return; if (!frame) frame = window.requestAnimationFrame(update); };
-    const onHorizontalScroll = () => { if (mobile()) syncMobileStep(); };
     const onResize = () => { if (!frame) frame = window.requestAnimationFrame(measure); };
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    viewport.addEventListener("scroll", onHorizontalScroll, { passive: true });
+    viewport.addEventListener("scroll", syncMobileStep, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      viewport.removeEventListener("scroll", onHorizontalScroll);
+      viewport.removeEventListener("scroll", syncMobileStep);
       window.removeEventListener("resize", onResize);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
 
   return <section className="approach-scroll-section" ref={sectionRef} data-phase="centering" data-active-card="1">
-    <div className="approach-sticky-wrapper">
+    <div className="approach-sticky-wrapper" ref={stageRef}>
       <div className="approach-left-content">
         <span className="approach-kicker">THE PROCESS</span>
         <h2>THE <em>BUILSTRY</em><br />APPROACH</h2>

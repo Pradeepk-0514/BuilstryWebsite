@@ -244,69 +244,83 @@ function NetworkOrbitScene({ onCardHover }) {
   );
 }
 
+const networkGroups = [
+  { name: "Founders", description: "Visionaries building what’s next.", icon: UsersRound, tone: "light" },
+  { name: "Mentors & Partners", description: "Guidance, support and shared growth.", icon: Handshake, tone: "dark" },
+  { name: "Researchers", description: "Curiosity that opens new directions.", icon: Lightbulb, tone: "light" },
+  { name: "Students", description: "The next generation of builders.", icon: GraduationCap, tone: "light" },
+  { name: "Designers", description: "Shaping ideas into experiences.", icon: Pencil, tone: "dark" },
+  { name: "Industry Experts", description: "Experience that moves work forward.", icon: Target, tone: "light" },
+];
+
 export function NetworkShowcaseSection() {
+  const [activeIndex, setActiveIndex] = useState(2);
+  const pointerStart = useRef(null);
+  const previousIndex = (activeIndex + networkGroups.length - 1) % networkGroups.length;
+  const nextIndex = (activeIndex + 1) % networkGroups.length;
+  const move = (direction) => setActiveIndex((current) => (current + direction + networkGroups.length) % networkGroups.length);
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
+    if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
+    if (event.key === "Home") { event.preventDefault(); setActiveIndex(0); }
+    if (event.key === "End") { event.preventDefault(); setActiveIndex(networkGroups.length - 1); }
+  };
+
   return (
     <section className="about-ref-showcase about-ref-network-showcase" aria-labelledby="about-network-heading">
-      <div className="about-ref-network-copy">
-        <span className="about-ref-showcase-kicker">THE NETWORK<i /></span>
-        <h2 id="about-network-heading" className="about-ref-showcase-heading">
+      <div className="about-network-copy">
+        <span className="about-network-kicker">THE NETWORK<i aria-hidden="true" /></span>
+        <h2 id="about-network-heading" className="about-ref-showcase-heading about-network-heading">
           <span>BUILSTRY</span>
           <span className="is-accent">IS BIGGER</span>
           <span>THAN</span>
           <span>ITS TEAM.</span>
         </h2>
-        <p>We work with founders, mentors, researchers, students and partners to turn bold ideas into real impact.</p>
-        <Link className="about-ref-showcase-cta" href="/careers">Join our journey <ArrowRight aria-hidden="true" size={20} /></Link>
-        <div className="about-ref-showcase-rule" />
-        <span className="about-ref-showcase-microcopy">MORE PERSPECTIVES.<br />BETTER POSSIBILITIES.</span>
+        <p>We work with founders, mentors, researchers, students, designers and industry experts to turn bold ideas into real impact.</p>
+        <Link className="about-ref-link" href="/careers">Join our journey →</Link>
+        <div className="about-network-copy-rule" aria-hidden="true" />
+        <span className="about-network-microcopy">MORE PERSPECTIVES.<br />BETTER POSSIBILITIES.</span>
       </div>
 
-      <div className="about-ref-network-stage" aria-label="A sticky-card network journey across founders, partners, investors, and students">
-        <svg className="about-ref-network-orbit" viewBox="0 0 980 620" fill="none" aria-hidden="true">
-          <ellipse cx="490" cy="325" rx="410" ry="150" stroke="rgba(197, 31, 93, 0.28)" strokeWidth="2" transform="rotate(-15 490 325)" />
-          <path d="M130 330C240 190 360 180 500 330C640 480 760 470 858 332" stroke="rgba(197, 31, 93, 0.24)" strokeWidth="1.5" fill="none" />
-          <circle cx="130" cy="330" r="6" fill="#F3579E" />
-          <circle cx="858" cy="332" r="7" fill="#F3579E" opacity="0.9" />
-          <circle cx="350" cy="468" r="5" fill="#F3579E" opacity="0.7" />
-          <circle cx="670" cy="220" r="5" fill="#F3579E" opacity="0.8" />
-        </svg>
+      <div className="about-network-carousel" role="region" aria-roledescription="carousel" aria-label="People in the Builstry network" tabIndex={0} onKeyDown={handleKeyDown}
+        onPointerDown={(event) => { pointerStart.current = event.clientX; }}
+        onPointerUp={(event) => {
+          if (pointerStart.current === null) return;
+          const distance = event.clientX - pointerStart.current;
+          if (Math.abs(distance) > 44) move(distance < 0 ? 1 : -1);
+          pointerStart.current = null;
+        }}
+        onPointerCancel={() => { pointerStart.current = null; }}>
+        <div className="about-network-carousel-topline">
+          <span className="about-network-counter" aria-live="polite"><b>{String(activeIndex + 1).padStart(2, "0")}</b><i>/</i>{String(networkGroups.length).padStart(2, "0")}</span>
+        </div>
 
-        <div className="about-ref-network-handnote">Different minds.<br />Same mission.</div>
+        <div className="about-network-rail">
+          <button type="button" className="about-network-arrow about-network-arrow--previous" onClick={() => move(-1)} aria-label="Show previous network group"><ArrowRight size={18} aria-hidden="true" /></button>
+          <div className="about-network-track">
+            {networkGroups.map(({ name, description, icon: Icon, tone }, index) => {
+              const stateClass = index === activeIndex ? "is-current" : index === previousIndex ? "is-before" : index === nextIndex ? "is-after" : "";
+              return (
+                <button type="button" key={name} className={`about-network-card about-network-card--${tone} ${stateClass}`} aria-label={`${name}: ${description}`} aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)}>
+                  <span className="about-network-card-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="about-network-card-icon"><Icon size={30} strokeWidth={1.45} aria-hidden="true" /></span>
+                  <span className="about-network-card-copy"><strong>{name}</strong><small>{description}</small></span>
+                  <span className="about-network-card-waves" aria-hidden="true"><i /><i /><i /></span>
+                  <span className="about-network-card-link" aria-hidden="true"><ArrowRight size={15} /></span>
+                </button>
+              );
+            })}
+          </div>
+          <button type="button" className="about-network-arrow about-network-arrow--next" onClick={() => move(1)} aria-label="Show next network group"><ArrowRight size={18} aria-hidden="true" /></button>
+        </div>
 
-        <div className="about-ref-network-stack" aria-label="Builstry network groups">
-          <div className="about-ref-network-tile about-ref-network-tile--founders">
-            <div className="about-ref-network-tile-icon"><UsersRound size={29} strokeWidth={1.8} /></div>
-            <span>Founders</span>
-            <small>Visionaries building what&apos;s next.</small>
-            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore founders"><ArrowRight size={16} /></button>
+        <div className="about-network-carousel-footer">
+          <div className="about-network-progress" aria-label="Choose a network group">
+            {networkGroups.map(({ name }, index) => <button type="button" key={name} onClick={() => setActiveIndex(index)} aria-label={`Show ${name}`} aria-current={index === activeIndex ? "step" : undefined}><i /></button>)}
           </div>
-          <div className="about-ref-network-tile about-ref-network-tile--mentors">
-            <div className="about-ref-network-tile-icon"><Handshake size={27} strokeWidth={1.8} /></div>
-            <span>Mentors &amp;<br />Partners</span>
-            <small>Guidance,<br />support, growth.</small>
-            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore mentors and partners"><ArrowRight size={16} /></button>
-          </div>
-          <div className="about-ref-network-tile about-ref-network-tile--investors">
-            <div className="about-ref-network-tile-icon"><TrendingUp size={27} strokeWidth={1.8} /></div>
-            <span>Investors</span>
-            <small>Fueling<br />opportunities.</small>
-            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore investors"><ArrowRight size={16} /></button>
-          </div>
-          <div className="about-ref-network-tile about-ref-network-tile--designers">
-            <div className="about-ref-network-tile-icon"><Pencil size={27} strokeWidth={1.8} /></div>
-            <span>Designers</span>
-            <small>Building<br />experiences.</small>
-            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore designers"><ArrowRight size={16} /></button>
-          </div>
-          <div className="about-ref-network-tile about-ref-network-tile--students">
-            <div className="about-ref-network-tile-icon"><GraduationCap size={27} strokeWidth={1.8} /></div>
-            <span>Students</span>
-            <small>Learning &amp;<br />creating tomorrow.</small>
-            <button type="button" className="about-ref-network-tile-arrow" aria-label="Explore students"><ArrowRight size={16} /></button>
-          </div>
+          <span>CONNECTED BY WHAT WE CAN BUILD</span>
         </div>
       </div>
-      <ScrollCue />
     </section>
   );
 }
