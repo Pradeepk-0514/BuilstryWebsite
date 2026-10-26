@@ -21,6 +21,21 @@ html body .about-website-reference .about-ref-principles-orbit {
   opacity: .96;
 }
 
+html body .about-website-reference .about-ref-principles-center-dot {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #F7F8FA;
+  border-radius: 50%;
+  background: #C51F5D;
+  box-shadow: 0 0 0 5px rgba(197, 31, 93, .12), 0 0 16px rgba(197, 31, 93, .35);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
 html body .about-website-reference .about-ref-principles-nodes {
   position: absolute;
   z-index: 2;
@@ -46,10 +61,10 @@ html body .about-website-reference .about-ref-principle-node {
   box-shadow: 0 13px 30px rgba(39, 54, 72, .08), 0 1px 2px rgba(20, 29, 38, .025);
   color: #243447;
   text-align: center;
-  transform: perspective(900px) translate(-50%, -50%) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg));
-  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  transform-style: flat;
   translate: 0 0;
-  animation: principle-node-float 7.4s ease-in-out infinite;
+  animation: none;
   transition: transform 420ms cubic-bezier(.22, 1, .36, 1), box-shadow 420ms ease, border-color 360ms ease, background 360ms ease;
   will-change: transform, translate;
   cursor: default;
@@ -57,14 +72,26 @@ html body .about-website-reference .about-ref-principle-node {
   -webkit-tap-highlight-color: transparent;
 }
 
+html body .about-website-reference .about-ref-principle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+}
+
 html body .about-website-reference .about-ref-principle-node::before {
   position: absolute;
   z-index: -1;
   inset: -9px;
   border: 1px solid rgba(197, 31, 93, .08);
+  border-top-color: rgba(197, 31, 93, .46);
   border-radius: inherit;
   content: "";
-  opacity: 0;
+  opacity: .46;
+  animation: principle-ring-clockwise 78s linear infinite;
   transform: scale(.94);
   transition: opacity 360ms ease, transform 360ms ease;
 }
@@ -78,10 +105,41 @@ html body .about-website-reference .about-ref-principle-node--clarity {
   left: 51%;
   border-color: rgba(197, 31, 93, .13);
 }
-html body .about-website-reference .about-ref-principle-node--building { --float-y: -6px; top: 36%; left: 17%; animation-duration: 7.2s; animation-delay: -1.1s; }
+html body .about-website-reference .about-ref-principle-node--building { --float-y: -6px; top: 72%; left: 34%; animation-duration: 7.2s; animation-delay: -1.1s; }
 html body .about-website-reference .about-ref-principle-node--evidence { --float-y: -5px; top: 36%; left: 84%; animation-duration: 8s; animation-delay: -3.5s; }
-html body .about-website-reference .about-ref-principle-node--long-term { --float-y: -6px; top: 72%; left: 34%; animation-duration: 7.8s; animation-delay: -2.2s; }
-html body .about-website-reference .about-ref-principle-node--useful { --float-y: -5px; top: 70%; left: 73%; animation-duration: 7s; animation-delay: -4.1s; }
+html body .about-website-reference .about-ref-principle-node--long-term { --float-y: -6px; top: 70%; left: 73%; animation-duration: 7.8s; animation-delay: -2.2s; }
+html body .about-website-reference .about-ref-principle-node--useful { --float-y: -5px; top: 36%; left: 17%; animation-duration: 7s; animation-delay: -4.1s; }
+
+html body .about-website-reference .about-ref-principles-nodes {
+  transform-origin: 50% 50%;
+  animation: principle-orbit-clockwise 78s linear infinite;
+  will-change: transform;
+}
+
+html body .about-website-reference .about-ref-principle-node {
+  rotate: none;
+  animation: none;
+}
+
+html body .about-website-reference .about-ref-principle-content {
+  transform-origin: 50% 50%;
+  animation: principle-orbit-counterclockwise 78s linear infinite;
+}
+
+@keyframes principle-orbit-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes principle-orbit-counterclockwise {
+  from { rotate: 0deg; }
+  to { rotate: -360deg; }
+}
+
+@keyframes principle-ring-clockwise {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
 
 html body .about-website-reference .about-ref-principle-icon {
   display: grid;
@@ -98,7 +156,7 @@ html body .about-website-reference .about-ref-principle-icon {
   transition: color 300ms ease, background 300ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
 }
 
-html body .about-website-reference .about-ref-principle-node > strong {
+html body .about-website-reference .about-ref-principle-node strong {
   display: block;
   color: #243447;
   font-size: clamp(10px, .79vw, 12px);
@@ -155,11 +213,6 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
   transform: translateY(-1px) translateZ(24px);
 }
 
-@keyframes principle-node-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 var(--float-y, -5px); }
-}
-
 @media (hover: hover) and (pointer: fine) {
   html body .about-website-reference .about-ref-principle-node:hover,
   html body .about-website-reference .about-ref-principle-node:focus-visible {
@@ -178,27 +231,29 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
   html body .about-website-reference .about-ref-principle-node--clarity {
     --node-size: 145px;
   }
-  html body .about-website-reference .about-ref-principle-node--building { left: 15%; }
+  html body .about-website-reference .about-ref-principle-node--building { left: 34%; top: 72%; }
   html body .about-website-reference .about-ref-principle-node--evidence { left: 85%; }
-  html body .about-website-reference .about-ref-principle-node--long-term { left: 34%; }
-  html body .about-website-reference .about-ref-principle-node--useful { left: 73%; }
+  html body .about-website-reference .about-ref-principle-node--long-term { left: 73%; top: 70%; }
+  html body .about-website-reference .about-ref-principle-node--useful { left: 15%; top: 36%; }
   html body .about-website-reference .about-ref-principle-node,
   html body .about-website-reference .about-ref-principle-node--clarity,
   html body .about-website-reference .about-ref-principle-node--building,
   html body .about-website-reference .about-ref-principle-node--evidence,
   html body .about-website-reference .about-ref-principle-node--long-term,
-  html body .about-website-reference .about-ref-principle-node--useful { animation-duration: 9s; }
-  html body .about-website-reference .about-ref-principle-node > strong { font-size: 11px; }
+  html body .about-website-reference .about-ref-principle-node--useful { animation-duration: 9s, 78s; }
+  html body .about-website-reference .about-ref-principle-node strong { font-size: 11px; }
   html body .about-website-reference .about-ref-principle-contrast { font-size: 7px; }
 }
 
 @media (max-width: 760px) {
   html body .about-website-reference .about-ref-principles-stage {
     flex: 0 0 auto;
+    width: min(100%, 420px);
     height: auto;
+    aspect-ratio: 1;
     min-height: 0;
-    margin-top: 24px;
-    padding: 8px 0 0;
+    margin: 24px auto 0;
+    padding: 0;
     overflow: visible;
   }
   html body .about-website-reference .about-ref-principles-orbit {
@@ -208,13 +263,10 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
     opacity: .62;
   }
   html body .about-website-reference .about-ref-principles-nodes {
-    position: relative;
-    inset: auto;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: center;
-    gap: 14px 10px;
-    padding: 18px 2px 30px;
+    position: absolute;
+    inset: 0;
+    display: block;
+    transform-origin: 50% 50%;
   }
   html body .about-website-reference .about-ref-principle-node,
   html body .about-website-reference .about-ref-principle-node--clarity,
@@ -222,41 +274,47 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
   html body .about-website-reference .about-ref-principle-node--evidence,
   html body .about-website-reference .about-ref-principle-node--long-term,
   html body .about-website-reference .about-ref-principle-node--useful {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: min(100%, 154px);
-    height: auto;
-    aspect-ratio: 1;
-    justify-self: center;
-    transform: none;
+    --node-size: clamp(78px, 24vw, 106px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--node-size);
+    height: var(--node-size);
+    transform: translate(-50%, -50%);
   }
   html body .about-website-reference .about-ref-principle-node--clarity {
-    grid-column: 1 / -1;
-    width: 142px;
-    order: 0;
+    top: 20%;
+    left: 50%;
   }
-  html body .about-website-reference .about-ref-principle-node--building { order: 1; }
-  html body .about-website-reference .about-ref-principle-node--evidence { order: 2; }
-  html body .about-website-reference .about-ref-principle-node--long-term { order: 3; }
-  html body .about-website-reference .about-ref-principle-node--useful { order: 4; }
+  html body .about-website-reference .about-ref-principle-node--evidence { top: 40.7%; left: 78.5%; }
+  html body .about-website-reference .about-ref-principle-node--long-term { top: 73.5%; left: 67.6%; }
+  html body .about-website-reference .about-ref-principle-node--building { top: 73.5%; left: 32.4%; }
+  html body .about-website-reference .about-ref-principle-node--useful { top: 40.7%; left: 21.5%; }
+  html body .about-website-reference .about-ref-principles-nodes {
+    animation: principle-orbit-clockwise 78s linear infinite;
+  }
+  html body .about-website-reference .about-ref-principle-node::before { animation: none; }
   html body .about-website-reference .about-ref-principle-node:hover,
   html body .about-website-reference .about-ref-principle-node:focus-visible,
   html body .about-website-reference .about-ref-principle-node.is-active {
-    transform: perspective(900px) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg)) scale(1.035) translateZ(10px);
+    transform: translate(-50%, -50%) perspective(900px) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg)) scale(1.035) translateZ(10px);
   }
-  html body .about-website-reference .about-ref-principle-node > strong { font-size: 11px; }
+  html body .about-website-reference .about-ref-principle-node strong { font-size: 11px; }
   html body .about-website-reference .about-ref-principle-contrast { font-size: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html body .about-website-reference .about-ref-principle-node,
   html body .about-website-reference .about-ref-principle-node::before,
-  html body .about-website-reference .about-ref-principle-icon {
+  html body .about-website-reference .about-ref-principle-icon,
+  html body .about-website-reference .about-ref-principles-nodes,
+  html body .about-website-reference .about-ref-principle-content {
     transition: none !important;
     animation: none !important;
     translate: none !important;
+    rotate: none !important;
   }
+  html body .about-website-reference .about-ref-principles-nodes { transform: none !important; }
 }
 
 /* The hero retains its supplied background and words, without the old foreground artwork. */
@@ -286,7 +344,7 @@ html body .about-website-reference .about-ref-principle-node.is-active {
   background: radial-gradient(circle at 40% 30%, #FFFFFF 0%, #FBFCFD 62%, #F4F6F8 100%);
   border-color: rgba(148, 160, 177, .11);
   box-shadow: 0 13px 30px rgba(39, 54, 72, .08), 0 1px 2px rgba(20, 29, 38, .025);
-  transform: perspective(900px) translate(-50%, -50%) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg));
+  transform: translate(-50%, -50%) scale(1.035);
 }
 /* How We Think-style interaction: only the card under the cursor grows and glows. */
 html body .about-website-reference .about-ref-principle-node:hover,
@@ -295,7 +353,7 @@ html body .about-website-reference .about-ref-principle-node:focus-visible {
   border-color: rgba(197, 31, 93, .62);
   background: radial-gradient(circle at 48% 39%, #FFFFFF 0%, #FFF8FB 58%, #F9DCE8 100%);
   box-shadow: 0 24px 42px rgba(39, 54, 72, .13), 0 0 30px rgba(197, 31, 93, .22), inset 0 1px rgba(255,255,255,.98);
-  transform: perspective(900px) translate(-50%, -50%) translateY(-7px) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg)) scale(1.085) translateZ(16px);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 html body .about-website-reference .about-ref-principle-node:hover .about-ref-principle-icon,
 html body .about-website-reference .about-ref-principle-node:focus-visible .about-ref-principle-icon {
@@ -315,6 +373,40 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
     --node-size: 128px;
   }
 }
+
+@media (min-width: 761px) {
+  html body .about-website-reference .about-ref-principles-nodes {
+    inset: 50% auto auto 50%;
+    width: min(100%, 66vh, 620px);
+    height: auto;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    animation: principle-orbit-desktop-clockwise 78s linear infinite;
+  }
+  html body .about-website-reference .about-ref-principle-node--clarity { top: 20%; left: 50%; }
+  html body .about-website-reference .about-ref-principle-node--evidence { top: 40.7%; left: 78.5%; }
+  html body .about-website-reference .about-ref-principle-node--long-term { top: 73.5%; left: 67.6%; }
+  html body .about-website-reference .about-ref-principle-node--building { top: 73.5%; left: 32.4%; }
+  html body .about-website-reference .about-ref-principle-node--useful { top: 40.7%; left: 21.5%; }
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  html body .about-website-reference .about-ref-principles-nodes {
+    width: min(100%, 55vh, 525px);
+  }
+}
+
+@keyframes principle-orbit-desktop-clockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 761px) {
+  html body .about-website-reference .about-ref-principles-nodes {
+    transform: translate(-50%, -50%) !important;
+  }
+}
 @media (max-width: 760px) {
   html body .about-website-reference .about-ref-principle-node,
   html body .about-website-reference .about-ref-principle-node--clarity,
@@ -322,15 +414,15 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
   html body .about-website-reference .about-ref-principle-node--evidence,
   html body .about-website-reference .about-ref-principle-node--long-term,
   html body .about-website-reference .about-ref-principle-node--useful {
-    --node-size: min(100%, 142px);
+    --node-size: clamp(78px, 24vw, 106px);
     width: var(--node-size);
     height: var(--node-size);
   }
   html body .about-website-reference .about-ref-principle-node.is-active {
-    transform: none;
+    transform: translate(-50%, -50%);
   }
   html body .about-website-reference .about-ref-principle-node:hover,
   html body .about-website-reference .about-ref-principle-node:focus-visible {
-    transform: perspective(900px) rotateX(var(--pointer-tilt-x, 0deg)) rotateY(var(--pointer-tilt-y, 0deg)) scale(1.06) translateZ(10px);
+    transform: translate(-50%, -50%) scale(1.06);
   }
 }

@@ -47,7 +47,16 @@ export default function IntentSection() {
     };
     const update = () => {
       frame = 0;
-      if (mobile()) return reset();
+      if (mobile()) {
+        const elapsed = clamp(window.scrollY - metrics.top, 0, metrics.trackDistance);
+        const progress = metrics.trackDistance > 0 ? clamp(elapsed / metrics.trackDistance) : 0;
+        const index = Math.min(intents.length - 1, Math.floor(progress * intents.length));
+        section.dataset.phase = progress >= 1 ? "complete" : "cards";
+        section.dataset.activeCard = `${index + 1}`;
+        track.style.transform = `translate3d(0, -${metrics.trackDistance * progress}px, 0)`;
+        setActiveIndex((current) => current === index ? current : index);
+        return;
+      }
       const elapsed = clamp(window.scrollY - (metrics.top - metrics.offset), 0, metrics.distance);
       const progress = clamp(elapsed / metrics.distance);
       const cardProgress = clamp(elapsed / metrics.trackDistance);
@@ -61,7 +70,24 @@ export default function IntentSection() {
       setActiveIndex((current) => current === index ? current : index);
     };
     const measure = () => {
-      if (mobile()) return reset();
+      if (mobile()) {
+        const stage = section.querySelector(".intent-sticky-wrapper");
+        const stageHeight = stage?.getBoundingClientRect().height || window.innerHeight;
+        const trackDistance = Math.max(0, track.scrollHeight - viewport.clientHeight);
+        metrics = {
+          top: section.getBoundingClientRect().top + window.scrollY,
+          offset: 0,
+          stickyHeight: stageHeight,
+          trackDistance,
+          releaseDistance: 0,
+          distance: trackDistance,
+        };
+        section.style.height = `${Math.ceil(stageHeight + trackDistance)}px`;
+        update();
+        return;
+      }
+      section.style.removeProperty("height");
+      section.style.removeProperty("--intent-sticky-offset");
       const header = document.querySelector(".site-header");
       const offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
       const stickyHeight = Math.max(1, window.innerHeight - offset);

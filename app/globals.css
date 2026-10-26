@@ -323,7 +323,7 @@ main { position: relative; z-index: 1; }
 
 
 /* Reference-based About page */
-.about-reference-page { --about-ice: var(--ice); --about-midnight: var(--midnight); --about-steel: var(--steel); --about-magenta: var(--magenta); min-height: 100vh; overflow: hidden; background: var(--about-ice); color: var(--about-midnight); }
+.about-reference-page { --about-ice: var(--ice); --about-midnight: var(--midnight); --about-steel: var(--steel); --about-magenta: var(--magenta); min-height: 100vh; overflow: clip; background: var(--about-ice); color: var(--about-midnight); }
 .about-ref-hero { display: grid; grid-template-columns: minmax(340px,.9fr) minmax(480px,1.1fr); align-items: center; gap: clamp(28px,5vw,84px); min-height: 650px; padding: 130px 3.4vw 58px; border-bottom: 1px solid rgba(20,29,38,.17); }.about-ref-hero-copy { max-width: 620px; }.about-ref-breadcrumb { display: flex; align-items: center; gap: 9px; margin-bottom: 25px; color: rgba(20,29,38,.68); font-size: 10px; font-weight: 800; letter-spacing: .16em; }.about-ref-breadcrumb b { opacity: .4; }.about-ref-breadcrumb strong { color: var(--about-magenta); }.about-ref-hero h1 { margin: 0; font-size: clamp(44px,5.2vw,76px); line-height: .93; letter-spacing: -.057em; font-weight: 850; }.about-ref-hero h1 span { display: block; overflow: hidden; animation: aboutRefIn .75s var(--ease) both; }.about-ref-hero h1 span:nth-child(2) { animation-delay: .08s; }.about-ref-hero h1 span:nth-child(3) { animation-delay: .16s; }.about-ref-hero h1 span:nth-child(4) { animation-delay: .24s; }.about-ref-hero h1 span:nth-child(5) { animation-delay: .32s; }.about-ref-hero h1 .accent { color: var(--about-magenta); }.about-ref-hero-copy p { max-width: 490px; margin: 28px 0 0; color: rgba(20,29,38,.68); font-size: 13px; line-height: 1.65; }
 .about-ref-hero-art { position: relative; min-height: 510px; height: 100%; overflow: hidden; background: var(--about-midnight); box-shadow: 16px 16px 0 rgba(20,29,38,.08); }.about-ref-hero-label { position: absolute; right: 18px; bottom: 18px; z-index: 5; padding: 7px 10px; border: 1px solid rgba(197,31,93,.6); background: rgba(20,29,38,.84); color: var(--about-ice); font-size: 8px; font-weight: 800; letter-spacing: .13em; }.about-ref-hero-visual { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 58% 56%,rgba(197,31,93,.25),transparent 25%),linear-gradient(180deg,#050508 0%,#07070a 62%,#020204 100%); }.about-ref-hero-visual::before { position: absolute; inset: 14% 7% 8%; content: ""; background: linear-gradient(112deg,transparent 48%,rgba(197,31,93,.26) 49%,transparent 50%); }.about-ref-hero-visual::after { position: absolute; right: 0; bottom: 15%; left: 0; height: 1px; content: ""; background: linear-gradient(90deg,transparent,rgba(197,31,93,.9),transparent); box-shadow: 0 0 28px rgba(197,31,93,.5); }.about-ref-hero-glow { position: absolute; left: 40%; bottom: 18%; width: 42%; aspect-ratio: 1; border: 1px solid rgba(197,31,93,.55); border-radius: 50%; box-shadow: 0 0 60px rgba(197,31,93,.22),inset 0 0 36px rgba(197,31,93,.16); animation: aboutRefPulse 5s ease-in-out infinite; }.about-ref-hero-grid { position: absolute; right: 0; bottom: 0; left: 5%; height: 42%; background: repeating-linear-gradient(90deg,rgba(247,248,250,.08) 0 1px,transparent 1px 42px),repeating-linear-gradient(0deg,rgba(247,248,250,.08) 0 1px,transparent 1px 28px); transform: perspective(280px) rotateX(58deg); transform-origin: bottom; opacity: .42; }.about-ref-hero-beam { position: absolute; height: 1px; background: linear-gradient(90deg,transparent,rgba(197,31,93,.65),transparent); transform-origin: left center; }.about-ref-hero-beam-one { width: 72%; left: 22%; bottom: 30%; transform: rotate(-18deg); }.about-ref-hero-beam-two { width: 58%; left: 36%; bottom: 42%; transform: rotate(24deg); opacity: .55; }.about-ref-hero-signal { position: absolute; width: 8px; height: 8px; border: 1px solid rgba(197,31,93,.95); border-radius: 50%; box-shadow: 0 0 16px rgba(197,31,93,.8); animation: aboutRefBlink 2.5s ease-in-out infinite; }.about-ref-hero-signal-one { left: 27%; top: 29%; }.about-ref-hero-signal-two { right: 15%; top: 21%; animation-delay: 1s; }.about-ref-hero-figure { position: absolute; left: 59%; bottom: 15%; width: 7px; height: 86px; background: #f7f8fa; box-shadow: 0 0 18px rgba(247,248,250,.35); }.about-ref-hero-figure::before { position: absolute; top: -12px; left: -5px; width: 17px; height: 17px; border-radius: 50%; content: ""; background: #f7f8fa; }.about-ref-cube { position: absolute; left: 56%; top: 35%; width: 150px; height: 150px; transform: translate(-50%,-50%) rotate(-18deg); animation: aboutRefCube 7s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(197,31,93,.4)); }.about-ref-cube i { position: absolute; border: 1px solid rgba(247,248,250,.55); }.about-ref-cube i:nth-child(1) { left: 5%; top: 28%; width: 64%; height: 48%; background: rgba(36,52,71,.65); transform: skewY(-30deg); }.about-ref-cube i:nth-child(2) { left: 5%; top: 28%; width: 64%; height: 48%; background: rgba(247,248,250,.08); transform: skewY(30deg); }.about-ref-cube i:nth-child(3) { left: 45%; top: 15%; width: 42%; height: 70%; background: rgba(197,31,93,.75); transform: skewY(-30deg); border-color: var(--about-magenta); }
 .about-ref-why { display: grid; grid-template-columns: minmax(300px,38%) minmax(0,62%); min-height: 100vh; background: var(--about-midnight); color: var(--about-ice); overflow: hidden; }.about-ref-why-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(42px,7vw,112px); }.about-ref-kicker { display: block; margin-bottom: 11px; color: var(--about-magenta); font-size: 9px; font-weight: 850; letter-spacing: .16em; }.about-ref-why-copy h2 { max-width: 560px; margin: 16px 0 28px; color: var(--about-ice); font-size: clamp(40px,5.7vw,82px); line-height: .9; letter-spacing: -.055em; }.about-ref-why-copy h2 em,.about-ref-thinking h2 em,.about-ref-section-title h2 em { color: var(--about-magenta); font-style: normal; }.about-ref-why-copy p { max-width: 390px; margin: 0 0 15px; color: rgba(247,248,250,.72); font-size: clamp(12px,1.15vw,15px); line-height: 1.68; }.about-ref-status { display: flex; align-items: baseline; gap: 8px; margin-top: 40px; color: rgba(247,248,250,.5); font-size: 11px; letter-spacing: .12em; }.about-ref-status b { color: var(--about-magenta); font-size: 24px; }.about-ref-fan { display: flex; flex-direction: column; justify-content: center; padding: clamp(24px,4vw,72px); background: var(--about-midnight); }.about-ref-fan-stage { position: relative; height: min(67vh,560px); perspective: 1000px; outline: none; touch-action: pan-y; }.about-ref-fan-stage:focus-visible { outline: 2px solid var(--about-magenta); outline-offset: 10px; }.about-ref-fan-card { position: absolute; top: 50%; left: 50%; display: flex; flex-direction: column; justify-content: space-between; width: min(430px,58%); height: min(86%,520px); padding: clamp(22px,3.2vw,48px); border: 1px solid rgba(247,248,250,.34); border-radius: 20px; background: linear-gradient(to bottom,var(--about-midnight) 0 42%,var(--steel) 42% 100%); color: var(--about-ice); text-align: left; cursor: pointer; transform: translate3d(-50%,-50%,0); transition: transform .6s var(--ease),opacity .6s ease,box-shadow .6s ease; box-shadow: 0 18px 42px rgba(0,0,0,.35); }.about-ref-fan-card::before { position: absolute; inset: 13px; border: 1px solid rgba(247,248,250,.16); border-radius: 17px; content: ""; pointer-events: none; }.about-ref-fan-card.active { transform: translate3d(-50%,-50%,40px) scale(1) !important; border-color: var(--about-ice); box-shadow: 0 30px 70px rgba(0,0,0,.5); z-index: 10; }.about-ref-fan-card.left-1 { transform: translate3d(calc(-50% - min(31vw,400px)),-50%,-20px) scale(.9); opacity: .62; }.about-ref-fan-card.right-1 { transform: translate3d(calc(-50% + min(31vw,400px)),-50%,-20px) scale(.9); opacity: .62; }.about-ref-fan-card.far-left,.about-ref-fan-card.far-right { transform: translate3d(-50%,-50%,-100px) scale(.8); opacity: 0; pointer-events: none; }.about-ref-stage-index { color: var(--about-ice); font-size: 28px; font-weight: 850; }.about-ref-stage-icon { position: absolute; top: 22%; right: 50%; display: grid; place-items: center; width: 92px; height: 92px; border: 1px solid rgba(247,248,250,.48); border-radius: 50%; color: var(--about-ice); font-size: 40px; transform: translateX(50%); box-shadow: 0 0 0 18px rgba(247,248,250,.06),0 0 0 38px rgba(247,248,250,.025); }.about-ref-fan-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; max-width: 88%; margin-top: auto; }.about-ref-fan-copy b { color: var(--about-ice); font-size: clamp(22px,2.5vw,36px); line-height: .98; letter-spacing: -.04em; }.about-ref-fan-copy small { color: rgba(247,248,250,.68); font-size: 12px; line-height: 1.55; }.about-ref-stage-footer { align-self: flex-start; padding-top: 14px; border-top: 1px solid rgba(247,248,250,.18); color: rgba(247,248,250,.68); font-size: 8px; font-weight: 850; letter-spacing: .14em; }.about-ref-fan-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 18px; }.about-ref-fan-controls button { display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 50%; background: var(--about-ice); color: var(--about-midnight); cursor: pointer; transition: transform .18s var(--ease),background .18s ease; }.about-ref-fan-controls button:hover:not(:disabled) { transform: translateY(-3px); background: var(--about-steel); color: var(--about-ice); }.about-ref-fan-controls button:disabled { opacity: .3; cursor: default; }.about-ref-fan-controls > div { display: flex; gap: 7px; }.about-ref-fan-controls i { width: 24px; height: 3px; background: rgba(248,248,248,.24); transition: .45s ease; }.about-ref-fan-controls i.is-active { width: 46px; background: var(--about-ice); }
@@ -4102,10 +4102,10 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
     transform: none;
   }
   .home-page > .insights-curiosity .insights-curiosity-card {
-    width: 84vw;
+    width: calc(100vw - 28px);
     height: 100%;
     min-height: 0;
-    flex: 0 0 84vw;
+    flex: 0 0 calc(100vw - 28px);
     padding: 20px 22px 18px;
     scroll-snap-align: start;
   }
@@ -4377,7 +4377,6 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
 
 /* About-page viewport-fit pass: keep each composition complete without changing its content. */
 .about-website-reference > .about-ref-hero,
-.about-website-reference > .about-ref-why,
 .about-website-reference > .about-ref-directions,
 .about-website-reference > .about-ref-thinking,
 .about-website-reference > .about-ref-people,
@@ -4387,6 +4386,11 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
   min-height: 100vh !important;
   min-height: 100svh !important;
   height: auto !important;
+}
+.about-website-reference > .about-ref-why {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
 }
 
 @media (min-width: 761px) {
@@ -4415,14 +4419,11 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
   }
 
   .about-website-reference > .about-ref-why {
-    display: grid;
-    grid-template-columns: minmax(320px, .82fr) minmax(0, 1.18fr);
-    height: 100vh !important;
-    height: 100svh !important;
-    min-height: 100vh !important;
-    min-height: 100svh !important;
+    display: block;
+    height: auto;
+    min-height: 0;
     align-items: stretch;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .about-website-reference > .about-ref-directions {
@@ -4558,16 +4559,10 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
     border-radius: 18px;
   }
 
-  .about-website-reference > .about-ref-why {
-    display: block !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    min-height: 100svh !important;
-    overflow: visible !important;
-  }
-  .about-website-reference .about-ref-why-copy { padding: 72px 5vw 32px !important; }
-  .about-website-reference .about-ref-fan { padding: 32px 5vw 38px !important; }
-  .about-website-reference .about-ref-fan-stage { height: clamp(300px, 52svh, 430px) !important; }
+  .about-website-reference > .about-ref-why { display: block; min-height: 0; overflow: visible; }
+  .about-website-reference .about-ref-why-copy { padding: 72px 5vw 32px; }
+  .about-website-reference .about-ref-fan { padding: 32px 5vw 38px; }
+  .about-website-reference .about-ref-fan-stage { height: clamp(300px, 52svh, 430px); }
 
   .about-website-reference > .about-ref-directions {
     display: block !important;
@@ -4841,15 +4836,15 @@ body:has(.home-page) > .site-footer .footer-bottom a { display: inline !importan
 }
 @media (min-width: 761px) {
   .about-website-reference > .about-ref-why {
-    height: 100svh !important;
-    min-height: 100svh !important;
+    height: auto;
+    min-height: 0;
   }
 }
 @media (max-width: 760px) {
   .about-website-reference > .about-ref-why {
-    height: auto !important;
-    min-height: 100svh !important;
-    overflow: visible !important;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
 }
 .about-website-reference .about-ref-people .about-ref-people-quote {
@@ -6130,4 +6125,232 @@ body:has(.home-page) > .scroll-progress,
 .home-page > .insights-curiosity .insights-curiosity-intro {
   border-radius: 28px;
   overflow: hidden;
+}
+
+/* Keep the full curiosity sequence on one continuous Steel Navy surface. */
+.home-page > .insights-curiosity {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: clip;
+  background:
+    radial-gradient(ellipse 48% 68% at 74% 52%, rgba(91, 124, 153, .22), transparent 72%),
+    linear-gradient(145deg, #304A62 0%, #243447 58%, #1B2938 100%);
+  color: #F7F8FA;
+}
+.home-page > .insights-curiosity .insights-curiosity-stage {
+  background: transparent;
+}
+.home-page > .insights-curiosity .insights-curiosity-intro {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.home-page > .insights-curiosity .insights-curiosity-rail {
+  background: transparent;
+}
+.home-page > .insights-curiosity .insights-curiosity-card {
+  border-color: rgba(247, 248, 250, .2);
+  background: transparent;
+  color: #F7F8FA;
+}
+.home-page > .insights-curiosity .insights-curiosity-card:hover {
+  background: rgba(247, 248, 250, .065);
+  color: #F7F8FA;
+}
+.home-page > .insights-curiosity .insights-card-index {
+  border: 1px solid rgba(247, 248, 250, .18);
+  background: rgba(247, 248, 250, .1);
+  color: #F7F8FA;
+}
+.home-page > .insights-curiosity .insights-curiosity-card strong {
+  color: #F7F8FA;
+}
+.home-page > .insights-curiosity .insights-curiosity-card small {
+  color: rgba(247, 248, 250, .72);
+}
+.home-page > .insights-curiosity .insights-card-rule {
+  background: rgba(247, 248, 250, .3);
+}
+
+/* Pin the full Why section as one responsive stage while its active card follows scroll. */
+.about-website-reference > .about-ref-why {
+  position: relative;
+  display: block;
+  min-height: 0;
+  overflow: visible;
+  background: #F7F8FA;
+}
+.about-website-reference > .about-ref-why .about-ref-why-stage {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.about-website-reference > .about-ref-why .about-ref-why-copy {
+  position: relative;
+  top: auto;
+  align-self: stretch;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  box-sizing: border-box;
+  padding: clamp(30px, 5vw, 78px);
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 36% 42%, rgba(91, 124, 153, .3), transparent 52%),
+    linear-gradient(145deg, #304A62 0%, #243447 58%, #1B2938 100%) !important;
+  box-shadow: none;
+}
+.about-website-reference > .about-ref-why .about-ref-fan {
+  position: relative;
+  align-self: stretch;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  padding: clamp(22px, 4vw, 64px);
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(91, 124, 153, .3), transparent 38%),
+    linear-gradient(145deg, #304A62 0%, #243447 58%, #1B2938 100%) !important;
+}
+.about-website-reference > .about-ref-why .about-ref-fan-stage {
+  height: 100%;
+  min-height: 0;
+}
+.about-website-reference > .about-ref-why .about-ref-fan-controls {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .home-page > .insights-curiosity {
+    width: 100%;
+    margin-left: 0;
+  }
+  .about-website-reference > .about-ref-why .about-ref-why-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, .9fr) minmax(0, 1.1fr);
+  }
+  .about-website-reference > .about-ref-why .about-ref-why-copy {
+    justify-content: center;
+    min-height: 0;
+    padding: clamp(16px, 4svh, 30px) 6vw 12px;
+  }
+  .about-website-reference > .about-ref-why .about-ref-why-copy h2 {
+    margin: 8px 0 14px;
+    font-size: clamp(36px, 9vw, 58px);
+  }
+  .about-website-reference > .about-ref-why .about-ref-why-copy p {
+    margin-bottom: 8px;
+    font-size: clamp(11px, 3vw, 14px);
+    line-height: 1.4;
+  }
+  .about-website-reference > .about-ref-why .about-ref-status {
+    margin-top: 8px;
+  }
+  .about-website-reference > .about-ref-why .about-ref-fan {
+    padding: 8px 6vw 18px;
+  }
+  .about-website-reference > .about-ref-why .about-ref-fan-stage {
+    height: 100%;
+  }
+  .about-website-reference > .about-ref-why .about-ref-fan-card {
+    width: min(82vw, 350px);
+    height: 86%;
+    padding: clamp(16px, 4vw, 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page > .insights-curiosity .insights-curiosity-card {
+    transition: none;
+  }
+}
+
+/* Keep the navy curiosity surface while giving its moving cards an ice-white face. */
+html body .home-page > .insights-curiosity .insights-curiosity-intro {
+  background: #243447 !important;
+}
+html body .home-page > .insights-curiosity {
+  position: relative;
+  z-index: 9;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background: #243447 !important;
+  background-image: none !important;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-intro h2 {
+  font-weight: 700;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-rail {
+  background: #243447;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-track {
+  gap: 0;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-card,
+html body .home-page > .insights-curiosity .insights-curiosity-card:hover {
+  border: 0;
+  border-right: 1px solid rgba(36, 52, 71, .14);
+  border-radius: 0;
+  background: #F7F8FA;
+  color: #243447;
+  box-shadow: none;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-card:first-child { border-left: 0; }
+html body .home-page > .insights-curiosity .insights-card-index {
+  border-color: rgba(36, 52, 71, .18);
+  background: rgba(36, 52, 71, .06);
+  color: #243447;
+}
+html body .home-page > .insights-curiosity .insights-card-icon,
+html body .home-page > .insights-curiosity .insights-curiosity-card strong,
+html body .home-page > .insights-curiosity .insights-explore {
+  color: #243447;
+}
+html body .home-page > .insights-curiosity .insights-curiosity-card small {
+  color: rgba(36, 52, 71, .76);
+}
+html body .home-page > .insights-curiosity .insights-card-rule {
+  background: rgba(36, 52, 71, .28);
+}
+
+/* The complete pinned Why stage now shares one continuous Ice White surface. */
+html body .about-website-reference > .about-ref-why {
+  background: #F7F8FA !important;
+  background-image: none !important;
+}
+html body .about-website-reference > .about-ref-why .about-ref-why-stage,
+html body .about-website-reference > .about-ref-why .about-ref-why-copy,
+html body .about-website-reference > .about-ref-why .about-ref-fan {
+  background: #F7F8FA !important;
+  background-image: none !important;
+}
+html body .about-website-reference > .about-ref-why .about-ref-why-copy {
+  color: #243447 !important;
+  box-shadow: none;
+}
+html body .about-website-reference > .about-ref-why .about-why-heading .about-heading-primary {
+  color: #243447 !important;
+}
+html body .about-website-reference > .about-ref-why .about-ref-why-copy p {
+  color: #344862 !important;
+}
+html body .about-website-reference > .about-ref-why .about-ref-fan-stage.is-dragging,
+html body .about-website-reference > .about-ref-why .about-ref-fan-stage.is-dragging * {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Keep enough trailing scroll for the Home CTA to reach the navbar trigger line. */
+body:has(.home-page) #root > .site-footer {
+  min-height: 50svh;
 }

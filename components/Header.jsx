@@ -24,6 +24,9 @@ export default function Header() {
     let previousY = window.scrollY;
     let directionTravel = 0;
     const main = document.querySelector("main");
+    const curiosity = pathname === "/" ? document.querySelector(".home-page > .insights-curiosity") : null;
+    const curiosityRail = curiosity?.querySelector(".insights-curiosity-rail");
+    const homeCta = pathname === "/" ? document.querySelector(".home-page > .page-problem-cta") : null;
     let mainBottom = Number.POSITIVE_INFINITY;
     const measureMainEnd = () => {
       if (main) mainBottom = main.getBoundingClientRect().bottom + window.scrollY;
@@ -33,12 +36,39 @@ export default function Header() {
       ? new ResizeObserver(measureMainEnd)
       : null;
     if (main && mainResizeObserver) mainResizeObserver.observe(main);
-    window.addEventListener("resize", measureMainEnd, { passive: true });
 
     const onScroll = () => {
       const currentY = Math.max(0, window.scrollY);
       const delta = currentY - previousY;
       previousY = currentY;
+
+      if (homeCta) {
+        const ctaReached = homeCta.getBoundingClientRect().top <= 1;
+        directionTravel = 0;
+        setHidden(!ctaReached);
+        return;
+      }
+
+      const curiosityStage = curiosity?.querySelector(".insights-curiosity-stage");
+      if (curiosity && curiosityStage) {
+        const sectionTop = curiosity.getBoundingClientRect().top + currentY;
+        const sectionBottom = sectionTop + curiosity.offsetHeight;
+        const sequenceEnd = sectionBottom - curiosityStage.getBoundingClientRect().height;
+        const inSequence = currentY >= sectionTop && currentY < sectionBottom;
+        const nativeRailIncomplete = curiosity.dataset.mobileScroll === "native"
+          && curiosityRail
+          && curiosityRail.scrollLeft + curiosityRail.clientWidth < curiosityRail.scrollWidth - 2;
+        if (inSequence && (nativeRailIncomplete || (curiosity.dataset.mobileScroll !== "native" && currentY < sequenceEnd - 1))) {
+          directionTravel = 0;
+          setHidden(true);
+          return;
+        }
+        if (inSequence && !nativeRailIncomplete) {
+          directionTravel = 0;
+          setHidden(false);
+          return;
+        }
+      }
 
       const footerRegionVisible = currentY + window.innerHeight >= mainBottom
         && currentY < document.documentElement.scrollHeight;
@@ -59,9 +89,17 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    curiosityRail?.addEventListener("scroll", onScroll, { passive: true });
+    const onResize = () => {
+      measureMainEnd();
+      onScroll();
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", measureMainEnd);
+      curiosityRail?.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       mainResizeObserver?.disconnect();
     };
   }, [pathname]);

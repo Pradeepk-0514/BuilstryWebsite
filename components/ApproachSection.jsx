@@ -34,9 +34,10 @@ export default function ApproachSection() {
 
   useEffect(() => {
     const section = sectionRef.current;
+    const stage = stageRef.current;
     const track = trackRef.current;
     const viewport = viewportRef.current;
-    if (!section || !track || !viewport) return undefined;
+    if (!section || !stage || !track || !viewport) return undefined;
     let frame = 0;
     let metrics = { top: 0, offset: 0, stickyHeight: window.innerHeight, intro: 0, distance: 0, range: 1 };
     const mobile = () => window.innerWidth <= 720;
@@ -55,12 +56,11 @@ export default function ApproachSection() {
       const introProgress = clamp(elapsed / metrics.intro);
       const horizontalProgress = clamp(Math.max(0, elapsed - metrics.intro) / Math.max(1, metrics.distance));
       const index = Math.min(steps.length - 1, Math.round(horizontalProgress * (steps.length - 1)));
-      const snappedProgress = index / (steps.length - 1);
       section.style.setProperty("--approach-intro-progress", `${introProgress}`);
       section.style.setProperty("--approach-progress", `${horizontalProgress}`);
       section.dataset.phase = introProgress < 1 ? "centering" : horizontalProgress >= 1 ? "complete" : "cards";
       section.dataset.activeCard = `${index + 1}`;
-      track.style.transform = `translate3d(${-metrics.distance * snappedProgress}px, 0, 0)`;
+      track.style.transform = `translate3d(${-metrics.distance * horizontalProgress}px, 0, 0)`;
       setActiveStep((current) => current === index ? current : index);
     };
     const measure = () => {
@@ -68,7 +68,7 @@ export default function ApproachSection() {
       viewport.scrollLeft = 0;
       const header = document.querySelector(".site-header");
       const offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
-      const stickyHeight = Math.max(1, window.innerHeight - offset);
+      const stickyHeight = Math.max(1, stage.getBoundingClientRect().height);
       const viewportStyles = window.getComputedStyle(viewport);
       const viewportPadding = parseFloat(viewportStyles.paddingLeft) + parseFloat(viewportStyles.paddingRight);
       const cardWidth = Math.max(250, viewport.clientWidth - viewportPadding);

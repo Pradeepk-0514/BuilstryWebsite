@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, RoundedBox, Text } from "@react-three/drei";
 import Link from "./RouterLink";
@@ -30,20 +30,6 @@ const networkOrbitCards = [
   { title: "DESIGNERS", description: "Experience & aesthetics to make it human.", color: "#FFFFFF", accent: "#243447" },
   { title: "MENTORS & PARTNERS", description: "Guidance & reach to scale impact.", color: "#F7E4ED", accent: "#C51F5D" },
 ];
-
-function updatePrincipleTilt(event) {
-  if (event.pointerType && event.pointerType !== "mouse") return;
-  const bounds = event.currentTarget.getBoundingClientRect();
-  const x = (event.clientX - bounds.left) / Math.max(bounds.width, 1);
-  const y = (event.clientY - bounds.top) / Math.max(bounds.height, 1);
-  event.currentTarget.style.setProperty("--pointer-tilt-x", `${((0.5 - y) * 9).toFixed(2)}deg`);
-  event.currentTarget.style.setProperty("--pointer-tilt-y", `${((x - 0.5) * 9).toFixed(2)}deg`);
-}
-
-function resetPrincipleTilt(event) {
-  event.currentTarget.style.removeProperty("--pointer-tilt-x");
-  event.currentTarget.style.removeProperty("--pointer-tilt-y");
-}
 
 function ScrollCue() {
   return (
@@ -91,9 +77,9 @@ function PrinciplesOrbit() {
           <feGaussianBlur stdDeviation="5" />
         </filter>
       </defs>
-      <ellipse cx="493" cy="261" rx="377" ry="131" stroke="url(#principles-orbit-line)" strokeWidth="1.8" transform="rotate(-11 493 261)" />
-      <ellipse cx="489" cy="264" rx="322" ry="177" stroke="#8695AA" strokeOpacity=".15" strokeWidth="1.25" transform="rotate(13 489 264)" />
-      <ellipse cx="495" cy="265" rx="268" ry="91" stroke="#C51F5D" strokeOpacity=".18" strokeWidth="1.1" transform="rotate(-4 495 265)" />
+      <ellipse cx="450" cy="260" rx="377" ry="131" stroke="url(#principles-orbit-line)" strokeWidth="1.8" transform="rotate(-11 450 260)" />
+      <ellipse cx="450" cy="260" rx="322" ry="177" stroke="#8695AA" strokeOpacity=".15" strokeWidth="1.25" transform="rotate(13 450 260)" />
+      <ellipse cx="450" cy="260" rx="268" ry="91" stroke="#C51F5D" strokeOpacity=".18" strokeWidth="1.1" transform="rotate(-4 450 260)" />
       <path d="M116 277c95-112 224-111 377-13 145 93 242 97 349-5" stroke="url(#principles-orbit-line)" strokeWidth="1.5" />
       <circle cx="116" cy="277" r="7" fill="#C51F5D" fillOpacity=".78" />
       <circle cx="842" cy="259" r="7" fill="#71829C" fillOpacity=".8" />
@@ -101,7 +87,7 @@ function PrinciplesOrbit() {
       <circle cx="695" cy="385" r="5" fill="#C51F5D" fillOpacity=".62" />
       <circle cx="738" cy="120" r="3.5" fill="#8695AA" fillOpacity=".68" />
       <circle cx="311" cy="151" r="3" fill="#C51F5D" fillOpacity=".52" />
-      <circle cx="493" cy="265" r="29" fill="#C51F5D" fillOpacity=".12" filter="url(#principle-orbit-glow)" />
+      <circle cx="450" cy="260" r="29" fill="#C51F5D" fillOpacity=".12" filter="url(#principle-orbit-glow)" />
     </svg>
   );
 }
@@ -254,8 +240,15 @@ const networkGroups = [
 ];
 
 export function NetworkShowcaseSection() {
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 920px)").matches ? 0 : 2);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const pointerStart = useRef(null);
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 920px)");
+    const resetForViewport = () => setActiveIndex(mobile.matches ? 0 : 2);
+    mobile.addEventListener?.("change", resetForViewport);
+    return () => mobile.removeEventListener?.("change", resetForViewport);
+  }, []);
   const previousIndex = (activeIndex + networkGroups.length - 1) % networkGroups.length;
   const nextIndex = (activeIndex + 1) % networkGroups.length;
   const move = (direction) => setActiveIndex((current) => (current + direction + networkGroups.length) % networkGroups.length);
@@ -283,11 +276,22 @@ export function NetworkShowcaseSection() {
       </div>
 
       <div className="about-network-carousel" role="region" aria-roledescription="carousel" aria-label="People in the Builstry network" tabIndex={0} onKeyDown={handleKeyDown}
-        onPointerDown={(event) => { pointerStart.current = event.clientX; }}
+        onPointerDown={(event) => {
+          const mobile = window.matchMedia("(max-width: 920px)").matches;
+          if (mobile && (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0))) return;
+          pointerStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+          if (mobile) event.currentTarget.setPointerCapture(event.pointerId);
+        }}
         onPointerUp={(event) => {
-          if (pointerStart.current === null) return;
-          const distance = event.clientX - pointerStart.current;
-          if (Math.abs(distance) > 44) move(distance < 0 ? 1 : -1);
+          const start = pointerStart.current;
+          if (!start) return;
+          const mobile = window.matchMedia("(max-width: 920px)").matches;
+          if (mobile && start.id !== event.pointerId) return;
+          const distance = event.clientX - start.x;
+          const verticalDistance = event.clientY - start.y;
+          if (Math.abs(distance) > 44 && (!mobile || Math.abs(distance) > Math.abs(verticalDistance))) {
+            move(distance < 0 ? 1 : -1);
+          }
           pointerStart.current = null;
         }}
         onPointerCancel={() => { pointerStart.current = null; }}>
@@ -296,22 +300,20 @@ export function NetworkShowcaseSection() {
         </div>
 
         <div className="about-network-rail">
-          <button type="button" className="about-network-arrow about-network-arrow--previous" onClick={() => move(-1)} aria-label="Show previous network group"><ArrowRight size={18} aria-hidden="true" /></button>
           <div className="about-network-track">
             {networkGroups.map(({ name, description, icon: Icon, tone }, index) => {
               const stateClass = index === activeIndex ? "is-current" : index === previousIndex ? "is-before" : index === nextIndex ? "is-after" : "";
               return (
-                <button type="button" key={name} className={`about-network-card about-network-card--${tone} ${stateClass}`} aria-label={`${name}: ${description}`} aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)}>
+                <button type="button" key={name} className={`about-network-card about-network-card--${tone} ${stateClass}${index === selectedIndex ? " is-selected" : ""}`} aria-label={`${name}: ${description}`} aria-pressed={index === selectedIndex} aria-current={index === activeIndex ? "true" : undefined} onClick={() => { setActiveIndex(index); setSelectedIndex(index); }}>
                   <span className="about-network-card-index">{String(index + 1).padStart(2, "0")}</span>
                   <span className="about-network-card-icon"><Icon size={30} strokeWidth={1.45} aria-hidden="true" /></span>
-                  <span className="about-network-card-copy"><strong>{name}</strong><small>{description}</small></span>
+                  <span className="about-network-card-copy"><strong className={name === "Researchers" ? "about-network-card-title--researchers" : undefined}>{name}</strong><small>{description}</small></span>
                   <span className="about-network-card-waves" aria-hidden="true"><i /><i /><i /></span>
                   <span className="about-network-card-link" aria-hidden="true"><ArrowRight size={15} /></span>
                 </button>
               );
             })}
           </div>
-          <button type="button" className="about-network-arrow about-network-arrow--next" onClick={() => move(1)} aria-label="Show next network group"><ArrowRight size={18} aria-hidden="true" /></button>
         </div>
 
         <div className="about-network-carousel-footer">
@@ -341,6 +343,7 @@ export function PrinciplesShowcaseSection() {
 
       <div className="about-ref-principles-stage">
         <PrinciplesOrbit />
+        <span className="about-ref-principles-center-dot" aria-hidden="true" />
         <div className="about-ref-principles-nodes">
           {principles.map(({ id, title, contrast, description, Icon }, index) => {
             const active = hoveredPrinciple === null ? index === 0 : hoveredPrinciple === index;
@@ -352,16 +355,16 @@ export function PrinciplesShowcaseSection() {
                 role="group"
                 aria-label={`${title} ${contrast}: ${description}`}
                 onMouseEnter={() => setHoveredPrinciple(index)}
-                onMouseLeave={(event) => { setHoveredPrinciple(null); resetPrincipleTilt(event); }}
-                onPointerMove={updatePrincipleTilt}
-                onPointerLeave={(event) => { setHoveredPrinciple(null); resetPrincipleTilt(event); }}
+                onMouseLeave={() => setHoveredPrinciple(null)}
                 onFocus={() => setHoveredPrinciple(index)}
                 onBlur={() => setHoveredPrinciple(null)}
               >
-                <span className="about-ref-principle-icon"><Icon aria-hidden="true" size={25} strokeWidth={1.8} /></span>
-                <strong>{title}</strong>
-                <span className="about-ref-principle-contrast">{contrast}</span>
-                <span className="about-ref-principle-description">{description}</span>
+                <span className="about-ref-principle-content">
+                  <span className="about-ref-principle-icon"><Icon aria-hidden="true" size={25} strokeWidth={1.8} /></span>
+                  <strong>{title}</strong>
+                  <span className="about-ref-principle-contrast">{contrast}</span>
+                  <span className="about-ref-principle-description">{description}</span>
+                </span>
               </article>
             );
           })}

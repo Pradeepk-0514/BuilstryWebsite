@@ -62,7 +62,7 @@
   .approach-card-track, .intent-card-track { width: 100%; }
   .approach-card, .intent-card { width: 100%; min-height: 300px; }
   .approach-card-track { display: grid; grid-template-columns: 1fr; gap: 18px; transform: none !important; }
-  .intent-card-track { gap: 18px; transform: none !important; }
+  .intent-card-track { gap: 18px; transform: none; }
   .approach-card { opacity: 1; transform: none; }
   .intent-card { opacity: 1; transform: none; }
   .intent-card.is-complete { opacity: 1; transform: none; }
@@ -138,11 +138,18 @@
 .impact-heading { font-size: clamp(40px, 4.8vw, 72px); }
 .impact-heading > span:last-child { white-space: nowrap; }
 .impact-heading-period { white-space: nowrap; }
-.site-footer .footer-bottom > span:last-child { white-space: nowrap; flex-shrink: 0; }
+.site-footer .footer-bottom > .footer-legal-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.site-footer .footer-legal-links a { white-space: nowrap; }
 @media (max-width: 540px) {
   .approach-left-content h2 { font-size: clamp(38px, 11vw, 66px); }
   .impact-heading { font-size: clamp(38px, 11vw, 66px); }
-  .site-footer .footer-bottom > span:last-child { font-size: 10px; }
+  .site-footer .footer-bottom > .footer-legal-links { gap: 6px; font-size: 10px; }
 }
 
 /* One edge-to-edge Steel Navy canvas for the complete Home build-intent scene. */

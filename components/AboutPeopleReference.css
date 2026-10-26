@@ -393,6 +393,13 @@ html body .about-website-reference > .about-ref-people .about-ref-people-quote::
   html body .about-website-reference > .about-ref-people .about-ref-people-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+    touch-action: pan-y;
+  }
+  html body .about-website-reference > .about-ref-people .about-ref-people-grid.is-dragging,
+  html body .about-website-reference > .about-ref-people .about-ref-people-grid.is-dragging * {
+    cursor: grabbing;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   html body .about-website-reference > .about-ref-people .about-ref-person-photo {

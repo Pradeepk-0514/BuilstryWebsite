@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
 import { ArrowLeft, ArrowRight, Star, UsersRound } from "lucide-react";
 
@@ -29,6 +29,7 @@ const communityReviews = [
   { name: "Priya S", role: "UI/UX Designer", date: "Jan 2026", initials: "PS", quote: "The team is very supportive and always available. My confidence has grown a lot through this internship.", source: "GenLab Intern", sourceType: "google" },
   { name: "Saran K", role: "Digital Marketer", date: "Dec 2025", initials: "SK", quote: "A wonderful experience with GenLab. Learned a lot and got hands-on exposure to real projects.", source: "Microsoft", sourceType: "microsoft" },
 ];
+const reviewCards = [...communityReviews, ...featuredReviews];
 
 function Stars({ compact = false }) {
   return <span className={`cv-stars${compact ? " is-compact" : ""}`} aria-label="Rated 5 out of 5">{Array.from({ length: 5 }, (_, index) => <Star key={index} size={compact ? 12 : 15} fill="currentColor" strokeWidth={0} />)}</span>;
@@ -48,18 +49,215 @@ function ReviewerAvatar({ initials, small = false }) {
 export default function ClientVoicesSection() {
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [selectedReview, setSelectedReview] = useState(1);
+  const [rotationPaused, setRotationPaused] = useState(false);
+  const rotationHover = useRef(false);
+  const rotationFocus = useRef(false);
   const reviewTrack = useRef(null);
+  const reviewDrag = useRef(null);
+  const suppressReviewClick = useRef(false);
+  const reviewClickTimer = useRef(0);
+  const reviewHover = useRef(false);
+  const reviewInteraction = useRef(false);
+  const reviewResumeTimer = useRef(0);
   const current = featuredReviews[featuredIndex];
   const previous = featuredReviews[(featuredIndex + featuredReviews.length - 1) % featuredReviews.length];
   const next = featuredReviews[(featuredIndex + 1) % featuredReviews.length];
 
+  useEffect(() => {
+    if (rotationPaused) return undefined;
+    const timer = window.setInterval(() => {
+      setFeaturedIndex((index) => (index + 1) % featuredReviews.length);
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [rotationPaused]);
+
+  useEffect(() => () => {
+    if (reviewClickTimer.current) window.clearTimeout(reviewClickTimer.current);
+    if (reviewResumeTimer.current) window.clearTimeout(reviewResumeTimer.current);
+  }, []);
+
   const stepFeatured = (direction) => setFeaturedIndex((index) => (index + direction + featuredReviews.length) % featuredReviews.length);
-  const stepReviews = (direction) => {
-    const target = Math.max(0, Math.min(communityReviews.length - 1, selectedReview + direction));
-    setSelectedReview(target);
-    const card = reviewTrack.current?.querySelector(`[data-review-index="${target}"]`);
-    card?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  const syncRotationPause = () => setRotationPaused(rotationHover.current || rotationFocus.current);
+  const pauseReviewMarquee = () => {
+    reviewInteraction.current = true;
+    if (reviewResumeTimer.current) window.clearTimeout(reviewResumeTimer.current);
   };
+  const resumeReviewMarquee = () => {
+    if (reviewResumeTimer.current) window.clearTimeout(reviewResumeTimer.current);
+    reviewResumeTimer.current = window.setTimeout(() => {
+      reviewInteraction.current = false;
+      reviewResumeTimer.current = 0;
+    }, 1200);
+  };
+  const selectReview = (index) => {
+    const selectedIndex = index % reviewCards.length;
+    setSelectedReview(selectedIndex);
+    const featuredIndex = featuredReviews.findIndex((review) => review.name === reviewCards[selectedIndex].name);
+    if (featuredIndex !== -1) setFeaturedIndex(featuredIndex);
+    const card = reviewTrack.current?.querySelector(`[data-review-index="${selectedIndex}"]:not(.is-duplicate)`);
+    card?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    pauseReviewMarquee();
+    resumeReviewMarquee();
+  };
+  const stepReviews = (direction) => {
+    selectReview((selectedReview + direction + reviewCards.length) % reviewCards.length);
+  };
+  const handleReviewWheel = (event) => {
+    const track = reviewTrack.current;
+    if (!track || track.scrollWidth <= track.clientWidth) return;
+    pauseReviewMarquee();
+    resumeReviewMarquee();
+    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+    event.preventDefault();
+    track.scrollLeft += delta;
+  };
+  useEffect(() => {
+    const track = reviewTrack.current;
+    if (!track) return undefined;
+    track.addEventListener("wheel", handleReviewWheel, { passive: false });
+    return () => track.removeEventListener("wheel", handleReviewWheel);
+  }, []);
+  useEffect(() => {
+    const track = reviewTrack.current;
+    if (!track) return undefined;
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let lastTime = 0;
+    let loopWidth = 0;
+    const measureLoop = () => {
+      const firstCard = track.querySelector(".cv-small-card:not(.is-duplicate)");
+      const duplicateCard = track.querySelector(".cv-small-card.is-duplicate");
+      loopWidth = firstCard && duplicateCard ? duplicateCard.offsetLeft - firstCard.offsetLeft : 0;
+    };
+    const observer = "ResizeObserver" in window ? new ResizeObserver(measureLoop) : null;
+    observer?.observe(track);
+    measureLoop();
+    const update = (time) => {
+      frame = 0;
+      if (motionPreference.matches) {
+        track.classList.remove("is-auto-scrolling");
+        track.classList.remove("is-paused");
+        lastTime = 0;
+        return;
+      }
+      if (reviewHover.current || reviewInteraction.current) {
+        track.classList.remove("is-auto-scrolling");
+        track.classList.add("is-paused");
+        lastTime = time;
+        frame = window.requestAnimationFrame(update);
+        return;
+      }
+      track.classList.remove("is-paused");
+      if (!track.classList.contains("is-auto-scrolling")) track.classList.add("is-auto-scrolling");
+      if (lastTime) {
+        if (loopWidth > 0) {
+          track.scrollLeft += Math.min(time - lastTime, 48) * 0.032;
+          if (track.scrollLeft >= loopWidth) track.scrollLeft %= loopWidth;
+        }
+      }
+      lastTime = time;
+      frame = window.requestAnimationFrame(update);
+    };
+    const handleMotionChange = () => {
+      if (motionPreference.matches) {
+        if (frame) window.cancelAnimationFrame(frame);
+        frame = 0;
+        track.classList.remove("is-auto-scrolling", "is-paused");
+        lastTime = 0;
+      } else {
+        lastTime = 0;
+        if (!frame) frame = window.requestAnimationFrame(update);
+      }
+    };
+    motionPreference.addEventListener("change", handleMotionChange);
+    if (!motionPreference.matches) frame = window.requestAnimationFrame(update);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      motionPreference.removeEventListener("change", handleMotionChange);
+      observer?.disconnect();
+      track.classList.remove("is-auto-scrolling");
+      track.classList.remove("is-paused");
+    };
+  }, []);
+  const startReviewDrag = (event) => {
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0) || !reviewTrack.current) return;
+    pauseReviewMarquee();
+    reviewDrag.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScroll: reviewTrack.current.scrollLeft,
+      dragging: false,
+    };
+  };
+  const moveReviewDrag = (event) => {
+    const drag = reviewDrag.current;
+    const track = reviewTrack.current;
+    if (!drag || !track || drag.pointerId !== event.pointerId) return;
+    const deltaX = event.clientX - drag.startX;
+    if (!drag.dragging && Math.abs(deltaX) < 6) return;
+    if (!drag.dragging) {
+      drag.dragging = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+      event.currentTarget.classList.add("is-dragging");
+    }
+    event.preventDefault();
+    track.scrollLeft = drag.startScroll - deltaX;
+  };
+  const finishReviewDrag = (event) => {
+    const drag = reviewDrag.current;
+    if (!drag || (event && drag.pointerId !== event.pointerId)) return;
+    reviewDrag.current = null;
+    reviewTrack.current?.classList.remove("is-dragging");
+    resumeReviewMarquee();
+    if (drag.dragging) {
+      suppressReviewClick.current = true;
+      if (reviewClickTimer.current) window.clearTimeout(reviewClickTimer.current);
+      reviewClickTimer.current = window.setTimeout(() => {
+        suppressReviewClick.current = false;
+        reviewClickTimer.current = 0;
+      }, 400);
+    }
+  };
+  const handleReviewScroll = (event) => {
+    const track = event.currentTarget;
+    const center = track.getBoundingClientRect().left + track.clientWidth / 2;
+    let closestIndex = selectedReview;
+    let closestDistance = Infinity;
+    track.querySelectorAll("[data-review-index]").forEach((card) => {
+      const distance = Math.abs(card.getBoundingClientRect().left + card.offsetWidth / 2 - center);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = Number(card.dataset.reviewIndex) % reviewCards.length;
+      }
+    });
+    setSelectedReview((index) => index === closestIndex ? index : closestIndex);
+    if (reviewInteraction.current || reviewHover.current) {
+      const featuredIndex = featuredReviews.findIndex((review) => review.name === reviewCards[closestIndex].name);
+      if (featuredIndex !== -1) setFeaturedIndex(featuredIndex);
+    }
+  };
+  const handleReviewKeyDown = (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    pauseReviewMarquee();
+    resumeReviewMarquee();
+    reviewTrack.current?.scrollBy({ left: event.key === "ArrowRight" ? 280 : -280, behavior: "smooth" });
+  };
+  const renderReviewCard = (review, index, duplicate = false) => (
+    <article
+      key={`${duplicate ? "duplicate-" : ""}${review.name}`}
+      data-review-index={index}
+      className={`cv-small-card${selectedReview === index ? " is-selected" : ""}${duplicate ? " is-duplicate" : ""}`}
+      aria-hidden={duplicate || undefined}
+      tabIndex={duplicate ? -1 : undefined}
+      onClick={duplicate ? undefined : () => selectReview(index)}
+    >
+      <div className="cv-small-reviewer"><ReviewerAvatar initials={review.initials} small/><span><b>{review.name}</b><small>{review.role}<br/>{review.date}</small></span></div>
+      <div className="cv-small-rating"><Stars compact/><span>5.0</span></div>
+      <p>“{review.quote}”</p>
+      <SourceMark type={review.sourceType} label={review.source}/>
+    </article>
+  );
 
   return <section className="client-voices-section" aria-labelledby="client-voices-title">
     <div className="cv-shell">
@@ -76,13 +274,13 @@ export default function ClientVoicesSection() {
           <Link className="cv-read-link" href="#client-review-cards">Read more reviews <ArrowRight size={16}/></Link>
         </header>
 
-        <div className="cv-featured-carousel" aria-label="Featured client reviews">
+        <div className="cv-featured-carousel" aria-label="Featured client reviews" onMouseEnter={() => { rotationHover.current = true; syncRotationPause(); }} onMouseLeave={() => { rotationHover.current = false; syncRotationPause(); }} onFocusCapture={() => { rotationFocus.current = true; syncRotationPause(); }} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) { rotationFocus.current = false; syncRotationPause(); } }}>
           <button className="cv-carousel-arrow cv-arrow-left" type="button" onClick={() => stepFeatured(-1)} aria-label="Previous featured review"><ArrowLeft size={18}/></button>
-          <article className="cv-feature-card cv-feature-card--left" aria-hidden="true">
+          <article key={`left-${previous.name}`} className="cv-feature-card cv-feature-card--left" aria-hidden="true">
             <div className="cv-reviewer"><ReviewerAvatar initials={previous.initials} small/><span><b>{previous.name}</b><small>{previous.role}<i/> {previous.date}</small></span></div>
             <Stars compact/><span className="cv-score-small">5.0</span><span className="cv-quote-mark">“</span><p>{previous.quote}</p><SourceMark type={previous.sourceType} label={previous.source}/>
           </article>
-          <article className="cv-feature-card cv-feature-card--active" aria-live="polite" aria-label={`Review by ${current.name}`}>
+          <article key={`active-${current.name}`} className="cv-feature-card cv-feature-card--active" aria-live="polite" aria-label={`Review by ${current.name}`}>
             <div className="cv-reviewer cv-reviewer--active"><ReviewerAvatar initials={current.initials}/><span><b>{current.name}</b><small>{current.role}<i/> {current.date}</small></span></div>
             <div className="cv-rating-line"><Stars/><span>5.0</span></div>
             <span className="cv-quote-mark">“</span>
@@ -90,7 +288,7 @@ export default function ClientVoicesSection() {
             <SourceMark type={current.sourceType} label={current.source}/>
             <button className="cv-card-next" type="button" onClick={() => stepFeatured(1)} aria-label="Next featured review"><ArrowRight size={18}/></button>
           </article>
-          <article className="cv-feature-card cv-feature-card--right" aria-hidden="true">
+          <article key={`right-${next.name}`} className="cv-feature-card cv-feature-card--right" aria-hidden="true">
             <div className="cv-reviewer"><ReviewerAvatar initials={next.initials} small/><span><b>{next.name}</b><small>{next.role}<i/> {next.date}</small></span></div>
             <Stars compact/><span className="cv-score-small">5.0</span><span className="cv-quote-mark">“</span><p>{next.quote}</p><SourceMark type={next.sourceType} label={next.source}/>
           </article>
@@ -101,15 +299,11 @@ export default function ClientVoicesSection() {
       </div>
 
       <div className="cv-review-row-heading"><span>FROM LEARNERS &amp; PARTNERS</span><div className="cv-row-controls"><button type="button" aria-label="Previous client review" onClick={() => stepReviews(-1)}><ArrowLeft size={16}/></button><button type="button" aria-label="Next client review" onClick={() => stepReviews(1)}><ArrowRight size={16}/></button></div></div>
-      <div className="cv-review-grid" id="client-review-cards" ref={reviewTrack} aria-label="More client reviews">
-        {communityReviews.map((review, index) => <article key={review.name} data-review-index={index} className={`cv-small-card${selectedReview === index ? " is-selected" : ""}`} onClick={() => setSelectedReview(index)}>
-          <div className="cv-small-reviewer"><ReviewerAvatar initials={review.initials} small/><span><b>{review.name}</b><small>{review.role}<br/>{review.date}</small></span></div>
-          <div className="cv-small-rating"><Stars compact/><span>5.0</span></div>
-          <p>“{review.quote}”</p>
-          <SourceMark type={review.sourceType} label={review.source}/>
-        </article>)}
+      <div className="cv-review-grid" id="client-review-cards" ref={reviewTrack} role="region" tabIndex={0} aria-label="More client reviews" onMouseEnter={() => { reviewHover.current = true; }} onMouseLeave={() => { reviewHover.current = false; }} onKeyDown={handleReviewKeyDown} onScroll={handleReviewScroll} onPointerDown={startReviewDrag} onPointerMove={moveReviewDrag} onPointerUp={finishReviewDrag} onPointerCancel={finishReviewDrag} onLostPointerCapture={finishReviewDrag} onPointerLeave={() => { if (!reviewDrag.current?.dragging) reviewDrag.current = null; }} onClickCapture={(event) => { if (suppressReviewClick.current) { event.preventDefault(); event.stopPropagation(); suppressReviewClick.current = false; if (reviewClickTimer.current) window.clearTimeout(reviewClickTimer.current); reviewClickTimer.current = 0; } }}>
+        {reviewCards.map((review, index) => renderReviewCard(review, index))}
+        {reviewCards.map((review, index) => renderReviewCard(review, index, true))}
       </div>
-      <div className="cv-review-pagination" aria-label="Review cards">{communityReviews.map((review, index) => <button key={review.name} type="button" aria-label={`Select review ${index + 1}`} aria-current={index === selectedReview ? "true" : undefined} onClick={() => { setSelectedReview(index); reviewTrack.current?.querySelector(`[data-review-index="${index}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" }); }} />)}</div>
+      <div className="cv-review-pagination" aria-label="Review cards">{reviewCards.map((review, index) => <button key={review.name} type="button" aria-label={`Select review ${index + 1}`} aria-current={index === selectedReview ? "true" : undefined} onClick={() => selectReview(index)} />)}</div>
       <span className="cv-corner-orb cv-corner-orb--left" aria-hidden="true"/><span className="cv-corner-orb cv-corner-orb--right" aria-hidden="true"/>
     </div>
   </section>;

@@ -37,7 +37,8 @@
 .cv-featured-carousel { position: relative; height: clamp(410px, 39vw, 505px); min-width: 0; perspective: 1500px; transform-style: preserve-3d; }
 .cv-featured-carousel::before { position: absolute; inset: 17% 10% 7%; border-radius: 50%; content: ""; background: radial-gradient(ellipse, rgba(229, 66, 157, .21), rgba(183, 166, 228, .11) 42%, transparent 72%); filter: blur(22px); }
 .cv-feature-card { position: absolute; top: 50%; display: flex; flex-direction: column; width: clamp(245px, 29vw, 414px); min-height: 390px; padding: clamp(23px, 2.4vw, 34px); border: 1px solid rgba(150, 151, 194, .22); border-radius: 23px; background: linear-gradient(140deg, rgba(255,255,255,.98), rgba(252,252,255,.9) 64%, rgba(248,241,250,.82)); box-shadow: 0 25px 70px rgba(88, 79, 132, .11), 0 1px 0 rgba(255,255,255,.95) inset; transform-style: preserve-3d; transition: transform .52s cubic-bezier(.2,.8,.2,1), opacity .4s ease, box-shadow .4s ease; }
-.cv-feature-card--active { z-index: 3; left: 50%; width: clamp(330px, 34vw, 430px); min-height: 432px; transform: translate(-50%, -50%) translateZ(52px) rotateY(0deg); border-color: rgba(216, 52, 132, .42); box-shadow: 0 34px 70px rgba(190, 57, 137, .19), 0 0 0 1px rgba(255,255,255,.65) inset; }
+.cv-feature-card--active { z-index: 3; left: 50%; width: clamp(330px, 34vw, 430px); min-height: 432px; transform: translate(-50%, -50%) translateZ(52px) rotateY(0deg); border-color: rgba(216, 52, 132, .42); box-shadow: 0 34px 70px rgba(190, 57, 137, .19), 0 0 0 1px rgba(255,255,255,.65) inset; animation: cv-review-enter .32s ease both; }
+@keyframes cv-review-enter { from { opacity: .55; filter: blur(2px); } to { opacity: 1; filter: blur(0); } }
 .cv-feature-card--left { z-index: 1; left: 10%; opacity: .82; transform: translate(-50%, -50%) translateZ(-90px) rotateY(12deg) scale(.86); }
 .cv-feature-card--right { z-index: 1; left: 90%; opacity: .82; transform: translate(-50%, -50%) translateZ(-90px) rotateY(-12deg) scale(.86); }
 .cv-reviewer { display: flex; align-items: center; gap: 15px; min-width: 0; }
@@ -82,10 +83,14 @@
 .cv-row-controls { display: flex; gap: 9px; }
 .cv-row-controls button { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid rgba(152, 167, 193, .18); border-radius: 50%; color: var(--cv-pink); background: rgba(255,255,255,.87); transition: transform .2s, background .2s; }
 .cv-row-controls button:hover { background: white; transform: translateY(-2px); }
-.cv-review-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px; }
-.cv-small-card { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 252px; padding: 16px 15px 14px; border: 1px solid rgba(145, 158, 185, .2); border-radius: 15px; background: rgba(255,255,255,.73); box-shadow: 0 10px 25px rgba(74, 91, 125, .055); cursor: pointer; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
-.cv-small-card:hover { transform: translateY(-4px); box-shadow: 0 17px 30px rgba(74,91,125,.12); }
-.cv-small-card.is-selected { z-index: 1; border-color: rgba(213,27,112,.48); box-shadow: 0 15px 32px rgba(197,48,124,.11), inset 0 1px rgba(255,255,255,.9); transform: translateY(-3px); }
+.cv-review-grid { display: flex; gap: 13px; overflow-x: auto; overflow-y: hidden; padding: 3px 2px 12px; scroll-behavior: smooth; scroll-snap-type: x mandatory; scroll-padding-inline: 2px; overscroll-behavior-x: contain; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; }
+.cv-review-grid::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.cv-review-grid.is-auto-scrolling, .cv-review-grid.is-paused { scroll-behavior: auto; scroll-snap-type: none; }
+.cv-review-grid.is-dragging, .cv-review-grid.is-dragging * { cursor: grabbing; scroll-behavior: auto; user-select: none; -webkit-user-select: none; }
+.cv-small-card { position: relative; display: flex; flex: 0 0 clamp(260px, 22vw, 300px); flex-direction: column; min-width: 0; min-height: 252px; padding: 16px 15px 14px; border: 1px solid rgba(145, 158, 185, .2); border-radius: 15px; background: rgba(255,255,255,.73); box-shadow: 0 10px 25px rgba(74, 91, 125, .055); cursor: pointer; scroll-snap-align: center; transition: border-color .3s ease, box-shadow .3s ease; }
+.cv-small-card:hover { box-shadow: 0 17px 30px rgba(74,91,125,.12); }
+.cv-small-card.is-selected { z-index: 1; border-color: rgba(213,27,112,.48); box-shadow: 0 15px 32px rgba(197,48,124,.11), inset 0 1px rgba(255,255,255,.9); }
+.cv-small-card.is-duplicate { pointer-events: none; }
 .cv-small-reviewer { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .cv-small-reviewer b { overflow: hidden; color: #233a54; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .cv-small-reviewer small { color: #8b97a6; font-size: 9px; line-height: 1.35; }
@@ -123,7 +128,7 @@
   .cv-feature-dots { bottom: 10px; }
   .cv-feature-quote { font-size: 13px; -webkit-line-clamp: 5; }
   .cv-review-row-heading { margin: 25px 0 12px; }
-  .cv-review-grid { display: flex; overflow-x: auto; gap: 12px; padding: 3px 2px 12px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: rgba(213,27,112,.45) transparent; }
+  .cv-review-grid { display: flex; overflow-x: auto; gap: 12px; padding: 3px 2px 12px; scroll-snap-type: x mandatory; }
   .cv-small-card { flex: 0 0 min(78vw, 310px); min-height: 238px; scroll-snap-align: center; }
   .cv-review-pagination { display: flex; justify-content: center; gap: 7px; margin-top: 5px; }
   .cv-review-pagination button { width: 10px; height: 4px; }

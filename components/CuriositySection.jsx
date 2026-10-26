@@ -31,7 +31,8 @@ export default function CuriositySection() {
   useEffect(() => {
     const section = curiosityRef.current;
     const track = curiosityTrackRef.current;
-    if (!section || !track) return undefined;
+    const viewport = curiosityRailRef.current;
+    if (!section || !track || !viewport) return undefined;
     let frame = 0;
     let target = 0;
     let current = 0;
@@ -40,15 +41,15 @@ export default function CuriositySection() {
 
     const measure = () => {
       if (window.innerWidth <= 720) return;
-      travel = Math.max(0, track.scrollWidth - section.clientWidth + section.querySelector(".insights-curiosity-stage")?.querySelector(".insights-curiosity-intro")?.getBoundingClientRect().width || 0);
-      const releaseDistance = Math.max(window.innerHeight * 2.15, travel * 1.18);
+      travel = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const releaseDistance = Math.max(window.innerHeight * 1.25, travel);
       section.style.height = `${window.innerHeight + releaseDistance}px`;
       updateTarget();
     };
 
     const updateTarget = () => {
       const rect = section.getBoundingClientRect();
-      const releaseDistance = Math.max(window.innerHeight * 2.15, travel * 1.18);
+      const releaseDistance = Math.max(window.innerHeight * 1.25, travel);
       target = Math.max(0, Math.min(1, -rect.top / releaseDistance));
       const nextIndex = Math.min(curiosityTopics.length - 1, Math.floor(target * curiosityTopics.length));
       setCuriosityIndex((previous) => previous === nextIndex ? previous : nextIndex);
@@ -75,6 +76,8 @@ export default function CuriositySection() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
       if (frame) window.cancelAnimationFrame(frame);
+      section.style.removeProperty("height");
+      track.style.removeProperty("transform");
     };
   }, []);
 
