@@ -271,3 +271,187 @@
     transition: none;
   }
 }
+
+
+/* Responsive density pass: preserve the existing scroll/card structure while
+   preventing phone and tablet sections from becoming unnecessarily tall. */
+@media (min-width: 721px) and (max-width: 900px) {
+  .home-page > .hero-section {
+    height: 124svh;
+    min-height: 0;
+  }
+  .home-page > .hero-section > .hero-shell {
+    height: 100svh;
+    min-height: 0;
+    padding: 96px 6vw 44px;
+  }
+  .home-page > .split-section,
+  .home-page > .capabilities-scroll,
+  .home-page > .impact-section,
+  .home-page > .faq-modern {
+    padding-block: 64px;
+  }
+  .home-page > .split-section { gap: 32px; }
+  .home-page > .capabilities-scroll { gap: 38px; }
+  .home-page > .impact-section { gap: 34px; }
+  .home-page > .faq-modern { gap: 34px; }
+  .home-page .capabilities-visual { min-height: min(42vw, 360px); }
+  .home-page .capability-step { padding-bottom: 42px; }
+  .home-page .intent-sticky-wrapper,
+  .about-website-reference .approach-sticky-wrapper {
+    height: calc(100svh - 64px) !important;
+    min-height: 0;
+  }
+  .home-page .intent-card-viewport,
+  .about-website-reference .approach-right-container { padding-block: 24px; }
+  .about-website-reference .journey-modern-section { height: 350vh; min-height: 0; }
+  .about-website-reference .journey-modern-sticky { height: 92svh; min-height: 0; }
+  .about-website-reference > .about-ref-network-stage { min-height: 0; height: 470px; }
+}
+
+@media (max-width: 720px) {
+  .home-page > .hero-section {
+    height: 114svh;
+    min-height: 0;
+  }
+  .home-page > .hero-section > .hero-shell {
+    height: 100svh;
+    min-height: 0;
+    padding-block: 68px 28px;
+  }
+  .home-page > .split-section {
+    gap: 28px;
+    padding-block: 42px;
+  }
+  .home-page > .capabilities-scroll {
+    padding-top: 42px;
+    padding-bottom: 24px;
+  }
+  .home-page > .impact-section {
+    padding-block: 42px;
+  }
+  .home-page > .faq-modern {
+    padding-top: 42px;
+    padding-bottom: 46px;
+  }
+
+  /* Keep the visual and copy readable without giving each capability a full screen. */
+  .home-page .capabilities-mobile-stage {
+    grid-template-rows: minmax(150px, 22svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+    padding: 8px 16px 14px;
+  }
+  .home-page .capability-step {
+    min-height: 34svh;
+    padding: 12px 0 22px;
+  }
+  .home-page .capability-step h3 {
+    margin-top: clamp(22px, 4svh, 36px);
+  }
+
+  /* Reduce the pinned curiosity stage while keeping one readable card in view. */
+  .home-page > .insights-curiosity .insights-curiosity-stage {
+    grid-template-rows: minmax(170px, 25svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+    padding: 68px 12px 10px;
+    gap: 10px;
+  }
+  .home-page > .insights-curiosity .insights-curiosity-card {
+    padding: 16px 18px 15px;
+  }
+  .home-page > .insights-curiosity .insights-curiosity-card strong {
+    margin-top: clamp(18px, 3.5vh, 32px);
+  }
+  .home-page > .insights-curiosity .insights-card-rule {
+    margin: clamp(18px, 3.5vh, 32px) 0 clamp(12px, 2.5vh, 22px);
+  }
+
+  /* Shorter pinned build-intent stage; JS still computes the same card sequence. */
+  .home-page .intent-sticky-wrapper {
+    grid-template-rows: minmax(165px, 24svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+    padding: max(64px, env(safe-area-inset-top)) 14px 14px;
+    gap: 10px;
+  }
+  .home-page .intent-title { padding: 12px 16px; }
+  .home-page .intent-title h2 { font-size: clamp(28px, 8.5vw, 42px); }
+  .home-page .intent-card { padding: 20px; }
+
+  /* Compact the horizontal Process cards without changing their order or interaction. */
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-sticky-wrapper {
+    grid-template-rows: minmax(220px, 32svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-left-content {
+    min-height: 0;
+    padding: 56px 6vw 10px;
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-right-container {
+    padding: 8px 5vw;
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-card {
+    height: min(320px, max(180px, calc(90svh - 300px)));
+  }
+
+  /* Reduce the amount of scroll runway per Journey milestone while retaining the pinned card. */
+  .about-website-reference .journey-modern-section {
+    height: 320vh;
+    min-height: 0;
+  }
+  .about-website-reference .journey-modern-sticky {
+    height: min(90svh, 700px);
+    min-height: 0;
+    padding: 60px 18px 24px 58px;
+  }
+  .about-website-reference .journey-modern-intro {
+    top: 62px;
+    left: 58px;
+    width: calc(100% - 76px);
+  }
+  .about-website-reference .journey-modern-card {
+    min-height: 185px;
+    padding: 17px 16px 15px;
+  }
+
+  .about-website-reference > .about-ref-why .about-ref-why-stage {
+    height: min(90svh, 700px) !important;
+  }
+  .about-website-reference > .about-ref-network-stage {
+    height: 430px;
+    min-height: 0;
+  }
+  .about-website-reference > .about-ref-network-showcase {
+    padding-top: 48px;
+    padding-bottom: 58px;
+  }
+  .about-website-reference > .about-ref-people,
+  .about-website-reference > .about-ref-mindset-section,
+  .about-website-reference > .about-ref-principles-showcase {
+    padding-top: 42px;
+    padding-bottom: 34px;
+  }
+
+  .client-voices-section {
+    padding-top: 54px;
+    padding-bottom: 42px;
+  }
+
+  /* Avoid a half-screen blank reveal after the mobile CTA. */
+  body:has(.home-page) #root > .site-footer,
+  body:has(.about-website-reference) #root > .site-footer {
+    min-height: 0 !important;
+  }
+}
+
+@media (max-width: 720px) and (max-height: 640px) {
+  .home-page > .hero-section { height: 108svh; }
+  .home-page > .hero-section > .hero-shell { padding-block: 60px 22px; }
+  .home-page .capabilities-mobile-stage,
+  .home-page .intent-sticky-wrapper,
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-sticky-wrapper,
+  .about-website-reference .journey-modern-sticky,
+  .about-website-reference > .about-ref-why .about-ref-why-stage {
+    height: min(88svh, 610px) !important;
+  }
+  .home-page > .insights-curiosity .insights-curiosity-stage { height: min(88svh, 610px); }
+}
