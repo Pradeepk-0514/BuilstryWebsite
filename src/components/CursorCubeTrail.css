@@ -50,7 +50,7 @@ MOBILE
 =========================================================
 */
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .cursor-cube-trail {
     display: none;
   }

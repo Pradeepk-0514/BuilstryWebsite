@@ -120,7 +120,7 @@
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 560px), (min-width: 901px) and (max-width: 980px) {
   .insights-coming-soon-panel {
     min-height: min(100svh, 820px);
     padding: 122px 20px 72px;

@@ -365,7 +365,7 @@ html body .about-website-reference > .about-ref-people .about-ref-people-quote::
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   html body .about-website-reference > .about-ref-people {
     display: block !important;
     min-height: 0 !important;
@@ -415,7 +415,7 @@ html body .about-website-reference > .about-ref-people .about-ref-people-quote::
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 420px), (min-width: 901px) and (max-width: 980px) {
   html body .about-website-reference > .about-ref-people .about-ref-people-grid {
     gap: 9px;
   }

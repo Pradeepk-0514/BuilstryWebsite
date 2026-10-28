@@ -147,7 +147,7 @@
   .about-website-reference .about-ref-principles-showcase { padding-top: 48px !important; }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 360px), (min-width: 901px) and (max-width: 980px) {
   .site-header { gap: 10px; padding-left: 12px; }
   .brand { gap: 8px; font-size: 12px; }
   .home-page > .hero-section { padding-inline: 18px; }

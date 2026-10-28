@@ -172,7 +172,7 @@
   .about-website-reference .about-ref-mindset-card > strong { font-size:14px; }
   .about-website-reference .about-ref-mindset-description { font-size:11px; }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-mindset-section { height:auto;min-height:100svh;padding:94px clamp(12px, 4vw, 26px) 48px;overflow:visible; }
   .about-website-reference .about-ref-mindset-kicker { margin-bottom:14px;font-size:11px; }
   .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(40px,9.6vw,62px); }
@@ -187,7 +187,7 @@
   .about-website-reference .about-ref-mindset-card:hover,
   .about-website-reference .about-ref-mindset-card:focus-visible { transform:translateY(-6px) scale(1.012); }
 }
-@media (max-width: 480px) {
+@media (max-width: 480px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-mindset-section { padding:88px clamp(12px, 4vw, 20px) 40px; }
   .about-website-reference .about-ref-mindset-copy h2 { font-size:clamp(36px,10vw,48px); }
   .about-website-reference .about-ref-mindset-track { grid-template-columns:1fr;gap:12px; }
@@ -228,7 +228,7 @@
     transform: rotate(-3deg);
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-mindset-brush-note {
     width: 160px;
     margin: 18px 0 0 auto;

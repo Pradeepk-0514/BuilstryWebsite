@@ -1,4 +1,4 @@
-/* Builstry About page — tonal rhythm. Surface-only treatments preserve the
+/* Builstry About page â€” tonal rhythm. Surface-only treatments preserve the
    existing content, typography, section layout, and interactions. */
 html body .about-website-reference .about-ref-hero {
   background:
@@ -97,7 +97,7 @@ html body .about-website-reference .about-ref-hero-copy p {
 
 /* At narrow widths retain the existing stacked hero content. The image still
    covers the entire (content-aware) section, even if it grows beyond one view. */
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   html body .about-website-reference > .about-ref-hero {
     height: auto !important;
     min-height: 100vh !important;

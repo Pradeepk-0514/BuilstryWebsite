@@ -1,4 +1,4 @@
-/* Builstry Insights — editorial system inspired by the supplied concept board. */
+/* Builstry Insights â€” editorial system inspired by the supplied concept board. */
 .insights-editorial {
   --ie-bg: #111d2a;
   --ie-deep: #0b1420;
@@ -158,7 +158,7 @@
 @keyframes ie-float { to { transform: translate3d(0,-13px,0) scale(1.12); opacity: .65; } }
 @keyframes ie-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .insights-editorial .ie-hero { min-height: 660px; padding-top: 115px; }
   .insights-editorial .ie-hero-inner { min-height: 510px; }
   .insights-editorial .ie-hero-copy { width: 55%; }
@@ -170,7 +170,7 @@
   .insights-editorial .ie-newsletter-section { grid-template-columns: 58px 1fr; gap: 16px 22px; }
   .insights-editorial .ie-newsletter-icon { width: 54px; height: 54px; font-size: 27px; }.insights-editorial .ie-newsletter-action { grid-column: 2; }
 }
-@media (max-width: 700px) {
+@media (max-width: 700px), (min-width: 901px) and (max-width: 980px) {
   .insights-editorial .ie-hero { min-height: 700px; padding: 126px 22px 25px; }
   .insights-editorial .ie-hero-inner { align-items: flex-start; min-height: 540px; }
   .insights-editorial .ie-hero-copy { width: 100%; max-width: 580px; padding: 54px 0 112px; }
@@ -218,7 +218,7 @@
   .insights-editorial .ie-cta-art { top: 20%; right: -39%; width: 75vw; opacity: .6; }
   .insights-editorial .ie-cta-coordinate { right: 22px; bottom: 16px; }
 }
-@media (max-width: 390px) {
+@media (max-width: 390px), (min-width: 901px) and (max-width: 980px) {
   .insights-editorial .ie-hero h1 { font-size: 58px; }
   .insights-editorial .ie-hero-bottom { letter-spacing: .1em; }
   .insights-editorial .ie-featured-copy h2 { font-size: 30px; }

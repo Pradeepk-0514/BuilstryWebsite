@@ -154,7 +154,7 @@ button { font: inherit; }
 
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .desktop-nav { gap:22px; }
   .hero { grid-template-columns:1fr; }
   .hero-cube { height:420px; order:-1; }
@@ -166,7 +166,7 @@ button { font: inherit; }
   .footer-top { grid-template-columns:repeat(2,1fr); }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .site-header { height:68px; }
   .desktop-nav {
     display:none; position:absolute; top:68px; left:0; right:0; background:var(--cream);
@@ -199,7 +199,7 @@ button { font: inherit; }
 
 
 /* =========================================================
-   FINAL BUILSTRY PALETTE — 4 COLORS ONLY
+   FINAL BUILSTRY PALETTE Ã¢â‚¬â€ 4 COLORS ONLY
    Ice White #F7F8FA / Steel Navy #243447 /
    Midnight #141D26 / Magenta #C51F5D
    ========================================================= */
@@ -275,7 +275,7 @@ em { color: var(--magenta); }
 ::selection { background: var(--magenta); color: var(--ice-white); }
 
 /* =========================================================
-   TYPOGRAPHY SCALE — CLEAN, READABLE, PROFESSIONAL
+   TYPOGRAPHY SCALE Ã¢â‚¬â€ CLEAN, READABLE, PROFESSIONAL
    Balanced desktop sizing without oversized headings or tiny UI.
    ========================================================= */
 html { font-size: 16px; }
@@ -320,7 +320,7 @@ body { font-size: 16px; }
 .content-block span { font-size: 12px; }
 .content-block h2 { font-size: clamp(30px, 3.2vw, 48px); }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .desktop-nav { font-size: 15px; }
   .hero-text { font-size: 16px; }
   .section-heading h2,
@@ -333,7 +333,7 @@ body { font-size: 16px; }
 }
 
 /* =========================================================
-   NAVIGATION — WHAT WE BUILD MEGA DROPDOWN
+   NAVIGATION Ã¢â‚¬â€ WHAT WE BUILD MEGA DROPDOWN
    Three Builstry pillars presented as a compact editorial panel.
    ========================================================= */
 .nav-dropdown {
@@ -487,7 +487,7 @@ body { font-size: 16px; }
 
 .nav-dropdown-menu a:hover b { transform: translateX(4px); color: var(--ice-white); }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .nav-dropdown { display: block; height: auto; }
   .nav-dropdown-trigger { width: 100%; text-align: left; padding: 12px 0; }
   .nav-dropdown-trigger::after { bottom: 4px; }
@@ -520,7 +520,7 @@ body { font-size: 16px; }
 }
 
 /* =========================================================
-   UX REFINEMENT — APPROACH + BUILD INTENT
+   UX REFINEMENT Ã¢â‚¬â€ APPROACH + BUILD INTENT
    ========================================================= */
 .approach-section{
   position:relative;
@@ -619,11 +619,11 @@ body { font-size: 16px; }
 .intent-arrow b{display:inline-block;margin-left:7px;transition:transform .2s ease;}
 .intent-card:hover .intent-arrow b{transform:translateX(5px);}
 
-@media(max-width:980px){
+@media(max-width: 980px), (min-width: 901px) and (max-width: 980px){
   .steps.approach-track::before{left:22px;right:22px;}
   .intent-title{position:static;}
 }
-@media(max-width:720px){
+@media(max-width: 720px), (min-width: 901px) and (max-width: 980px){
   .steps.approach-track::before{display:none;}
   .step{border-right:0;border-bottom:1px solid var(--line);padding:0 0 24px;margin-bottom:24px;min-height:0;}
   .step:last-child{border-bottom:0;margin-bottom:0;}
@@ -641,7 +641,7 @@ body { font-size: 16px; }
 }
 .nav-pillar-title{font-weight:800;}
 .nav-dropdown-menu{top:calc(100% + 8px);}
-@media(max-width:720px){
+@media(max-width: 720px), (min-width: 901px) and (max-width: 980px){
   .nav-dropdown::after{display:none;}
   .nav-dropdown-menu{top:auto;}
 }
@@ -654,7 +654,7 @@ body { font-size: 16px; }
    distinct surface so the page does not feel visually flat.
    ========================================================= */
 
-/* Home — Builstry Approach */
+/* Home Ã¢â‚¬â€ Builstry Approach */
 .approach-section{
   background:
     linear-gradient(135deg, rgba(36,52,71,.055), transparent 45%),
@@ -678,7 +678,7 @@ body { font-size: 16px; }
   box-shadow:0 10px 24px rgba(20,29,38,.14);
 }
 
-/* Home — Labs / 12 Industries */
+/* Home Ã¢â‚¬â€ Labs / 12 Industries */
 .lower-section{
   background:linear-gradient(180deg, rgba(36,52,71,.035), rgba(197,31,93,.018));
   border-top:1px solid rgba(36,52,71,.10);
@@ -724,14 +724,14 @@ body { font-size: 16px; }
 }
 .lower-card:hover::after{transform:rotate(55deg) scale(1.12);box-shadow:0 0 35px rgba(197,31,93,.16);}
 
-/* Home — build intent */
+/* Home Ã¢â‚¬â€ build intent */
 .intent-section{
   background:linear-gradient(180deg, var(--ice-white), rgba(36,52,71,.045));
 }
 .intent-card:nth-child(odd){background:var(--ice-white);}
 .intent-card:nth-child(even){background:linear-gradient(145deg,var(--ice-white),rgba(36,52,71,.055));}
 
-/* Insights — curiosity cards: make the interaction zone visually distinct. */
+/* Insights Ã¢â‚¬â€ curiosity cards: make the interaction zone visually distinct. */
 .insights-shell .curiosity-section,
 .insights-shell .curious-section{
   background:linear-gradient(180deg, rgba(36,52,71,.045), transparent);
@@ -750,7 +750,7 @@ body { font-size: 16px; }
   background:linear-gradient(145deg,var(--ice-white),rgba(197,31,93,.055));
 }
 
-/* About — separate the long-form pain-point sections without introducing new colours. */
+/* About Ã¢â‚¬â€ separate the long-form pain-point sections without introducing new colours. */
 .about-page .philosophy-section{
   background:linear-gradient(180deg, rgba(36,52,71,.055), transparent 80%);
 }
@@ -783,10 +783,10 @@ body { font-size: 16px; }
 
 
 /* =========================================================
-   FINAL VISUAL PASS — MAGENTA FOCUS AREAS
+   FINAL VISUAL PASS Ã¢â‚¬â€ MAGENTA FOCUS AREAS
    ========================================================= */
 
-/* HOME — Builstry Approach: make this a strong signature section. */
+/* HOME Ã¢â‚¬â€ Builstry Approach: make this a strong signature section. */
 .approach-section{
   background:
     radial-gradient(circle at 12% 20%, rgba(197,31,93,.20), transparent 30%),
@@ -831,7 +831,7 @@ body { font-size: 16px; }
 .step strong{color:var(--ice-white);}
 .approach-track .step p{color:rgba(247,248,250,.68);}
 
-/* HOME — What are you trying to build? */
+/* HOME Ã¢â‚¬â€ What are you trying to build? */
 .intent-section{
   background:
     linear-gradient(135deg, rgba(36,52,71,.97), rgba(20,29,38,.98)),
@@ -856,7 +856,7 @@ body { font-size: 16px; }
 .intent-card:hover{border-color:var(--magenta);box-shadow:0 24px 48px rgba(0,0,0,.26),0 0 0 1px rgba(197,31,93,.20);}
 .intent-card::before{border-color:rgba(197,31,93,.38);}
 
-/* ABOUT — Philosophy: magenta signature treatment. */
+/* ABOUT Ã¢â‚¬â€ Philosophy: magenta signature treatment. */
 .about-page .philosophy-section{
   background:
     radial-gradient(circle at 50% 0%, rgba(197,31,93,.17), transparent 42%),
@@ -875,7 +875,7 @@ body { font-size: 16px; }
 .about-page .philosophy-item p{color:rgba(247,248,250,.68);}
 .about-page .philosophy-item:hover{background:rgba(197,31,93,.10);border-color:rgba(197,31,93,.45);}
 
-/* ABOUT — How We Think: stronger magenta visual language. */
+/* ABOUT Ã¢â‚¬â€ How We Think: stronger magenta visual language. */
 .about-page .thinking-section{
   background:linear-gradient(135deg, #111a23 0%, #243447 72%, #3a1930 100%);
   color:var(--ice-white);
@@ -890,7 +890,7 @@ body { font-size: 16px; }
 .about-page .thinking-item p,.about-page .thinking-intro p{color:rgba(247,248,250,.68);}
 .about-page .thinking-item:hover{background:rgba(197,31,93,.09);}
 
-/* ABOUT — Bigger Than Its Team: network-style magenta section. */
+/* ABOUT Ã¢â‚¬â€ Bigger Than Its Team: network-style magenta section. */
 .about-page .team-section{
   background:
     radial-gradient(circle at 78% 50%, rgba(197,31,93,.16), transparent 30%),
@@ -915,7 +915,7 @@ body { font-size: 16px; }
 /* Ensure the Insights route is visually independent from the generic pages. */
 .insights-shell .site-header{z-index:100;}
 
-/* Professional interaction layer — canonical Builstry palette only. */
+/* Professional interaction layer Ã¢â‚¬â€ canonical Builstry palette only. */
 :root { --magenta: #C51F5D; --ice-white: #F7F8FA; --midnight: #141D26; --steel-navy: #243447; --ease-out: cubic-bezier(.23,1,.32,1); }
 body { background: var(--ice-white); }
 .cursor-cube-trail { z-index: 18; mix-blend-mode: normal; opacity: 1; }
@@ -945,7 +945,7 @@ body { background: var(--ice-white); }
 .inner-cta::after { content: ""; position: absolute; right: 8%; bottom: -55%; width: 390px; height: 390px; border: 1px solid rgba(197,31,93,.46); border-radius: 50%; box-shadow: 0 0 0 34px rgba(197,31,93,.08), 0 0 0 68px rgba(197,31,93,.04); }
 .inner-cta .button { position: relative; z-index: 2; }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .cursor-cube-trail { opacity: .75; }
   .inner-hero { min-height: 500px; }
   .inner-hero-orbit { right: -12vw; opacity: .55; }
@@ -1027,7 +1027,7 @@ body { background: var(--ice-white); }
   .inner-page [data-reveal], .page-404[data-reveal] { opacity: 1; transform: none; transition: none; }
 }
 
-/* Home Approach — pin-first, six-card horizontal sequence with measured release. */
+/* Home Approach Ã¢â‚¬â€ pin-first, six-card horizontal sequence with measured release. */
 .approach-section {
   position: relative;
   height: var(--approach-scroll-height, 180vh);
@@ -1123,13 +1123,13 @@ body { background: var(--ice-white); }
 .approach-progress-track { height: 2px; margin-top: 28px; background: rgba(36,52,71,.14); }
 .approach-progress-track span { display: block; width: calc(var(--approach-progress, 0) * 100%); height: 100%; background: var(--magenta); box-shadow: 0 0 12px rgba(197,31,93,.42); }
 
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .approach-section { height: var(--approach-scroll-height, 185vh); }
   .approach-stage { grid-template-columns: minmax(0, 34%) minmax(0, 66%); }
   .approach-intro { padding: 38px 4vw; }
   .approach-window { padding: 30px 4vw; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .approach-section { height: auto; min-height: 0; overflow: visible; }
   .approach-stage { position: relative; top: auto; display: block; height: auto; min-height: 0; overflow: visible; }
   .approach-intro { min-height: 62vh; transform: none; opacity: 1; padding: 68px 5vw; }
@@ -1155,7 +1155,7 @@ body { background: var(--ice-white); }
 .approach-stage { overflow: hidden; }
 .approach-window { overflow: hidden; }
 
-/* Home Approach — active front card treatment and precise centered rail. */
+/* Home Approach Ã¢â‚¬â€ active front card treatment and precise centered rail. */
 .steps.approach-track {
   padding-left: var(--approach-side-pad, 0px);
   padding-right: var(--approach-side-pad, 0px);
@@ -1215,12 +1215,12 @@ body { background: var(--ice-white); }
   background: linear-gradient(90deg, transparent, rgba(197,31,93,.72), transparent);
   box-shadow: 0 0 18px rgba(197,31,93,.42);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .steps.approach-track { padding-left: 0; padding-right: 0; }
 }
 
 /* =========================================================
-   EDITORIAL SYSTEMS — PREMIUM MOTION LAYER
+   EDITORIAL SYSTEMS Ã¢â‚¬â€ PREMIUM MOTION LAYER
    Preserves the existing Builstry palette and components.
    ========================================================= */
 :root {
@@ -1303,13 +1303,13 @@ body { background: var(--ice-white); }
   @keyframes editorial-focus { from { filter: blur(5px); transform: scale(.97); } to { filter: blur(0); transform: scale(1); } }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .approach-section { min-height: auto; padding: 0 5vw 70px; }
   .approach-stage { position: relative; top: auto; min-height: 0; grid-template-columns: 1fr; gap: 25px; padding-top: 55px; }
   .approach-path { top: 42%; }
   .pillar-grid:has(.pillar-card:hover), .pillar-grid:has(.pillar-card:nth-child(1):hover), .pillar-grid:has(.pillar-card:nth-child(3):hover) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .editorial-hero::after { display: none; }
   .editorial-hero .hero-copy, .editorial-hero .hero-cube { transform: none; }
   .pillars-section::before { display: none; }
@@ -1413,7 +1413,7 @@ body { background: var(--ice-white); }
 .home-page .approach-intro h2 { color: var(--ice-white); }
 .home-page .approach-intro p { color: rgba(247,248,250,.76); }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-intro {
     height: auto;
     min-height: 62vh;
@@ -1465,7 +1465,7 @@ body { background: var(--ice-white); }
   background: var(--ice-white);
   overflow: hidden;
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage { min-height: 0; }
   .home-page .approach-intro {
     position: relative;
@@ -1507,7 +1507,7 @@ body { background: var(--ice-white); }
   max-width: none;
   background: var(--ice-white);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage { display: block; }
   .home-page .approach-intro,
   .home-page .approach-window { width: 100%; }
@@ -1560,7 +1560,7 @@ body { background: var(--ice-white); }
   min-height: 100%;
   background: var(--ice-white);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage {
     position: relative;
     top: auto;
@@ -1651,7 +1651,7 @@ body { background: var(--ice-white); }
   border-color: rgba(197,31,93,.72);
   box-shadow: 0 0 0 1px rgba(197,31,93,.30), 0 0 30px rgba(197,31,93,.26), 0 28px 56px rgba(20,29,38,.32), inset 0 1px 0 rgba(247,248,250,.16);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage { height: auto; min-height: 0; margin-top: 0; margin-bottom: 0; }
   .home-page .approach-intro { min-height: 62vh; }
   .home-page .approach-window { height: auto; min-height: 660px; }
@@ -1676,7 +1676,7 @@ body { background: var(--ice-white); }
   bottom: clamp(20px, 2.6vw, 38px);
   left: clamp(20px, 2.6vw, 38px);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage { height: auto; margin-top: 0; margin-bottom: 0; }
   .home-page .approach-track .step { width: min(84vw, 430px); height: min(84vw, 430px); flex-basis: min(84vw, 430px); }
 }
@@ -1720,7 +1720,7 @@ body { background: var(--ice-white); }
     height: min(54vh, 50vw, 520px);
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page .approach-stage { display: block; }
   .home-page .approach-track .step { width: min(84vw, 430px); height: min(84vw, 430px); flex-basis: min(84vw, 430px); }
 }
@@ -1882,11 +1882,11 @@ body { background: var(--ice-white); }
   color: var(--ice-white) !important;
   outline: none;
 }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .site-footer .footer-top { gap: 38px; }
   .site-footer .footer-links { gap: 22px; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .site-footer .footer-top {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1942,7 +1942,7 @@ body { background: var(--ice-white); }
   position: relative;
   z-index: 1;
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .site-shell > main { margin-bottom: 500px; }
   .site-footer {
     min-height: 500px;
@@ -1978,7 +1978,7 @@ body { background: var(--ice-white); }
 .site-shell:has(.home-page) .site-footer .footer-col h4 { font-size: 13px; }
 .home-page ~ .site-footer .footer-bottom,
 .site-shell:has(.home-page) .site-footer .footer-bottom { font-size: 12px; }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .site-shell:has(.home-page) .site-footer .footer-brand { font-size: 21px; }
   .site-shell:has(.home-page) .site-footer .footer-top p { font-size: 14px; }
   .site-shell:has(.home-page) .site-footer .footer-col { font-size: 13px; }
@@ -1992,7 +1992,7 @@ body { background: var(--ice-white); }
 .contact-cta-actions .button { min-width: 194px; }
 .contact-final-cta .button-secondary { border-color: rgba(36,52,71,.28); background: transparent; color: var(--steel-navy); }
 .contact-final-cta .button-secondary:hover { border-color: var(--magenta); background: var(--magenta); color: var(--ice-white); }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .contact-cta-actions { width: 100%; justify-content: flex-start; }
   .contact-cta-actions .button { flex: 1 1 100%; min-width: 0; }
 }

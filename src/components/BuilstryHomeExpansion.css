@@ -76,7 +76,7 @@
 .home-expansion .expansion-faq h2 { font-size: clamp(50px, 5.8vw, 90px); }
 .home-expansion .faq-list { width: 100%; }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-capabilities h2,
   .home-expansion .expansion-engine h2,
   .home-expansion .expansion-ecosystem h2,
@@ -110,7 +110,7 @@
   letter-spacing: -.072em;
   text-wrap: balance;
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-capabilities {
     min-height: max(620px, calc(100dvh - 64px));
   }
@@ -132,7 +132,7 @@
   font-size: clamp(21px, 2vw, 32px);
   line-height: .95;
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-engine {
     min-height: max(680px, calc(100dvh - 64px));
   }
@@ -163,12 +163,12 @@
   max-width: 620px;
   line-height: .88;
 }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-ecosystem {
     gap: 38px;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-ecosystem {
     min-height: max(760px, calc(100dvh - 64px));
     display: block;
@@ -223,7 +223,7 @@
 .home-expansion .expansion-growth .growth-loop i {
   font-size: clamp(24px, 2.8vw, 42px);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-verticals .vertical-detail {
     min-height: 0;
     padding: 26px;
@@ -326,13 +326,13 @@
 .home-expansion .expansion-faq .faq-list {
   align-self: center;
 }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-team {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-impact,
   .home-expansion .expansion-partners,
   .home-expansion .expansion-team,
@@ -425,13 +425,13 @@
 .home-expansion .expansion-faq .faq-list {
   min-width: 0;
 }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-panel,
   .home-expansion .expansion-faq {
     gap: 40px;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-panel {
     display: block;
   }
@@ -485,7 +485,7 @@
 .home-expansion .expansion-growth .growth-loop i {
   justify-self: center;
 }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-panel {
     min-height: 68vh;
   }
@@ -497,7 +497,7 @@
     letter-spacing: .1em;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-panel {
     min-height: 0;
   }
@@ -671,13 +671,13 @@
 .home-expansion .expansion-growth .growth-star-one { top: -4%; left: 23%; transform: rotate(15deg); }
 .home-expansion .expansion-growth .growth-star-two { top: -1%; right: 5%; transform: rotate(15deg); }
 
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-panel { grid-template-columns: minmax(190px, .7fr) minmax(0, 1.6fr); gap: 26px; }
   .home-expansion .expansion-growth .growth-loop { gap: 10px; }
   .home-expansion .expansion-growth .growth-card { padding: 16px; min-height: 260px; }
   .home-expansion .expansion-growth .growth-card-arrow { margin-inline: -14px; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth {
     min-height: 100dvh;
     padding: 54px 20px 42px;
@@ -756,7 +756,7 @@
   .home-expansion .expansion-growth .growth-card { min-height: 220px; padding: 14px; }
   .home-expansion .expansion-growth .growth-card-arrow { width: 18px; font-size: 18px; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth h2 { font-size: clamp(38px, 11.5vw, 62px); }
   .home-expansion .expansion-growth .growth-loop {
     display: grid;
@@ -848,7 +848,7 @@
   .home-expansion .expansion-growth .growth-card { min-height: 250px; }
   .home-expansion .expansion-growth .growth-card h3 { font-size: clamp(12px, 1.25vw, 17px); }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-loop { padding-block: 0; }
   .home-expansion .expansion-growth .growth-loop::before,
   .home-expansion .expansion-growth .growth-loop::after,
@@ -941,7 +941,7 @@
 .home-expansion .expansion-growth .growth-card h3 {
   text-shadow: 0 2px 12px rgba(7,15,24,.24);
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-growth .growth-card::after { top: 13px; left: 14px; }
   .home-expansion .expansion-growth .growth-card-icon { width: 48px; height: 48px; }
 }
@@ -1056,7 +1056,7 @@
   .home-expansion .expansion-partners .partner-marquee { gap: 12px; }
   .home-expansion .expansion-partners .partner-marquee span { min-height: 145px; padding: 16px; border-radius: 18px; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-expansion .expansion-partners {
     min-height: max(760px, 100dvh);
     display: block;

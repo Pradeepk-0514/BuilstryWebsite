@@ -588,7 +588,7 @@
   .about-website-reference .about-ref-principle-card p { font-size: 9px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-showcase {
     display: flex;
     flex-direction: column;
@@ -683,7 +683,7 @@
   .about-website-reference .about-ref-showcase-scroll { display: none; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-showcase { padding: 78px 5vw 34px; }
   .about-website-reference .about-ref-showcase-heading { font-size: clamp(35px, 10vw, 48px); }
   .about-website-reference .about-ref-network-cards,
@@ -764,7 +764,7 @@
 @media (min-width: 761px) and (max-width: 1120px) {
   .about-website-reference .about-ref-network-showcase { grid-template-rows: auto minmax(0, 1fr); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase { grid-template-rows: none; }
   .about-website-reference .about-ref-network-stage,
   .about-website-reference .about-ref-network-cards { perspective: none; transform-style: flat; }
@@ -787,7 +787,7 @@
 }
 
 
-/* About refinement: lift the Ideas → Impact note and bring Principles onto the shared Network 3D system. */
+/* About refinement: lift the Ideas â†’ Impact note and bring Principles onto the shared Network 3D system. */
 .about-website-reference .about-ref-principles-showcase {
   grid-template-rows: minmax(0, 1fr);
   background:
@@ -846,7 +846,7 @@
   .about-website-reference .about-ref-principles-showcase { grid-template-rows: auto minmax(0, 1fr); }
   .about-website-reference .about-ref-handnote--principles { top: -10px; }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-principles-showcase { grid-template-rows: none; }
   .about-website-reference .about-ref-principles-stage { perspective: 1100px; transform-style: preserve-3d; }
   .about-website-reference .about-ref-principles-orbit {
@@ -975,7 +975,7 @@
   0%, 100% { transform: translate(-50%, -50%) rotateX(-20deg) rotateY(-28deg) translateZ(0); }
   50% { transform: translate(-50%, -54%) rotateX(24deg) rotateY(152deg) translateZ(12px); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-cube-3d { --cube-size: clamp(96px, 27vw, 136px); top: 28%; }
   .about-website-reference .about-ref-network-showcase .about-ref-handnote--network { top: 2%; right: clamp(22px, 7vw, 48px); bottom: auto; left: auto; width: 130px; }
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card { animation: none; }
@@ -1056,7 +1056,7 @@
   50% { transform: translate(-50%, -54%) rotateX(24deg) rotateY(540deg) translateZ(14px); }
   100% { transform: translate(-50%, -50%) rotateX(0deg) rotateY(720deg) translateZ(0); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card { animation-name: about-ref-network-card-reveal; animation-duration: 1s; }
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card--founders { --reveal-x: 20vw; --reveal-y: 16vh; }
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card--students { --reveal-x: -17vw; --reveal-y: 16vh; }
@@ -1139,7 +1139,7 @@
   50% { transform: translate(285px, -225px) rotate(-7deg); }
   75% { transform: translate(390px, -70px) rotate(0deg); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase .about-ref-network-card,
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card { animation: none !important; }
   .about-website-reference .about-ref-network-showcase .about-ref-network-cube { animation-duration: 14s; }
@@ -1200,7 +1200,7 @@
   from { transform: rotate(var(--card-tilt)); }
   to { transform: rotate(calc(var(--card-tilt) - 360deg)); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-orbit-ring { display: contents; }
   .about-website-reference .about-ref-network-showcase .about-ref-network-card,
   .about-website-reference .about-ref-network-showcase.has-entered .about-ref-network-card { animation: none !important; }
@@ -1352,7 +1352,7 @@
   box-shadow: 0 0 36px rgba(197,31,93,.12);
 }
 .about-website-reference .about-ref-network-cards { display: none; }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-canvas { inset: 5% -8% 0 -8%; border-radius: 22px; }
   .about-website-reference .about-ref-network-stage::after { inset: 24% 8% 12%; }
 }
@@ -1397,7 +1397,7 @@
 .about-website-reference .about-ref-network-copy .about-ref-showcase-cta:hover svg,
 .about-website-reference .about-ref-network-copy .about-ref-showcase-cta:focus-visible svg { transform: translateX(2px); }
 .about-website-reference .about-ref-handnote--network { top: 2%; right: clamp(42px, 8vw, 124px); }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-handnote--network { top: 2%; right: clamp(22px, 7vw, 48px); }
 }
 
@@ -1411,7 +1411,7 @@
     inset: 0 clamp(-9%, -5vw, -4%) 0 clamp(-9%, -5vw, -4%);
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-canvas { inset: 5% -14% 0 -14%; }
 }
 
@@ -1472,7 +1472,7 @@
   from { opacity: 0; transform: translateY(9px) scale(.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-hover-card { width: min(300px, 92%); margin-top: 15px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1502,7 +1502,7 @@
   from { opacity: 0; transform: translate(-50%, -44%) scale(.94); }
   to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase > .about-ref-network-hover-card {
     top: 56%;
     width: min(290px, 72vw);

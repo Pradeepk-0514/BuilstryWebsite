@@ -102,7 +102,7 @@
 .cv-corner-orb { position: absolute; bottom: -50px; width: 33px; height: 33px; border-radius: 50%; background: radial-gradient(circle at 30% 27%, #fff, #ed72b4 51%, #d12a82); box-shadow: 0 0 32px rgba(230,71,166,.42); }
 .cv-corner-orb--left { left: -3vw; }.cv-corner-orb--right { right: -3vw; }
 
-@media (max-width: 1120px) {
+@media (max-width: 1120px), (min-width: 901px) and (max-width: 980px) {
   .client-voices-section { min-height: 890px; }
   .cv-feature-row { grid-template-columns: minmax(260px, .72fr) minmax(0, 1.5fr); }
   .cv-feature-card { width: 250px; min-height: 365px; padding: 22px; }
@@ -135,7 +135,7 @@
   .cv-review-pagination button[aria-current="true"] { width: 20px; }
   .cv-corner-orb { width: 22px; height: 22px; bottom: -8px; }
 }
-@media (max-width: 430px) {
+@media (max-width: 430px), (min-width: 901px) and (max-width: 980px) {
   .client-voices-section { padding-inline: 17px; }
   .cv-kicker { font-size: 10px; gap: 12px; }
   .cv-kicker i { width: 26px; }

@@ -95,7 +95,7 @@
   background: #f7f8fa;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .hero-glow { left: 35%; width: 52%; }
   .hero-figure { left: 61%; }
 }

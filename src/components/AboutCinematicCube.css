@@ -46,12 +46,12 @@
 .about-cinematic-cube { position: absolute; inset: 0 3% 0 23%; }
 .about-cinematic-cube canvas { display: block; width: 100% !important; height: 100% !important; touch-action: none; }
 .about-cube-hint { position: absolute; right: clamp(24px, 5vw, 72px); bottom: 30px; color: rgba(247,248,250,.42); font-size: 8px; font-weight: 800; letter-spacing: .17em; pointer-events: none; }
-@media (max-width: 900px) {
+@media (max-width: 900px), (min-width: 901px) and (max-width: 980px) {
   .about-cinematic-copy { left: 5vw; width: min(280px, 34vw); }
   .about-cinematic-copy h2 { font-size: clamp(40px, 6vw, 66px); }
   .about-cinematic-cube { inset: 0 -4% 0 20%; }
 }
-@media (max-width: 700px) {
+@media (max-width: 700px), (min-width: 901px) and (max-width: 980px) {
   .about-cinematic-section { height: 100svh; min-height: 100svh; }
   .about-cinematic-copy { top: 11%; left: 7vw; width: 78%; transform: none; }
   .about-cinematic-copy h2 { max-width: 8ch; font-size: clamp(39px, 12vw, 64px); }

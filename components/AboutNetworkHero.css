@@ -441,7 +441,7 @@
   .about-website-reference .about-network-card-copy small { font-size: 9px; }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 920px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase {
     display: flex;
     flex-direction: column;
@@ -577,11 +577,11 @@
   .about-website-reference .about-network-carousel-footer > span { display: none; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-network-heading { font-size: clamp(46px, 12vw, 64px); }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 390px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-ref-network-showcase { padding-right: 18px; padding-left: 18px; }
   .about-website-reference .about-network-rail { min-height: 260px; height: 260px; }
   .about-website-reference .about-network-card { min-height: 236px; }
@@ -685,7 +685,7 @@
     padding-left: 3px;
   }
 }
-@media (max-width: 920px) {
+@media (max-width: 920px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-network-card,
   .about-website-reference .about-network-card.is-current {
     height: 284px;
@@ -698,7 +698,7 @@
     margin-bottom: 14px;
   }
 }
-@media (max-width: 390px) {
+@media (max-width: 390px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-network-card,
   .about-website-reference .about-network-card.is-current {
     height: 264px;
@@ -711,7 +711,7 @@
   .about-website-reference .about-network-card { transition: none; }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 920px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .about-network-rail {
     height: clamp(252px, 43svh, 280px);
     min-height: 252px;

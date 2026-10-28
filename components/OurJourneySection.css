@@ -78,7 +78,7 @@
   .about-website-reference .journey-modern-item { left: 47%; width: min(40vw, 390px); }
   .about-website-reference .journey-modern-item:nth-child(1), .about-website-reference .journey-modern-item:nth-child(2), .about-website-reference .journey-modern-item:nth-child(3), .about-website-reference .journey-modern-item:nth-child(4) { left: 47%; }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .about-website-reference .journey-modern-section { height: 390vh; min-height: 2350px; }
   .about-website-reference .journey-modern-sticky { min-height: 620px; padding: 70px 22px 30px 66px; }
   .about-website-reference .journey-modern-intro { top: 72px; left: 66px; width: calc(100% - 88px); }

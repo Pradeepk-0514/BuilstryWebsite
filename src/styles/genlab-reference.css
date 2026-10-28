@@ -165,7 +165,7 @@ body { color: var(--genlab-ice); }
 .site-footer .footer-brand, .site-footer .footer-col h4 { color: var(--genlab-ice) !important; }
 .site-footer .brand-mark { background: var(--genlab-magenta); color: var(--genlab-ice); }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .site-header { top: 10px; right: 10px; left: 10px; }
   .home-page .hero { padding-top: 118px; }
   .home-page .hero h1 { font-size: clamp(58px, 17vw, 94px); }

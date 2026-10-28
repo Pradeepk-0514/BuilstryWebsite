@@ -245,7 +245,7 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
   html body .about-website-reference .about-ref-principle-contrast { font-size: 7px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   html body .about-website-reference .about-ref-principles-stage {
     flex: 0 0 auto;
     width: min(100%, 420px);
@@ -407,7 +407,7 @@ html body .about-website-reference .about-ref-principle-node:focus-visible .abou
     transform: translate(-50%, -50%) !important;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   html body .about-website-reference .about-ref-principle-node,
   html body .about-website-reference .about-ref-principle-node--clarity,
   html body .about-website-reference .about-ref-principle-node--building,
