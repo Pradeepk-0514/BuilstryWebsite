@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
 import useMobileHorizontalScroll from "./useMobileHorizontalScroll";
 
+const MOBILE_MEDIA = "(max-width: 720px)";
 const curiosityTopics = [
   ["!", "WHAT'S BROKEN?", "broken", "Problems worth understanding before they become expensive."],
   ["↗", "WHAT'S CHANGING?", "changing", "Signals, shifts and technologies changing the way we build."],
@@ -37,20 +38,23 @@ export default function CuriositySection() {
     let target = 0;
     let current = 0;
     let travel = 0;
+    let stageHeight = 0;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const measure = () => {
-      if (window.innerWidth <= 720) return;
+      if (window.matchMedia(MOBILE_MEDIA).matches) return;
+      const stageRect = curiosityStageRef.current?.getBoundingClientRect();
+      stageHeight = stageRect?.height || Math.min(window.innerHeight, 640);
       travel = Math.max(0, track.scrollWidth - viewport.clientWidth);
-      const releaseDistance = Math.max(window.innerHeight * 1.25, travel);
-      section.style.height = `${window.innerHeight + releaseDistance}px`;
+      const releaseDistance = travel > 0 ? Math.max(travel + 120, Math.min(stageHeight * 1.1, 1400)) : stageHeight;
+      section.style.height = `${stageHeight + releaseDistance}px`;
       updateTarget();
     };
 
     const updateTarget = () => {
       const rect = section.getBoundingClientRect();
-      const releaseDistance = Math.max(window.innerHeight * 1.25, travel);
-      target = Math.max(0, Math.min(1, -rect.top / releaseDistance));
+      const releaseDistance = travel > 0 ? Math.max(travel + 120, Math.min(stageHeight * 1.1, 1400)) : stageHeight;
+      target = releaseDistance > 0 ? Math.max(0, Math.min(1, -rect.top / releaseDistance)) : 0;
       const nextIndex = Math.min(curiosityTopics.length - 1, Math.floor(target * curiosityTopics.length));
       setCuriosityIndex((previous) => previous === nextIndex ? previous : nextIndex);
       if (!frame) frame = window.requestAnimationFrame(tick);
@@ -66,15 +70,17 @@ export default function CuriositySection() {
     };
 
     const onScroll = () => {
-      if (window.innerWidth <= 720) return;
+      if (window.matchMedia(MOBILE_MEDIA).matches) return;
       updateTarget();
     };
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", measure);
+    window.visualViewport?.addEventListener("resize", measure, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
+      window.visualViewport?.removeEventListener("resize", measure);
       if (frame) window.cancelAnimationFrame(frame);
       section.style.removeProperty("height");
       track.style.removeProperty("transform");

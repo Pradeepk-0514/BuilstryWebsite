@@ -13,6 +13,7 @@ const steps = [
   ["06", "EVOLVE", "Learn, improve and keep moving.", "Momentum comes from staying curious after launch."],
 ];
 const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+const MOBILE_MEDIA = "(max-width: 720px)";
 
 export default function ApproachSection() {
   const sectionRef = useRef(null);
@@ -40,7 +41,7 @@ export default function ApproachSection() {
     if (!section || !stage || !track || !viewport) return undefined;
     let frame = 0;
     let metrics = { top: 0, offset: 0, stickyHeight: window.innerHeight, intro: 0, distance: 0, range: 1 };
-    const mobile = () => window.innerWidth <= 720;
+    const mobile = () => window.matchMedia(MOBILE_MEDIA).matches;
     const syncMobileStep = () => {
       const trackStyles = window.getComputedStyle(track);
       const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;

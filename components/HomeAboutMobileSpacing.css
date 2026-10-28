@@ -1,4 +1,3 @@
-/* Targeted vertical-rhythm corrections for the Home and About pages only. */
 @media (max-width: 760px) {
   /* Keep the mobile hero's scroll-linked states, but remove an entire extra viewport of runway. */
   .home-page > .hero-section {

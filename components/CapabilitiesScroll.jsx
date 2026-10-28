@@ -5,6 +5,8 @@ import { ArrowUpRight, BrainCircuit, Layers3, Sparkles, Workflow } from "lucide-
 import Reveal from "./Reveal";
 import { useCtaModal } from "../src/components/CtaModalContext";
 
+const MOBILE_MEDIA = "(max-width: 720px)";
+
 const items = [
   { eyebrow: "01 / DISCOVER", title: "Find the signal in the noise.", text: "We decode the problem, the people and the opportunity before the work begins. Clear questions create useful direction.", icon: Layers3 },
   { eyebrow: "02 / DESIGN", title: "Shape the useful direction.", text: "Strategy, product thinking and creative systems come together to make the next move feel obvious and ownable.", icon: Sparkles },
@@ -23,7 +25,7 @@ export default function CapabilitiesScroll() {
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      if (window.matchMedia("(max-width: 720px)").matches) return;
+      if (window.matchMedia(MOBILE_MEDIA).matches) return;
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible) setActive(Number(visible.target.dataset.index));
     }, { threshold: [0.35, 0.6, 0.85], rootMargin: "-40% 0px -40%" });
@@ -38,7 +40,7 @@ export default function CapabilitiesScroll() {
     const contentWindow = contentWindowRef.current;
     if (!section || !stage || !content || !contentWindow) return undefined;
 
-    const mobile = window.matchMedia("(max-width: 720px)");
+    const mobile = window.matchMedia(MOBILE_MEDIA);
     let frame = 0;
     let top = 0;
     let distance = 0;

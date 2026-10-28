@@ -42,11 +42,19 @@ export default function Header() {
       const delta = currentY - previousY;
       previousY = currentY;
 
-      if (homeCta) {
-        const ctaReached = homeCta.getBoundingClientRect().top <= 1;
+      if (currentY <= 24 || openRef.current) {
         directionTravel = 0;
-        setHidden(!ctaReached);
+        setHidden(false);
         return;
+      }
+
+      if (homeCta) {
+        const ctaReached = homeCta.getBoundingClientRect().top <= 80;
+        if (ctaReached) {
+          directionTravel = 0;
+          setHidden(true);
+          return;
+        }
       }
 
       const curiosityStage = curiosity?.querySelector(".insights-curiosity-stage");

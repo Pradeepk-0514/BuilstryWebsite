@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
 
+const MOBILE_MEDIA = "(max-width: 720px)";
+
 const intents = [
   ["⌕", "I HAVE A PROBLEM.", "Let's understand it.", "/contact"],
   ["◇", "I HAVE A PRODUCT.", "Let's make it better.", "/solutions"],
@@ -38,7 +40,7 @@ export default function IntentSection() {
     if (!section || !track || !viewport) return undefined;
     let frame = 0;
     let metrics = { top: 0, offset: 0, stickyHeight: window.innerHeight, trackDistance: 0, releaseDistance: 0, distance: 0 };
-    const mobile = () => window.innerWidth <= 720;
+    const mobile = () => window.matchMedia(MOBILE_MEDIA).matches;
     const reset = () => {
       section.style.height = "";
       section.dataset.phase = "natural";
@@ -90,11 +92,15 @@ export default function IntentSection() {
       section.style.removeProperty("--intent-sticky-offset");
       const header = document.querySelector(".site-header");
       const offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
-      const stickyHeight = Math.max(1, window.innerHeight - offset);
+      const stage = section.querySelector(".intent-sticky-wrapper");
+      const stageHeight = stage?.getBoundingClientRect().height;
+      const stickyHeight = stageHeight && stageHeight > 0
+        ? stageHeight
+        : Math.min(Math.max(1, window.innerHeight - offset), 680);
       const finalCard = track.lastElementChild;
       const finalHeight = finalCard?.getBoundingClientRect().height || 0;
       const trackDistance = Math.max(0, track.scrollHeight - (viewport.clientHeight + finalHeight) / 2);
-      const releaseDistance = Math.max(220, viewport.clientHeight * .48);
+      const releaseDistance = Math.max(160, Math.min(viewport.clientHeight * .48, 260));
       const distance = trackDistance + releaseDistance;
       metrics = { top: section.getBoundingClientRect().top + window.scrollY, offset, stickyHeight, trackDistance, releaseDistance, distance };
       section.style.setProperty("--intent-sticky-offset", `${offset}px`);
