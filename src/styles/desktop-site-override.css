@@ -1,0 +1,831 @@
+/*
+ * desktop-site-override.css
+ *
+ * PURPOSE
+ * -------
+ * When a user opens the Builstry website on a physical mobile phone using
+ * Chrome's "Desktop site" option, Chrome reports a wide CSS viewport
+ * (typically ~980 px – 1024 px) instead of the real ~360–430 px screen width.
+ * Because all existing mobile media queries fire at ≤ 720 px (or the legacy
+ * 901–980 px band), the phone receives the full desktop layout in that mode,
+ * which causes oversized sections, excessive whitespace, and broken grids.
+ *
+ * This file adds a targeted override layer for the 721 px – 1024 px range.
+ * It forces mobile-style layouts in that band without touching:
+ *   - The normal mobile view  (≤ 720 px)
+ *   - The normal desktop view (> 1024 px)
+ *   - Any existing breakpoints in other files
+ *
+ * STRATEGY
+ * --------
+ * We use  @media (max-width: 1024px) and (min-width: 721px)  throughout.
+ * Every rule copies or adapts the nearest existing mobile override so the
+ * visual result stays as close as possible to the normal mobile layout.
+ *
+ * LIMITATIONS
+ * -----------
+ * CSS alone cannot reliably distinguish a real desktop viewport from a
+ * phone-in-desktop-site-mode at the same reported width. This file targets
+ * the viewport range that Chrome Desktop Site creates on current phones
+ * (≈ 980–1024 px). If future Chrome versions change that reported width,
+ * the upper bound here may need adjustment.
+ */
+
+
+/* ─── 1. GLOBAL SHELL ──────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  html { overflow-x: hidden; }
+  body { min-width: 320px; overflow-x: hidden; }
+  :where(input, select, textarea) { font-size: 16px; }
+  :where(.button, .text-link, .about-link, .insight-button) { min-height: 44px; }
+  :where(.card, .latest-card, .curiosity-card, .built-card, .pillar-card, .intent-card) { max-width: 100%; }
+}
+
+
+/* ─── 2. NAVIGATION / HEADER ───────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .site-header {
+    height: 68px;
+    padding: 0 20px;
+  }
+
+  /* Collapse the desktop nav into a hamburger menu */
+  .desktop-nav {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: var(--cream, #F7F8FA);
+    padding: 25px;
+    flex-direction: column;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(36,52,71,.12);
+    z-index: 49;
+  }
+  .desktop-nav.mobile-open { display: flex; }
+  .menu-button { display: block; }
+  .nav-cta { width: 100%; }
+}
+
+
+/* ─── 3. GLOBAL SECTION PADDING ───────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .section {
+    padding: 58px 5vw;
+  }
+}
+
+
+/* ─── 4. HERO SECTION (global.css .hero) ──────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: 45px;
+  }
+  .hero-cube {
+    height: 350px;
+    order: -1;
+  }
+  .hero-copy { margin-top: -20px; }
+  .hero h1 { font-size: clamp(54px, 16vw, 88px); }
+}
+
+
+/* ─── 5. HOME PAGE SCROLL-HERO ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-page > .hero-section {
+    height: 130svh;
+    min-height: 0;
+    padding: 0;
+  }
+  .home-page > .hero-section > .hero-shell {
+    height: 100svh;
+    min-height: 0;
+    padding: clamp(76px, 13svh, 104px) 5vw clamp(24px, 5svh, 40px);
+  }
+}
+
+
+/* ─── 6. PILLAR / LOWER CARDS GRID ────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .pillar-grid,
+  .lower-grid {
+    grid-template-columns: 1fr;
+  }
+  .pillar-card { min-height: 330px; }
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* ─── 7. APPROACH + INTENT SECTIONS ───────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .approach-section,
+  .intent-section {
+    grid-template-columns: 1fr;
+  }
+  .approach-intro {
+    border-right: 0;
+    border-bottom: 1px solid var(--line, rgba(36,52,71,.18));
+    padding-bottom: 25px;
+    padding-right: 0;
+  }
+  .intent-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ─── 8. FOOTER ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+
+/* ─── 9. HOME EXPANSION SECTIONS (BuilstryHomeExpansion) ───────────────────── */
+
+/* 9a. Remove the full-viewport heights from every expansion panel */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-capabilities,
+  .home-expansion .expansion-engine,
+  .home-expansion .expansion-ecosystem,
+  .home-expansion .expansion-verticals,
+  .home-expansion .expansion-growth,
+  .home-expansion .expansion-impact,
+  .home-expansion .expansion-partners,
+  .home-expansion .expansion-team,
+  .home-expansion .expansion-faq {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+}
+
+/* 9b. Section padding */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion-section {
+    padding: 66px 5vw;
+  }
+}
+
+/* 9c. Headline font sizes – match the mobile clamp values */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-capabilities h2,
+  .home-expansion .expansion-capabilities-grid h2 {
+    font-size: clamp(40px, 11.5vw, 64px);
+    line-height: .9;
+  }
+  .home-expansion .expansion-engine h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-engine .engine-step h3 { font-size: clamp(20px, 7vw, 28px); }
+  .home-expansion .expansion-ecosystem h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-verticals h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-benefits-intro h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-growth h2 { font-size: clamp(38px, 11.5vw, 62px); }
+  .home-expansion .expansion-impact h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-partners h2 { font-size: clamp(40px, 13vw, 70px); }
+  .home-expansion .expansion-faq h2 { font-size: clamp(40px, 13vw, 70px); }
+}
+
+/* 9d. Capabilities grid → single column */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .expansion-capabilities-grid,
+  .expansion-ecosystem,
+  .expansion-benefits,
+  .expansion-partners,
+  .expansion-faq {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .expansion-benefits-intro { position: static; }
+  .ecosystem-orbit { max-width: 560px; }
+}
+
+/* 9e. Ecosystem block layout */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-ecosystem {
+    display: block;
+  }
+  .home-expansion .expansion-ecosystem .ecosystem-orbit {
+    min-height: 330px;
+    margin-top: 46px;
+    width: 100%;
+  }
+}
+
+/* 9f. Engine track → single column */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .engine-track,
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+  .engine-step { min-height: 220px; }
+}
+
+/* 9g. Verticals layout → single column */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .verticals-layout { grid-template-columns: 1fr; }
+  .verticals-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .verticals-nav button {
+    display: block;
+    padding: 13px 9px;
+    border: 1px solid var(--exp-line, rgba(36,52,71,.16));
+    font-size: 9px;
+  }
+  .verticals-nav button:hover,
+  .verticals-nav button.is-active { padding-left: 9px; }
+  .vertical-detail {
+    display: block;
+    min-height: 0;
+    margin-top: 12px;
+    padding: 24px;
+  }
+  .home-expansion .expansion-verticals .vertical-detail {
+    min-height: 0;
+    padding: 26px;
+  }
+  .home-expansion .expansion-verticals .verticals-nav button {
+    min-height: 78px;
+    padding: 13px 9px;
+    font-size: 9px;
+  }
+}
+
+/* 9h. Benefits → sticky off, single column */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .expansion-benefits { grid-template-columns: 1fr; gap: 42px; }
+  .expansion-benefits-intro { position: static; }
+}
+
+/* 9i. Growth panel → stacked */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-growth {
+    padding: 54px 20px 42px;
+  }
+  .home-expansion .expansion-growth .growth-panel {
+    display: block;
+    min-height: 0;
+    grid-template-columns: unset;
+  }
+  .home-expansion .expansion-growth .growth-copy { margin-bottom: 38px; }
+  .home-expansion .expansion-growth .growth-loop {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding-block: 0;
+    flex-wrap: unset;
+    justify-content: unset;
+  }
+  .home-expansion .expansion-growth .growth-loop::before,
+  .home-expansion .expansion-growth .growth-loop::after,
+  .home-expansion .expansion-growth .growth-card-arrow { display: none !important; }
+  .home-expansion .expansion-growth .growth-card {
+    min-height: 188px;
+    padding: 17px;
+  }
+  .home-expansion .expansion-growth .growth-card h3 { font-size: 16px; }
+}
+
+/* 9j. Partners grid → 2-column marquee */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-partners { display: block; }
+  .home-expansion .expansion-partners .partner-marquee {
+    margin-top: 40px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .home-expansion .expansion-partners .partner-marquee span {
+    min-height: 110px;
+    padding: 16px;
+    transform: none !important; /* cancel the alternating translateY */
+  }
+  .home-expansion .expansion-capability-stats { gap: 8px; }
+}
+
+/* 9k. Team section → stacked */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-team {
+    display: block;
+    grid-template-columns: unset;
+  }
+  .home-expansion .expansion-team-head { display: block; }
+  .home-expansion .expansion-team-head .expansion-link { margin-top: 24px; }
+  .home-expansion .expansion-team-grid {
+    margin-top: 42px;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .home-expansion .expansion-team-grid article {
+    min-height: 170px;
+    padding: 17px;
+  }
+  .home-expansion .expansion-team-grid article > span {
+    width: 50px;
+    height: 50px;
+    font-size: 14px;
+  }
+  .home-expansion .expansion-team-grid h3 {
+    margin-top: 22px;
+    font-size: 12px;
+  }
+  .home-expansion .expansion-team-grid p { font-size: 10px; }
+}
+
+/* 9l. FAQ → stacked */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .home-expansion .expansion-faq {
+    display: block;
+    grid-template-columns: unset;
+  }
+  .home-expansion .expansion-faq .faq-list { margin-top: 42px; }
+  .faq-list button { grid-template-columns: 28px 1fr 22px; gap: 9px; }
+  .faq-list button strong { font-size: 13px; }
+  .faq-list p { padding-left: 37px; }
+}
+
+/* 9m. Connect block */
+@media (max-width: 1024px) and (min-width: 721px) {
+  .expansion-connect { display: block; }
+  .expansion-connect .button { margin-top: 30px; width: 100%; }
+}
+
+
+/* ─── 10. HOME APPROACH SECTIONS (HomeApproachSections.css) ────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  /* Unpin the sticky scroll wrappers so they stack vertically */
+  .approach-scroll-section,
+  .intent-scroll-section {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .approach-sticky-wrapper,
+  .intent-sticky-wrapper {
+    position: relative;
+    top: auto;
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .approach-left-content,
+  .intent-title {
+    min-height: 62vh;
+    padding: 68px 5vw;
+    transform: none;
+    opacity: 1;
+  }
+  .approach-right-container,
+  .intent-card-viewport {
+    min-height: 660px;
+    padding: 50px 5vw 70px;
+  }
+  .approach-card-track,
+  .intent-card-track {
+    width: 100%;
+  }
+  .approach-card,
+  .intent-card {
+    width: 100%;
+    min-height: 300px;
+  }
+  .approach-card-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    transform: none !important;
+  }
+  .intent-card-track { gap: 18px; transform: none; }
+  .approach-card { opacity: 1; transform: none; }
+  .intent-card { opacity: 1; transform: none; }
+  .intent-card.is-complete { opacity: 1; transform: none; }
+
+  /* Typography */
+  .approach-card-content h3 { font-size: clamp(24px, 5vw, 38px); }
+  .intent-title h2 { font-size: clamp(46px, 13vw, 74px); }
+  .intent-card h3 { font-size: clamp(27px, 8vw, 38px); }
+  .intent-card-viewport { align-items: center; padding-top: 50px; }
+}
+
+
+/* ─── 11. HOME + ABOUT MOBILE SPACING (HomeAboutMobileSpacing.css) ─────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  /* Capabilities mobile stage */
+  .home-page > .capabilities-scroll {
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .home-page .capabilities-mobile-stage {
+    position: sticky;
+    top: var(--capabilities-sticky-top, 8px);
+    z-index: 2;
+    display: grid;
+    grid-template-rows: minmax(150px, 22svh) minmax(0, 1fr);
+    gap: 14px;
+    box-sizing: border-box;
+    height: min(90svh, 700px);
+    padding: 8px 20px 18px;
+    overflow: hidden;
+    background: #F7F8FA;
+  }
+  .home-page .capabilities-visual-column { min-height: 0; }
+  .home-page .capabilities-visual-sticky {
+    position: relative;
+    top: auto;
+    gap: 8px;
+    height: 100%;
+  }
+  .home-page .capabilities-visual {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    border-radius: 20px;
+  }
+  .home-page .capabilities-visual-caption {
+    font-size: 8px;
+    text-align: center;
+  }
+  .home-page .capabilities-content-window {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .home-page .capabilities-content {
+    padding: 4px 2px 30px;
+  }
+  .home-page .capabilities-content h2 {
+    margin-bottom: 12px;
+    font-size: clamp(34px, 10vw, 50px);
+  }
+  .home-page .capabilities-intro {
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .home-page .capability-step {
+    box-sizing: border-box;
+    min-height: 34svh;
+    padding: 12px 0 22px;
+    scroll-margin-top: 0;
+  }
+  .home-page .capability-step h3 {
+    margin-top: clamp(22px, 4svh, 36px);
+    font-size: clamp(27px, 7.5vw, 38px);
+  }
+  .home-page .capability-step p { font-size: 14px; }
+  .home-page .capability-step:last-child { padding-bottom: 24px; }
+
+  /* Intent sticky stage */
+  .home-page > .intent-scroll-section {
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-margin-top: 0;
+  }
+  .home-page .intent-sticky-wrapper {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(165px, 24svh) minmax(0, 1fr);
+    gap: 10px;
+    box-sizing: border-box;
+    height: min(90svh, 700px);
+    min-height: 0;
+    padding: max(64px, env(safe-area-inset-top)) 14px 14px;
+    overflow: hidden;
+    background: var(--steel);
+  }
+  .home-page .intent-title {
+    box-sizing: border-box;
+    min-height: 0;
+    padding: 12px 16px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--steel);
+  }
+  .home-page .intent-title h2 { font-size: clamp(28px, 8.5vw, 42px); }
+  .home-page .intent-sequence-label { margin-top: 10px; }
+  .home-page .intent-card-viewport {
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .home-page .intent-card-track {
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    transition: none;
+    will-change: transform;
+  }
+  .home-page .intent-card {
+    box-sizing: border-box;
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+    padding: clamp(22px, 6vw, 30px);
+    border-radius: 20px;
+    opacity: .45;
+    transform: scale(.96);
+  }
+  .home-page .intent-card.is-active { opacity: 1; transform: scale(1); }
+  .home-page .intent-card.is-complete { opacity: .45; transform: scale(.96); }
+  .home-page .intent-card h3 { margin-top: auto; font-size: clamp(27px, 8vw, 38px); }
+
+  /* General section spacing */
+  .home-page > .split-section { gap: 28px; padding-block: 56px; }
+  .home-page > .capabilities-scroll { padding-top: 42px; padding-bottom: 24px; }
+  .home-page > .impact-section { padding-block: 42px; }
+  .home-page > .faq-modern { padding-top: 42px; padding-bottom: 46px; }
+
+  /* CTA and footer */
+  .home-page > .page-problem-cta,
+  .about-website-reference > .page-problem-cta {
+    min-height: 0;
+    row-gap: 12px;
+    padding: 46px 24px 34px;
+  }
+  .home-page > .page-problem-cta .home-connect-actions,
+  .about-website-reference > .page-problem-cta .home-connect-actions {
+    margin-top: 18px;
+  }
+  body:has(.home-page) #root > .site-footer,
+  body:has(.about-website-reference) #root > .site-footer {
+    min-height: 0 !important;
+    padding-top: 32px;
+    padding-bottom: 16px;
+  }
+  body:has(.home-page) #root > .site-footer .footer-grid,
+  body:has(.about-website-reference) #root > .site-footer .footer-grid {
+    padding-bottom: 18px;
+  }
+
+  /* Insights curiosity stage */
+  .home-page > .insights-curiosity .insights-curiosity-stage {
+    grid-template-rows: minmax(170px, 25svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+    padding: 68px 12px 10px;
+    gap: 10px;
+  }
+  .home-page > .insights-curiosity .insights-curiosity-card { padding: 16px 18px 15px; }
+  .home-page > .insights-curiosity .insights-curiosity-card strong {
+    margin-top: clamp(18px, 3.5vh, 32px);
+  }
+  .home-page > .insights-curiosity .insights-card-rule {
+    margin: clamp(18px, 3.5vh, 32px) 0 clamp(12px, 2.5vh, 22px);
+  }
+
+  /* Approach scroll compact */
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-sticky-wrapper {
+    grid-template-rows: minmax(220px, 32svh) minmax(0, 1fr);
+    height: min(90svh, 700px);
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-left-content {
+    min-height: 0;
+    padding: 56px 6vw 10px;
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-right-container {
+    padding: 8px 5vw;
+  }
+  .approach-scroll-section[data-mobile-scroll="sticky"] .approach-card {
+    height: min(320px, max(180px, calc(90svh - 300px)));
+  }
+
+  /* Client voices */
+  .client-voices-section {
+    padding-top: 54px;
+    padding-bottom: 42px;
+  }
+}
+
+
+/* ─── 12. ABOUT REFERENCE PAGE (MobilePolish.css rules) ────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .about-website-reference .about-ref-why-copy { padding: 62px 22px 38px; }
+  .about-website-reference > .about-ref-why .about-ref-fan { padding: 38px 22px 44px; }
+  html body .about-website-reference > .about-ref-directions {
+    min-height: auto !important;
+    padding: 58px 22px 34px !important;
+  }
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card,
+  html body .about-website-reference .about-ref-directions-grid .about-ref-direction-card[data-reveal] {
+    height: 292px !important;
+    min-height: 292px !important;
+  }
+  html body .about-website-reference .about-ref-directions-grid.has-selection .about-ref-direction-card.is-selected {
+    height: 320px !important;
+    min-height: 320px !important;
+  }
+  html body .about-website-reference .about-ref-mindset-section { padding: 58px 22px 30px !important; }
+  html body .about-website-reference .about-ref-mindset-card { height: 180px !important; }
+  .about-website-reference .about-ref-mindset-track { gap: 10px; }
+  .about-website-reference .about-ref-people { padding: 52px 22px 42px; }
+  .about-website-reference .about-ref-people-intro { margin-bottom: 28px; }
+  .about-website-reference .about-ref-person-photo { height: 148px; }
+  .about-website-reference .about-ref-person-info { padding: 14px 12px 12px; }
+  .about-website-reference .about-ref-showcase { padding-top: 60px !important; padding-bottom: 26px !important; }
+  .about-website-reference .about-ref-network-stage { margin-top: 22px; padding-top: 64px; }
+  .about-website-reference .about-ref-network-card,
+  .about-website-reference .about-ref-network-card--founders,
+  .about-website-reference .about-ref-network-card--students,
+  .about-website-reference .about-ref-network-card--builders,
+  .about-website-reference .about-ref-network-card--designers,
+  .about-website-reference .about-ref-network-card--partners { min-height: 154px; }
+
+  /* Journey section */
+  .about-website-reference .journey-modern-section {
+    height: 320vh;
+    min-height: 0;
+  }
+  .about-website-reference .journey-modern-sticky {
+    height: min(90svh, 700px);
+    min-height: 0;
+    padding: 60px 18px 24px 58px;
+  }
+  .about-website-reference .journey-modern-intro {
+    top: 62px;
+    left: 58px;
+    width: calc(100% - 76px);
+  }
+  .about-website-reference .journey-modern-card {
+    min-height: 185px;
+    padding: 17px 16px 15px;
+  }
+
+  .about-website-reference > .about-ref-why .about-ref-why-stage {
+    height: min(90svh, 700px) !important;
+  }
+  .about-website-reference > .about-ref-network-showcase {
+    padding-top: 48px;
+    padding-bottom: 58px;
+  }
+  .about-website-reference > .about-ref-people,
+  .about-website-reference > .about-ref-mindset-section,
+  .about-website-reference > .about-ref-principles-showcase {
+    padding-top: 42px;
+    padding-bottom: 34px;
+  }
+  .about-website-reference > .about-ref-network-stage {
+    height: 430px;
+    min-height: 0;
+  }
+}
+
+
+/* ─── 13. INSIGHTS PAGE (MobilePolish.css rules) ───────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .insights-page .insights-opening-panel { min-height: 72svh; }
+  .insights-page .insights-opening-visual { height: 32svh; min-height: 245px; padding: 14px; }
+  .insights-page .insights-opening-inner { padding: 40px 22px 50px; }
+  .insights-page .insights-opening-index { margin-bottom: 22px; }
+  .insights-page .insights-featured-panel .insights-category { margin-top: 32px; }
+  .insights-page .insights-built-section { padding-top: 56px; padding-bottom: 24px; }
+  .insights-page .insights-built-card { min-height: 215px; }
+  .insights-page .insights-built-copy { padding: 18px; }
+  .insights-page .insights-newsletter { margin-top: 14px; margin-bottom: 18px; padding: 16px; }
+}
+
+
+/* ─── 14. INNER PAGES (MobilePolish.css rules) ─────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .inner-page .inner-hero {
+    min-height: 0;
+    align-items: flex-start;
+    padding: 132px 6vw 62px;
+  }
+  .inner-page > .inner-cards,
+  .inner-page > .product-grid,
+  .inner-page > .people-section,
+  .inner-page > .dark-section,
+  .inner-page > .benefits-section {
+    padding: 62px 6vw;
+  }
+  .inner-page .section-heading { margin-bottom: 34px; }
+  .inner-page .vertical-card { min-height: 360px; padding: 22px; }
+  .inner-page .icon-tile { margin: 42px 0 22px; }
+  .inner-page .vertical-card h3 { font-size: 26px; }
+  .inner-page .product-card { min-height: 320px; }
+}
+
+
+/* ─── 15. ABOUT REFERENCE SHOWCASE (AboutReferenceShowcaseSections) ─────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  /* Remove full-screen vh from About sections */
+  .about-ref-why,
+  .about-ref-directions,
+  .about-ref-thinking,
+  .about-ref-standards,
+  .about-ref-network-hero,
+  .about-ref-network-showcase,
+  .about-ref-principles-showcase {
+    min-height: auto !important;
+  }
+
+  /* Orbit / principle cards collapse to single column */
+  .about-ref-directions-grid { grid-template-columns: 1fr 1fr !important; }
+  .about-ref-principles-grid { grid-template-columns: 1fr !important; }
+}
+
+
+/* ─── 16. ABOUT NETWORK HERO ────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .about-ref-network-stage {
+    height: 430px !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* ─── 17. ABOUT BACKGROUND RHYTHM ──────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .about-ref-background-rhythm {
+    height: auto !important;
+    min-height: auto !important;
+  }
+}
+
+
+/* ─── 18. GLOBAL FINAL CTA ──────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .final-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 65px 5vw;
+  }
+}
+
+
+/* ─── 19. CLIENT VOICES (testimonials) ─────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  .client-voices-section {
+    padding-top: 54px;
+    padding-bottom: 42px;
+  }
+}
+
+
+/* ─── 20. APPROACH SECTION (ApproachSection.css) ────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  /* The approach window uses height: 100vh — cap it */
+  .approach-window { height: auto !important; min-height: 0 !important; }
+  .approach-stage { position: relative !important; top: auto !important; height: auto !important; min-height: 0 !important; }
+}
+
+
+/* ─── 21. HORIZONTAL OVERFLOW GUARD ────────────────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 721px) {
+  /* Prevent any element from stretching beyond the viewport */
+  .home-expansion-section,
+  .home-expansion .expansion-capabilities,
+  .home-expansion .expansion-engine,
+  .home-expansion .expansion-ecosystem,
+  .home-expansion .expansion-verticals,
+  .home-expansion .expansion-growth,
+  .home-expansion .expansion-impact,
+  .home-expansion .expansion-partners,
+  .home-expansion .expansion-team,
+  .home-expansion .expansion-faq,
+  .home-expansion .expansion-connect {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Cards should not overflow their containers */
+  .expansion-capability-stats { grid-template-columns: repeat(3, 1fr); }
+  .expansion-capability-stats small { font-size: 7px; }
+}
+
