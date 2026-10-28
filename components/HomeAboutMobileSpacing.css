@@ -1,4 +1,4 @@
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   /* Keep the mobile hero's scroll-linked states, but remove an entire extra viewport of runway. */
   .home-page > .hero-section {
     min-height: 140svh;
@@ -90,7 +90,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page > .capabilities-scroll {
     display: block;
     height: auto;
@@ -308,7 +308,7 @@
   .about-website-reference > .about-ref-network-stage { min-height: 0; height: 470px; }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .home-page > .hero-section {
     height: 114svh;
     min-height: 0;

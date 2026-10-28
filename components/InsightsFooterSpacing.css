@@ -13,14 +13,14 @@ body:has(.insights-page) .site-footer {
   bottom: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 900px), (min-width: 901px) and (max-width: 980px) {
   /* The global viewport-height minimum leaves too little room above the sticky footer. */
   body:has(.insights-page) .site-footer {
     min-height: 0;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .insights-page > .insights-built-section {
     padding-bottom: 22px;
   }

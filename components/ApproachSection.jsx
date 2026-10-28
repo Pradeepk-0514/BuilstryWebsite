@@ -13,7 +13,7 @@ const steps = [
   ["06", "EVOLVE", "Learn, improve and keep moving.", "Momentum comes from staying curious after launch."],
 ];
 const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
-const MOBILE_MEDIA = "(max-width: 720px)";
+const MOBILE_MEDIA = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 
 export default function ApproachSection() {
   const sectionRef = useRef(null);

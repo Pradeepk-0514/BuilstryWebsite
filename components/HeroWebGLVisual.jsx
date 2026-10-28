@@ -95,7 +95,7 @@ export default function HeroWebGLVisual({ stageRef, motionRef }) {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return undefined;
-    const isMobile = window.matchMedia("(max-width: 720px)").matches;
+    const isMobile = window.matchMedia("(max-width: 720px), (min-width: 901px) and (max-width: 980px), (pointer: coarse)").matches;
     const memory = navigator.deviceMemory || 8;
     const cores = navigator.hardwareConcurrency || 8;
     const lowPower = memory <= 4 || cores <= 4;

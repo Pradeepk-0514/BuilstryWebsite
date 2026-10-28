@@ -63,7 +63,7 @@ function createSectionParallax() {
   if (!sections.length) return () => {};
 
   const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const compactViewport = window.matchMedia("(max-width: 760px), (pointer: coarse)");
+  const compactViewport = window.matchMedia("(max-width: 760px), (min-width: 901px) and (max-width: 980px), (pointer: coarse)");
   const visibleSections = new Set();
   const sectionLayers = new Map();
   const settleTimers = new Map();

@@ -18,7 +18,7 @@ import "./AboutPeopleReference.css";
 const stages = [["01", "PROBLEM", "Real problems exist everywhere.", "⌕"], ["02", "UNDERSTANDING", "We dig deep to see what's true.", "♧"], ["03", "STRATEGY", "We reframe and find the right way.", "↗"], ["04", "CREATION", "We build systems, products and experiences.", "◇"], ["05", "IMPACT", "We create value that moves people forward.", "◎"]];
 const directions = [["01", "INDUSTRY SOLUTIONS", "We find problems worth solving across industries and build solutions that create real impact.", "industry"], ["02", "BUSINESS & PRODUCT STRATEGY", "We help businesses and products reach their true potential with the right strategy, systems and execution.", "strategy"], ["03", "INNOVATION & COMMUNITY", "We create platforms for ideas, run hackathons, empower students and inspire the next generation of builders.", "community"]];
 const people = [["MUKESHKUMAR", "Founder & Product Strategist", "Problem finder, product thinker. Builder at heart.", "MK", "/assets/people/mukeshkumar-profile.png"], ["ROWFIN", "Co-founder & Growth", "Turns ideas into momentum and connects the dots.", "R", "/assets/people/rowfin-profile.png"], ["DESIGN PARTNER", "Experience & Interface", "Designs clarity into every interaction.", "DP", "/assets/people/design-partner-profile.png"], ["TECH PARTNER", "Engineering & Systems", "Builds robust systems that scale.", "TP", "/assets/people/tech-partner-profile.png"]];
-const isMobileViewport = () => typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches;
+const isMobileViewport = () => typeof window !== "undefined" && window.matchMedia("(max-width: 760px), (min-width: 901px) and (max-width: 980px)").matches;
 
 export default function AboutReferencePage() {
   const [activeStage, setActiveStage] = useState(0), [activeDirection, setActiveDirection] = useState(null), [activePerson, setActivePerson] = useState(() => isMobileViewport() ? 0 : 1), [hoveredPerson, setHoveredPerson] = useState(null), [isMobileView, setIsMobileView] = useState(isMobileViewport);
@@ -35,7 +35,7 @@ export default function AboutReferencePage() {
   const activePersonRef = useRef(activePerson);
   activePersonRef.current = activePerson;
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 760px)");
+    const mobile = window.matchMedia("(max-width: 760px), (min-width: 901px) and (max-width: 980px)");
     const updateViewport = () => {
       setIsMobileView(mobile.matches);
       setActivePerson(mobile.matches ? 0 : 1);
@@ -70,7 +70,7 @@ export default function AboutReferencePage() {
     const section = whyRef.current;
     const stage = whyStageRef.current;
     if (!section || !stage) return undefined;
-    const mobile = window.matchMedia("(max-width: 760px)");
+    const mobile = window.matchMedia("(max-width: 760px), (min-width: 901px) and (max-width: 980px)");
     let frame = 0;
 
     const update = () => {
@@ -116,7 +116,7 @@ export default function AboutReferencePage() {
   }, []);
   const moveStage = (index) => setActiveStage(Math.max(0, Math.min(stages.length - 1, index)));
   const syncStageScroll = (index) => {
-    if (window.matchMedia("(max-width: 760px)").matches) return;
+    if (window.matchMedia("(max-width: 760px), (min-width: 901px) and (max-width: 980px)").matches) return;
     const section = whyRef.current;
     const stage = whyStageRef.current;
     if (!section || !stage) return;

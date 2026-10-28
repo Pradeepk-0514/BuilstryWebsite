@@ -5,7 +5,7 @@ import { ArrowUpRight, BrainCircuit, Layers3, Sparkles, Workflow } from "lucide-
 import Reveal from "./Reveal";
 import { useCtaModal } from "../src/components/CtaModalContext";
 
-const MOBILE_MEDIA = "(max-width: 720px)";
+const MOBILE_MEDIA = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 
 const items = [
   { eyebrow: "01 / DISCOVER", title: "Find the signal in the noise.", text: "We decode the problem, the people and the opportunity before the work begins. Clear questions create useful direction.", icon: Layers3 },

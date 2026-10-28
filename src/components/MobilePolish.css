@@ -1,5 +1,5 @@
 /* Compact responsive pass: reduce mobile whitespace while leaving desktop and scroll mechanics untouched. */
-@media (max-width: 900px) {
+@media (max-width: 900px), (min-width: 901px) and (max-width: 980px) {
   .insights-page .insights-opening-panel { min-height: 88svh; }
   .insights-page .insights-opening-visual { height: 88svh; min-height: 540px; }
 
@@ -38,7 +38,7 @@
   .inner-page .product-card { min-height: 320px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .insights-page .insights-opening-visual { height: 32svh; min-height: 245px; padding: 14px; }
   .insights-page .insights-opening-panel { min-height: 72svh; }
   .insights-page .insights-opening-inner { padding: 40px 22px 50px; }
@@ -81,7 +81,7 @@
   .about-website-reference .about-ref-network-card--partners { min-height: 154px; }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 540px), (min-width: 901px) and (max-width: 980px) {
   .hero-section { padding: 116px 22px 54px; }
   .home-page > .light-section.split-section,
   .home-page > .dark-section,

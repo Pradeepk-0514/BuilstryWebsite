@@ -8,7 +8,7 @@ const intents = [
   ["✦", "I HAVE AN IDEA.", "Let's see if it should exist.", "/launchpad"],
 ];
 
-const MOBILE_MEDIA = "(max-width: 720px)";
+const MOBILE_MEDIA = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 
 const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
 

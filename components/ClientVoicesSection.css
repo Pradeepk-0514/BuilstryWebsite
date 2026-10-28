@@ -111,7 +111,7 @@
   .cv-avatar { width: 64px; height: 64px; }.cv-avatar span { width: 48px; height: 48px; }
   .cv-feature-quote { font-size: 13px; }
 }
-@media (max-width: 760px) {
+@media (max-width: 760px), (min-width: 901px) and (max-width: 980px) {
   .client-voices-section { min-height: 0; padding: 72px 22px 54px; }
   .cv-feature-row { grid-template-columns: 1fr; gap: 12px; }
   .cv-intro { max-width: 520px; padding: 0; }

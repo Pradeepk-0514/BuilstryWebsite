@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
 
-const MOBILE_MEDIA = "(max-width: 720px)";
+const MOBILE_MEDIA = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 
 const intents = [
   ["⌕", "I HAVE A PROBLEM.", "Let's understand it.", "/contact"],

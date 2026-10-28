@@ -240,11 +240,11 @@ const networkGroups = [
 ];
 
 export function NetworkShowcaseSection() {
-  const [activeIndex, setActiveIndex] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 920px)").matches ? 0 : 2);
+  const [activeIndex, setActiveIndex] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 920px), (min-width: 901px) and (max-width: 980px)").matches ? 0 : 2);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const pointerStart = useRef(null);
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 920px)");
+    const mobile = window.matchMedia("(max-width: 920px), (min-width: 901px) and (max-width: 980px)");
     const resetForViewport = () => setActiveIndex(mobile.matches ? 0 : 2);
     mobile.addEventListener?.("change", resetForViewport);
     return () => mobile.removeEventListener?.("change", resetForViewport);
@@ -277,7 +277,7 @@ export function NetworkShowcaseSection() {
 
       <div className="about-network-carousel" role="region" aria-roledescription="carousel" aria-label="People in the Builstry network" tabIndex={0} onKeyDown={handleKeyDown}
         onPointerDown={(event) => {
-          const mobile = window.matchMedia("(max-width: 920px)").matches;
+          const mobile = window.matchMedia("(max-width: 920px), (min-width: 901px) and (max-width: 980px)").matches;
           if (mobile && (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0))) return;
           pointerStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
           if (mobile) event.currentTarget.setPointerCapture(event.pointerId);
@@ -285,7 +285,7 @@ export function NetworkShowcaseSection() {
         onPointerUp={(event) => {
           const start = pointerStart.current;
           if (!start) return;
-          const mobile = window.matchMedia("(max-width: 920px)").matches;
+          const mobile = window.matchMedia("(max-width: 920px), (min-width: 901px) and (max-width: 980px)").matches;
           if (mobile && start.id !== event.pointerId) return;
           const distance = event.clientX - start.x;
           const verticalDistance = event.clientY - start.y;

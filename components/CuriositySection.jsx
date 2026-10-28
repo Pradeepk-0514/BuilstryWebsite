@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "./RouterLink";
 import useMobileHorizontalScroll from "./useMobileHorizontalScroll";
 
-const MOBILE_MEDIA = "(max-width: 720px)";
+const MOBILE_MEDIA = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 const curiosityTopics = [
   ["!", "WHAT'S BROKEN?", "broken", "Problems worth understanding before they become expensive."],
   ["↗", "WHAT'S CHANGING?", "changing", "Signals, shifts and technologies changing the way we build."],

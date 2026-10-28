@@ -19,12 +19,12 @@
 .approach-card-content p { max-width: 260px; margin: 0 0 14px; color: rgba(36,52,71,.72); font-size: 12px; line-height: 1.6; }
 .approach-card-content > span { display: block; max-width: 240px; color: rgba(36,52,71,.52); font-size: 10px; line-height: 1.5; }
 .approach-card-accent { position: absolute; right: -18%; bottom: -22%; width: 65%; aspect-ratio: 1; border: 1px solid rgba(197,31,93,.35); border-radius: 50%; box-shadow: 0 0 0 18px rgba(197,31,93,.04), 0 0 50px rgba(197,31,93,.15); }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
 .approach-sticky-wrapper { grid-template-columns: minmax(0, 34%) minmax(0, 66%); }
 .approach-left-content { padding: 38px 4vw; }
 .approach-right-container { padding: 30px 4vw; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
 .approach-scroll-section { height: auto; min-height: 0; overflow: visible; }
 .approach-sticky-wrapper { position: relative; top: auto; display: block; height: auto; min-height: 0; overflow: visible; }
 .approach-left-content { min-height: 62vh; padding: 68px 5vw; transform: none; opacity: 1; }
@@ -46,10 +46,10 @@
 .approach-card-content h3 { font-size: clamp(31px, 3.7vw, 58px); }
 .approach-card-content p { font-size: 14px; }
 .approach-card-content > span { font-size: 12px; }
-@media (max-width: 980px) {
+@media (max-width: 980px), (min-width: 901px) and (max-width: 980px) {
 .approach-card { flex-basis: var(--approach-card-width, 390px); width: var(--approach-card-width, 390px); }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
 .approach-card { width: 100%; }
 }
 .approach-left-content h2, .approach-card-content h3 { font-weight: 850; }
@@ -59,7 +59,7 @@
 .approach-card-content h3 { margin-bottom: 18px; }
 .approach-card-content p { max-width: 330px; line-height: 1.65; }
 .approach-card-content > span { max-width: 310px; line-height: 1.6; }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
 .approach-card { height: 360px; padding: 28px; }
 .approach-card-content { right: 28px; bottom: 28px; left: 28px; }
 }
@@ -69,12 +69,12 @@
 .approach-left-content { box-sizing: border-box; overflow: hidden; }
 .approach-left-content h2 { width: 100%; max-width: 100%; font-size: clamp(40px, 5.15vw, 80px); line-height: .86; letter-spacing: -.065em; overflow-wrap: normal; word-break: normal; }
 .approach-left-content p { max-width: 255px; font-size: 14px; line-height: 1.55; }
-@media (max-width: 540px) {
+@media (max-width: 540px), (min-width: 901px) and (max-width: 980px) {
 .approach-left-content h2 { font-size: clamp(38px, 11vw, 66px); line-height: .88; }
 }
 
 /* On narrow screens, keep the Approach text first and let one full card snap into view per swipe. */
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .approach-right-container {
     min-height: 0;
     justify-content: flex-start;
@@ -98,7 +98,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .approach-scroll-section[data-mobile-scroll="sticky"] .approach-sticky-wrapper {
     position: sticky;
     top: 0;
@@ -197,7 +197,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .approach-left-content {
     box-sizing: border-box;
     margin: 12px 12px 0;
@@ -219,7 +219,7 @@
   .approach-sticky-wrapper { grid-template-columns: minmax(0, 38%) minmax(0, 62%); }
   .approach-left-content { padding: 34px 4vw; }
 }
-@media (max-width: 720px) {
+@media (max-width: 720px), (min-width: 901px) and (max-width: 980px) {
   .approach-left-content {
     min-height: clamp(470px, 68svh, 620px);
     padding: clamp(56px, 9vh, 76px) 5vw;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const MOBILE_BREAKPOINT = "(max-width: 720px)";
+const MOBILE_BREAKPOINT = "(max-width: 720px), (min-width: 901px) and (max-width: 980px)";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
 export default function useMobileHorizontalScroll({ sectionRef, stageRef, trackRef, viewportRef, onIndexChange }) {
